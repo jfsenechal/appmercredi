@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/navigation"
+            app:startDestination="@id/menuFragment">
+
+    <fragment android:id="@+id/menuFragment"
+              android:name="be.marche.mercredi.home.MenuFragment"
+              android:label="MenuFragment">
+        <action android:id="@+id/action_menuFragment_to_tuteurDetailFragment"
+                app:destination="@id/tuteurDetailFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right"/>
+        <action
+                android:id="@+id/action_menuFragment_to_enfantListFragment"
+                app:destination="@id/enfantListFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right"
+        />
+        <action android:id="@+id/action_menuFragment_to_tabHome" app:destination="@id/tabHome"/>
+    </fragment>
+
+    <fragment android:id="@+id/tuteurDetailFragment"
+              android:name="be.marche.mercredi.tuteur.fragments.TuteurDetailFragment"
+              android:label="TuteurDetailFragment"
+              app:enterAnim="@anim/slide_in_right"
+              app:exitAnim="@anim/slide_out_left"
+              app:popEnterAnim="@anim/slide_in_left"
+              app:popExitAnim="@anim/slide_out_right">
+        <action
+                android:id="@+id/action_tuteurDetailFragment_to_tuteurEditFragment"
+                app:destination="@id/tuteurEditFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right"/>
+        <action android:id="@+id/action_tuteurDetailFragment_to_tabHome" app:destination="@id/tabHome"/>
+    </fragment>
+
+    <fragment android:id="@+id/tuteurEditFragment"
+              android:name="be.marche.mercredi.tuteur.fragments.TuteurEditCoordonneesFragment"
+              android:label="TuteurEditFragment">
+        <action android:id="@+id/action_tuteurEditFragment_pop"
+                app:popUpTo="@id/tuteurEditFragment"
+                app:popUpToInclusive="true"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+    <fragment android:id="@+id/enfantListFragment"
+              android:name="be.marche.mercredi.enfant.fragments.EnfantListFragment"
+              android:label="EnfantListFragment">
+        <action android:id="@+id/action_enfantListFragment_to_enfantDetailFragment"
+                app:destination="@id/enfantDetailFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+    <fragment android:id="@+id/enfantDetailFragment"
+              android:name="be.marche.mercredi.enfant.fragments.EnfantDetailFragment"
+              android:label="EnfantDetailFragment">
+        <action android:id="@+id/action_enfantDetailFragment_to_enfantEditFragment"
+                app:destination="@id/enfantEditFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+    <fragment android:id="@+id/enfantEditFragment"
+              android:name="be.marche.mercredi.enfant.fragments.EnfantEditFragment"
+              android:label="EnfantEditFragment">
+        <action android:id="@+id/action_enfantEditFragment_pop"
+                app:popUpTo="@id/enfantEditFragment"
+                app:popUpToInclusive="true"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right"
+        />
+    </fragment>
+    <fragment android:id="@+id/tabHome" android:name="be.marche.mercredi.tuteur.fragments.TabEditFragment"
+              android:label="TabHome"/>
+</navigation>

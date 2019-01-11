@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <!-- android:textAppearance="@style/Base.TextAppearance.MaterialComponents.Headline6" -->
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tuteurDetailNomPrenom"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp"
+            tools:text="Dupont Joseph"           />
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tuteurDetailRue"
+            app:layout_constraintTop_toBottomOf="@+id/tuteurDetailNomPrenom"
+            app:layout_constraintStart_toStartOf="@+id/tuteurDetailNomPrenom"
+            android:layout_marginStart="8dp"
+            tools:text="Rue des joilis bois, 24"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tuteurDetailCpLocalite"
+            app:layout_constraintTop_toBottomOf="@+id/tuteurDetailRue"
+            app:layout_constraintStart_toStartOf="@+id/tuteurDetailNomPrenom"
+            android:layout_marginStart="8dp"
+            tools:text="6900 Aye"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tuteurDetailEmail"
+            tools:text="jf@marche.be"
+            app:layout_constraintTop_toBottomOf="@+id/tuteurDetailCpLocalite"
+            app:layout_constraintStart_toStartOf="@+id/tuteurDetailNomPrenom"
+            android:layout_marginStart="8dp"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tuteurDetailTelephone"
+            tools:text="084 32 70 55"
+            app:layout_constraintTop_toBottomOf="@+id/tuteurDetailEmail"
+            app:layout_constraintStart_toStartOf="@+id/tuteurDetailNomPrenom"
+            android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/tuteurDetailTelephoneBureau"
+    />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tuteurDetailTelephoneBureau"
+            tools:text="084 31 10 97"
+            app:layout_constraintLeft_toRightOf="@+id/tuteurDetailTelephone"
+            app:layout_constraintTop_toBottomOf="@+id/tuteurDetailEmail"
+            android:layout_marginStart="8dp"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tuteurDetailGsm"
+            tools:text="0476 66 26 15"
+            app:layout_constraintLeft_toRightOf="@+id/tuteurDetailTelephoneBureau"
+            app:layout_constraintTop_toBottomOf="@+id/tuteurDetailEmail"
+            android:layout_marginStart="8dp"/>
+
+    <!-- android:textAppearance="@style/Base.TextAppearance.MaterialComponents.Headline6" -->
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/titleConjoint"
+            tools:text="Conjoint"
+            android:text="@string/title_conjoint"
+            app:layout_constraintTop_toBottomOf="@+id/tuteurDetailTelephone"
+            app:layout_constraintStart_toStartOf="@id/tuteurDetailNomPrenom"
+
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:background="@color/secondaryLightColor"
+            android:layout_marginTop="12dp"
+            android:padding="10dp"
+    />
+
+    <!-- CONJOINT -->
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tuteurDetailConjointNomPrenom"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/titleConjoint"
+            android:layout_marginTop="8dp"
+            tools:text="Detrowe Monique"/>
+    <!-- android:textAppearance="@style/Base.TextAppearance.MaterialComponents.Headline6"-->
+
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tuteurDetailConjointEmail"
+            tools:text="momo@marche.be"
+            app:layout_constraintTop_toBottomOf="@+id/tuteurDetailConjointNomPrenom"
+            app:layout_constraintStart_toStartOf="@+id/tuteurDetailConjointNomPrenom"
+            android:layout_marginStart="8dp"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tuteurDetailConjointTelephone"
+            tools:text="084 32 70 22"
+            app:layout_constraintTop_toBottomOf="@+id/tuteurDetailConjointEmail"
+            app:layout_constraintStart_toStartOf="@+id/tuteurDetailConjointNomPrenom"
+            android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/tuteurDetailTelephoneBureau"
+    />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tuteurDetailConjointTelephoneBureau"
+            tools:text="084 31 10 97"
+            app:layout_constraintLeft_toRightOf="@+id/tuteurDetailConjointTelephone"
+            app:layout_constraintTop_toBottomOf="@+id/tuteurDetailConjointEmail"
+            android:layout_marginStart="8dp"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tuteurDetailConjointGsm"
+            tools:text="0476 66 26 15"
+            app:layout_constraintLeft_toRightOf="@+id/tuteurDetailConjointTelephoneBureau"
+            app:layout_constraintTop_toBottomOf="@+id/tuteurDetailConjointEmail"
+            android:layout_marginStart="8dp"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
