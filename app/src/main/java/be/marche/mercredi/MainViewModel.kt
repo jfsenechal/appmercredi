@@ -43,6 +43,8 @@ class MainViewModel(
                 enfantRepository.insertEnfants(it.enfants)
                 tuteurRepository.insert(it.tuteur)
                 mercrediRepository.insertEcoles(it.ecoles)
+                mercrediRepository.insertAnneesScolaires(it.annees)
+                mercrediRepository.insertJours(it.jours)
             }
         }
 

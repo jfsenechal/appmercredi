@@ -4,14 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import be.marche.mercredi.entity.Ecole
-import be.marche.mercredi.entity.Enfant
-import be.marche.mercredi.entity.Jour
-import be.marche.mercredi.entity.Tuteur
+import be.marche.mercredi.entity.*
 
 const val DATABASE_NAME = "mercredi"
 
-@Database(entities = [Enfant::class, Tuteur::class, Ecole::class, Jour::class], version = 14)
+@Database(entities = [Enfant::class, Tuteur::class, Ecole::class, Jour::class, AnneeScolaire::class], version = 15)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun enfantDao(): EnfantDao
     abstract fun tuteurDao(): TuteurDao

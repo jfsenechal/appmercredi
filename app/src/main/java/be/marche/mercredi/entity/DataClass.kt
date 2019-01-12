@@ -91,3 +91,10 @@ data class Ecole(
     val id: Int,
     val nom: String
 )
+
+@Entity()
+data class AnneeScolaire(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int,
+    val nom: String
+)
