@@ -44,7 +44,7 @@ class EnfantListAdapter(
             cardView.setOnClickListener(this@EnfantListAdapter)
             cardView.tag = enfant
             enfantNom.text = enfant.nom + " " + enfant.prenom
-            enfantAnneeScolaire.text = enfant.anneeScolaire
+           // enfantAnneeScolaire.text = enfant.anneeScolaire
 
             Picasso.get()
                 .load(enfant.photoUrl)

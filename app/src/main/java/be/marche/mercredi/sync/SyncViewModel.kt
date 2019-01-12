@@ -36,15 +36,14 @@ class SyncViewModel(
             val response = request.await()
 
             response.let {
-                Timber.i("Current Thread: %s", Thread.currentThread())
 
                 Timber.i("all data ${it}")
 
-                enfantRepository.insertEnfants(it.enfants)
-                tuteurRepository.insert(it.tuteur)
                 mercrediRepository.insertEcoles(it.ecoles)
                 mercrediRepository.insertAnneesScolaires(it.annees)
                 mercrediRepository.insertJours(it.jours)
+                enfantRepository.insertEnfants(it.enfants)
+                tuteurRepository.insertTuteurs(it.tuteur)
             }
         }
 

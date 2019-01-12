@@ -2,18 +2,32 @@ package be.marche.mercredi.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-@Entity(tableName = "enfant")
+@Entity(
+    foreignKeys = [
+        ForeignKey(
+            entity = Ecole::class,
+            parentColumns = ["id"],
+            childColumns = ["ecoleId"]
+        ),
+        ForeignKey(
+            entity = AnneeScolaire::class,
+            parentColumns = ["id"],
+            childColumns = ["anneeScolaireId"]
+        )
+    ]
+)
 data class Enfant(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val nom: String,
     val prenom: String,
     var birthday: String,
-    var anneeScolaire: String,
-    var ecole: String,
+    var anneeScolaireId: Int,
+    var ecoleId: Int,
     var numeroNational: String?,
     var sexe: String?,
     var slugname: String?,

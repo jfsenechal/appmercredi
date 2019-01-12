@@ -13,16 +13,24 @@ import be.marche.mercredi.MercrediViewModel
 import kotlinx.android.synthetic.main.fragment_enfant_edit.*
 import be.marche.mercredi.R
 import be.marche.mercredi.enfant.EnfantViewModel
+import be.marche.mercredi.entity.AnneeScolaire
+import be.marche.mercredi.entity.Ecole
 import be.marche.mercredi.entity.Enfant
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import timber.log.Timber
 
 class EnfantEditFragment : Fragment() {
 
     val viewModelEnfant: EnfantViewModel by sharedViewModel()
-    val mercrediViewModel: MercrediViewModel by inject()
+    val mercrediViewModel: MercrediViewModel by sharedViewModel()
 
     lateinit var enfant: Enfant
+    lateinit var currentEcole: Ecole
+    var ecoleId: Int = 0
+    lateinit var anneeScolaire: AnneeScolaire
+    lateinit var ecoles: List<Ecole>
+
     lateinit var spinnerSexe: Spinner
     lateinit var spinnerAnneeScolaire: Spinner
     lateinit var spinnerEcoles: Spinner
@@ -55,20 +63,22 @@ class EnfantEditFragment : Fragment() {
         viewModelEnfant.enfant?.observe(this, Observer { enfant ->
             updateUi(enfant!!)
             this.enfant = enfant
+            this.ecoleId = enfant.ecoleId
         })
 
         initAdapters()
 
+        mercrediViewModel.ecole?.observe(this, Observer { ecole ->
+            Timber.i("zeze $ecole")
+        })
+
         mercrediViewModel.ecoles.observe(this, Observer {
-            it.forEach() { ecole ->
-                ecoleAdapter.add(ecole)
-            }
+            this.ecoles = it
+            ecoleAdapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, it)
         })
 
         mercrediViewModel.anneesScolaires.observe(this, Observer {
-            it?.forEach() { anneeScolaire ->
-                anneeScolaireAdapter.add(anneeScolaire)
-            }
+            anneeScolaireAdapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, it)
         })
 
         initSpinner()
@@ -88,41 +98,20 @@ class EnfantEditFragment : Fragment() {
     private fun initAdapters() {
         sexeAdapter = ArrayAdapter<Any>(
             context,
-            android.R.layout.simple_spinner_item
+            android.R.layout.simple_spinner_item,
+            resources.getStringArray(R.array.sexes)
         )
-
-        ecoleAdapter = ArrayAdapter<Any>(
-            context,
-            android.R.layout.simple_spinner_item
-        )
-
-        anneeScolaireAdapter = ArrayAdapter<Any>(
-            context,
-            android.R.layout.simple_spinner_item
-        )
+        sexeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
     }
 
     private fun initSpinner() {
-        sexes = resources.getStringArray(R.array.sexes)
-
         spinnerSexe = spinnerSexeView
         spinnerEcoles = spinnerEcoleView
         spinnerAnneeScolaire = spinnerAnneeScolaireView
 
         spinnerEcoles.adapter = ecoleAdapter
-        sexeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
         spinnerAnneeScolaire.adapter = anneeScolaireAdapter
-        sexeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
-        ArrayAdapter.createFromResource(
-            context,
-            R.array.sexes,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            spinnerSexe.adapter = adapter
-        }
+        spinnerSexe.adapter = sexeAdapter
     }
 
     private fun updateUi(enfant: Enfant) {
@@ -133,7 +122,8 @@ class EnfantEditFragment : Fragment() {
         else if (enfant.sexe == sexes.get(2))
             spinnerSexe.setSelection(2)
 
-      //  spinnerEcoles.setSelection(ecols)
+        // ecoles.find { ecole -> ecole == enfant.ecole }
+        spinnerEcoles.setSelection(ecoleId)
 
         enfantNumeroNational.setText(enfant.numeroNational, TextView.BufferType.EDITABLE)
         //   enfantRemarques.text = enfant.remarques
@@ -144,8 +134,9 @@ class EnfantEditFragment : Fragment() {
         enfant.apply {
             numeroNational = enfantNumeroNational.text.toString()
             sexe = spinnerSexeView.selectedItem.toString()
-            ecole = spinnerEcoleView.selectedItem.toString()
-            anneeScolaire = spinnerAnneeScolaireView.selectedItem.toString()
+            val ecoleSelected = spinnerEcoleView.selectedItem.toString()
+
+            //     anneeScolaireId = spinnerAnneeScolaireView.selectedItem.toString()
         }
 
         viewModelEnfant.save(enfant)

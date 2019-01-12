@@ -5,17 +5,22 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import be.marche.mercredi.MercrediViewModel
 import be.marche.mercredi.R
 import kotlinx.android.synthetic.main.fragment_enfant_detail.*
 import be.marche.mercredi.enfant.EnfantViewModel
+import be.marche.mercredi.entity.Ecole
 import be.marche.mercredi.entity.Enfant
 import com.squareup.picasso.Picasso
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 
 class EnfantDetailFragment : Fragment() {
 
     val viewModelEnfant: EnfantViewModel by sharedViewModel()
+    val mercrediViewModel: MercrediViewModel by inject()
+    lateinit var ecole: Ecole
 
     companion object {
         fun newInstance() = EnfantDetailFragment()
@@ -38,7 +43,12 @@ class EnfantDetailFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModelEnfant.enfant?.observe(this, Observer { enfant -> updateUi(enfant!!) })
+        viewModelEnfant.enfant?.observe(this, Observer { enfant ->
+            mercrediViewModel.getEcoleById(enfant.ecoleId).observe(this, Observer { ecole ->
+                this.ecole = ecole
+            })
+            updateUi(enfant)
+        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -67,8 +77,8 @@ class EnfantDetailFragment : Fragment() {
         enfantPrenom.text = enfant.sexe
         enfantBirthday.text = enfant.birthday
         enfantNumeroNational.text = enfant.numeroNational
-        enfantEcole.text = enfant.ecole
-        enfantAnneeScolaire.text = enfant.anneeScolaire
+       // enfantEcole.text = this.ecole.nom
+        //enfantAnneeScolaire.text = enfant.anneeScolaire
         enfantRemarques.text = enfant.remarques
 
 

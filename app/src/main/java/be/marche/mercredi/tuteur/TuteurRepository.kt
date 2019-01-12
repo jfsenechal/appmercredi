@@ -14,7 +14,7 @@ class TuteurRepository(private val tuteurDao: TuteurDao) {
         }
     }
 
-    suspend fun insert(tuteur: Tuteur) {
+    suspend fun insertTuteurs(tuteur: Tuteur) {
         withContext(Dispatchers.IO) {
             tuteurDao.insertTuteur(tuteur)
         }

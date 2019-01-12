@@ -6,6 +6,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import be.marche.mercredi.enfant.EnfantRepository
+import be.marche.mercredi.entity.AnneeScolaire
 import be.marche.mercredi.entity.Ecole
 import be.marche.mercredi.repository.MercrediRepository
 import be.marche.mercredi.repository.MercrediService
@@ -27,13 +28,16 @@ class MercrediViewModel(
         viewModelJob.cancel()
     }
 
+    var ecole: LiveData<Ecole>? = null
     val ecoles = mercrediRepository.getAllEcoles()
 
     val anneesScolaires = mercrediRepository.getAllAnneesScolaires()
 
-
-    fun getAllEcoles(): LiveData<List<Ecole>> {
-        return mercrediRepository.getAllEcoles()
+    fun getEcoleById(ecoleId: Int): LiveData<Ecole> {
+        return mercrediRepository.getEcoleById(ecoleId)
     }
 
+    fun getAnneeScolaireById(anneeId: Int): LiveData<AnneeScolaire> {
+        return mercrediRepository.getAnneeScolaireById(anneeId)
+    }
 }
