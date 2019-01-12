@@ -9,4 +9,3 @@ data class MercrediData(
     val tuteur: Tuteur,
     val ecoles: List<Ecole>
 )
-

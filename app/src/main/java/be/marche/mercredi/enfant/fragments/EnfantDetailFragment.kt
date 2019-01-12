@@ -11,6 +11,7 @@ import be.marche.mercredi.enfant.EnfantViewModel
 import be.marche.mercredi.entity.Enfant
 import com.squareup.picasso.Picasso
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import timber.log.Timber
 
 class EnfantDetailFragment : Fragment() {
 
@@ -56,18 +57,21 @@ class EnfantDetailFragment : Fragment() {
     }
 
     private fun updateUi(enfant: Enfant) {
+
         Picasso.get()
             .load(enfant.photoUrl)
             .placeholder(R.drawable.ic_image_black_24dp)
             .into(enfantPhoto)
 
         enfantNom.text = enfant.nom
-        enfantPrenom.text = enfant.prenom
+        enfantPrenom.text = enfant.sexe
         enfantBirthday.text = enfant.birthday
         enfantNumeroNational.text = enfant.numeroNational
         enfantEcole.text = enfant.ecole
         enfantAnneeScolaire.text = enfant.anneeScolaire
         enfantRemarques.text = enfant.remarques
+
+
     }
 
 }

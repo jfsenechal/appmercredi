@@ -14,11 +14,14 @@ import be.marche.mercredi.R
 import be.marche.mercredi.enfant.EnfantViewModel
 import be.marche.mercredi.entity.Enfant
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import timber.log.Timber
 
 class EnfantEditFragment : Fragment() {
 
     lateinit var enfant: Enfant
     val viewModelEnfant: EnfantViewModel by sharedViewModel()
+    lateinit var spinner: Spinner
+    lateinit var sexes: Array<String>
 
     companion object {
         fun newInstance() = EnfantEditFragment()
@@ -46,7 +49,9 @@ class EnfantEditFragment : Fragment() {
             this.enfant = enfant
         })
 
-        val spinner: Spinner = enfantSexe
+        sexes = resources.getStringArray(R.array.sexes)
+
+        spinner = enfantSexe
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter.createFromResource(
             context,
@@ -73,6 +78,12 @@ class EnfantEditFragment : Fragment() {
 
     private fun updateUi(enfant: Enfant) {
         //  enfantBirthday.text = enfant.birthday
+
+        if (enfant.sexe == sexes.get(1))
+            spinner.setSelection(1)
+        else if (enfant.sexe == sexes.get(2))
+            spinner.setSelection(2)
+
         enfantNumeroNational.setText(enfant.numeroNational, TextView.BufferType.EDITABLE)
         //  enfantEcole.text = enfant.ecole
         // enfantAnneeScolaire.text = enfant.anneeScolaire

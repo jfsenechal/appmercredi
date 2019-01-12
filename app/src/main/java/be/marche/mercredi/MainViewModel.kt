@@ -42,7 +42,7 @@ class MainViewModel(
 
                 enfantRepository.insertEnfants(it.enfants)
                 tuteurRepository.insert(it.tuteur)
-              //  mercrediRepository.insertEcoles(it.ecoles)
+                mercrediRepository.insertEcoles(it.ecoles)
             }
         }
 
