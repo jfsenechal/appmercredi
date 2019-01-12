@@ -1,4 +1,4 @@
-package be.marche.mercredi.home
+package be.marche.mercredi.menu
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -5,7 +5,7 @@
             app:startDestination="@id/menuFragment">
 
     <fragment android:id="@+id/menuFragment"
-              android:name="be.marche.mercredi.home.MenuFragment"
+              android:name="be.marche.mercredi.menu.MenuFragment"
               android:label="MenuFragment">
         <action android:id="@+id/action_menuFragment_to_tuteurDetailFragment"
                 app:destination="@id/tuteurDetailFragment"
