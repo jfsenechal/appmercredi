@@ -39,7 +39,7 @@ class TuteurDetailFragment : Fragment() {
         viewModelTuteur.tuteur = viewModelTuteur.getTuteurById(1)
 
         viewModelTuteur.tuteur?.observe(this, Observer { tuteur ->
-            updateUi(tuteur!!)
+            updateUi(tuteur)
         })
     }
 
@@ -55,12 +55,12 @@ class TuteurDetailFragment : Fragment() {
     }
 
     private fun startEdit() {
-        findNavController().navigate(R.id.action_tuteurDetailFragment_to_tabHome)
+        findNavController().navigate(R.id.action_tuteurDetailFragment_to_tuteurEditFragment)
     }
 
-    private fun updateUi(tuteur: Tuteur) {
+    private fun updateUi(tuteur: Tuteur?) {
 
-        tuteur.apply {
+        tuteur?.apply {
             tuteurDetailNomPrenom.text = "${tuteur.nom.toUpperCase()} ${tuteur.prenom}"
             tuteurDetailEmail.text = email
             tuteurDetailTelephone.text = telephone

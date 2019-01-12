@@ -14,17 +14,14 @@ import be.marche.mercredi.entity.Tuteur
 import be.marche.mercredi.tuteur.TuteurPagerAdapter
 import be.marche.mercredi.tuteur.TuteurViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import timber.log.Timber
 
-class TabEditFragment : Fragment() {
+class TuteurEditFragment : Fragment() {
 
     val viewModelTuteur: TuteurViewModel by sharedViewModel()
     lateinit var tuteur: Tuteur
 
     private var tuteurPagerAdapter: TuteurPagerAdapter? = null
-
-    interface TabHomeListener {
-        fun onRefresh()
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true);
@@ -46,7 +43,7 @@ class TabEditFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
+        Timber.i("zeze ici")
         viewModelTuteur.tuteur?.observe(this, Observer { tuteur ->
             this.tuteur = tuteur
         })
