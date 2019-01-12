@@ -6,6 +6,7 @@ import be.marche.mercredi.enfant.EnfantRepository
 import be.marche.mercredi.enfant.EnfantViewModel
 import be.marche.mercredi.repository.MercrediRepository
 import be.marche.mercredi.repository.MercrediService
+import be.marche.mercredi.sync.SyncViewModel
 import be.marche.mercredi.tuteur.TuteurRepository
 import be.marche.mercredi.tuteur.TuteurViewModel
 import okhttp3.OkHttpClient
@@ -32,7 +33,8 @@ val appModule = module {
     single { createOkHttpClient() }
     single { createWebService<MercrediService>(get(), "https://cst.marche.be/") }
 
-    viewModel { MainViewModel(get(), get(), get(), get()) }
+    viewModel { MercrediViewModel(get(), get(), get(), get()) }
+    viewModel { SyncViewModel(get(), get(), get(), get()) }
     viewModel { EnfantViewModel(get()) }
     viewModel { TuteurViewModel(get()) }
 }

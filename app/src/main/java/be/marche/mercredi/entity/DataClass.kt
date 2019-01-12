@@ -78,6 +78,7 @@ data class Paiement(
 data class Jour(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
+    @SerializedName("date_jour")
     val date: String,
     val prix1: String,
     val prix2: String,
@@ -90,11 +91,20 @@ data class Ecole(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val nom: String
-)
+
+) {
+    override fun toString(): String {
+        return nom
+    }
+}
 
 @Entity()
 data class AnneeScolaire(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val nom: String
-)
+) {
+    override fun toString(): String {
+        return nom
+    }
+}

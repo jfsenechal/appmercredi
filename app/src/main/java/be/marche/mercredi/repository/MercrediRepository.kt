@@ -19,7 +19,7 @@ class MercrediRepository(val mercrediDao: MercrediDao) : KoinComponent {
         return mercrediDao.getEcoleById(ecoldeId)
     }
 
-    fun getAllAnneesScolaire(): LiveData<List<AnneeScolaire>> {
+    fun getAllAnneesScolaires(): LiveData<List<AnneeScolaire>> {
         return mercrediDao.getAllAnneesScolaires()
     }
 

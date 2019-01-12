@@ -15,7 +15,7 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/MercrediTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MercrediActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

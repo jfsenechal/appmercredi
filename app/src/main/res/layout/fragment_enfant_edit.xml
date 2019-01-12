@@ -26,8 +26,23 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/enfantLabelNumeroNational"
             app:layout_constraintLeft_toLeftOf="@+id/enfantLabelNumeroNational"
-            android:id="@+id/enfantSexe"
+            android:id="@+id/spinnerSexeView"
     />
 
+    <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerSexeView"
+            app:layout_constraintLeft_toLeftOf="@+id/enfantLabelNumeroNational"
+            android:id="@+id/spinnerEcoleView"
+    />
+
+    <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerEcoleView"
+            app:layout_constraintLeft_toLeftOf="@+id/enfantLabelNumeroNational"
+            android:id="@+id/spinnerAnneeScolaireView"
+    />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

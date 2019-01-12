@@ -1,17 +1,17 @@
 package be.marche.mercredi
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import be.marche.mercredi.enfant.EnfantRepository
+import be.marche.mercredi.entity.Ecole
 import be.marche.mercredi.repository.MercrediRepository
 import be.marche.mercredi.repository.MercrediService
 import be.marche.mercredi.tuteur.TuteurRepository
-import timber.log.Timber
 
-class MainViewModel(
+class MercrediViewModel(
     val mercrediService: MercrediService,
     val enfantRepository: EnfantRepository,
     val tuteurRepository: TuteurRepository,
@@ -27,28 +27,13 @@ class MainViewModel(
         viewModelJob.cancel()
     }
 
-    fun refreshData() {
+    val ecoles = mercrediRepository.getAllEcoles()
 
-        viewModelScope.launch {
-
-            Timber.i("Current Thread: %s", Thread.currentThread())
-            val request = mercrediService.getAllData()
-            val response = request.await()
-
-            response.let {
-                Timber.i("Current Thread: %s", Thread.currentThread())
-
-                Timber.i("all data ${it}")
-
-                enfantRepository.insertEnfants(it.enfants)
-                tuteurRepository.insert(it.tuteur)
-                mercrediRepository.insertEcoles(it.ecoles)
-                mercrediRepository.insertAnneesScolaires(it.annees)
-                mercrediRepository.insertJours(it.jours)
-            }
-        }
+    val anneesScolaires = mercrediRepository.getAllAnneesScolaires()
 
 
+    fun getAllEcoles(): LiveData<List<Ecole>> {
+        return mercrediRepository.getAllEcoles()
     }
 
 }
