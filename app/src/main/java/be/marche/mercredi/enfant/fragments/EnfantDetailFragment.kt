@@ -20,7 +20,6 @@ class EnfantDetailFragment : Fragment() {
 
     val viewModelEnfant: EnfantViewModel by sharedViewModel()
     val mercrediViewModel: MercrediViewModel by inject()
-    lateinit var ecole: Ecole
 
     companion object {
         fun newInstance() = EnfantDetailFragment()
@@ -45,7 +44,10 @@ class EnfantDetailFragment : Fragment() {
 
         viewModelEnfant.enfant?.observe(this, Observer { enfant ->
             mercrediViewModel.getEcoleById(enfant.ecoleId).observe(this, Observer { ecole ->
-                this.ecole = ecole
+                enfantEcole.text = ecole.nom
+            })
+            mercrediViewModel.getAnneeScolaireById(enfant.anneeScolaireId).observe(this, Observer {
+                enfantAnneeScolaire.text = it.nom
             })
             updateUi(enfant)
         })
@@ -67,21 +69,16 @@ class EnfantDetailFragment : Fragment() {
     }
 
     private fun updateUi(enfant: Enfant) {
-
         Picasso.get()
             .load(enfant.photoUrl)
             .placeholder(R.drawable.ic_image_black_24dp)
             .into(enfantPhoto)
 
         enfantNom.text = enfant.nom
-        enfantPrenom.text = enfant.sexe
+        enfantPrenom.text = enfant.prenom
         enfantBirthday.text = enfant.birthday
         enfantNumeroNational.text = enfant.numeroNational
-       // enfantEcole.text = this.ecole.nom
-        //enfantAnneeScolaire.text = enfant.anneeScolaire
         enfantRemarques.text = enfant.remarques
-
-
     }
 
 }
