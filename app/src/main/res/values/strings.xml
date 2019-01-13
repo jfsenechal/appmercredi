@@ -53,4 +53,5 @@
     </array>
     <string name="formTitreEcole">Ecole</string>
     <string name="FormTitreAnneeScolaire">Année scolaire</string>
+    <string name="FormTitreSexe">Sexe</string>
 </resources>
