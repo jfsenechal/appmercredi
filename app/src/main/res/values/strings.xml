@@ -20,7 +20,6 @@
     <string name="btn_action_edit">Modifier</string>
     <string name="title_conjoint">Conjoint</string>
     <string-array name="sexes">
-        <item>Choisissez son sexe</item>
         <item>Féminin</item>
         <item>Masculin</item>
     </string-array>
@@ -52,6 +51,6 @@
         <item>@drawable/img_cycling</item>
         <item>@drawable/img_tennis</item>
     </array>
-    <string name="title_activity_tabbed">tabbedActivity</string>
-    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="formTitreEcole">Ecole</string>
+    <string name="FormTitreAnneeScolaire">Année scolaire</string>
 </resources>

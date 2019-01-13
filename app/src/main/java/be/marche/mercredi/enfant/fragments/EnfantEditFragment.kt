@@ -10,14 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import be.marche.mercredi.MercrediViewModel
-import kotlinx.android.synthetic.main.fragment_enfant_edit.*
 import be.marche.mercredi.R
 import be.marche.mercredi.enfant.EnfantViewModel
 import be.marche.mercredi.entity.AnneeScolaire
 import be.marche.mercredi.entity.Ecole
 import be.marche.mercredi.entity.Enfant
+import kotlinx.android.synthetic.main.fragment_enfant_edit.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import timber.log.Timber
 
 class EnfantEditFragment : Fragment() {
 
@@ -27,6 +26,7 @@ class EnfantEditFragment : Fragment() {
     lateinit var enfant: Enfant
     lateinit var ecoles: List<Ecole>
     lateinit var anneesScolaires: List<AnneeScolaire>
+    lateinit var sexes: Array<String>
 
     lateinit var spinnerSexe: Spinner
     lateinit var spinnerAnneeScolaire: Spinner
@@ -34,7 +34,6 @@ class EnfantEditFragment : Fragment() {
     lateinit var sexeAdapter: ArrayAdapter<Any>
     lateinit var anneeScolaireAdapter: ArrayAdapter<Any>
     lateinit var ecoleAdapter: ArrayAdapter<Any>
-    lateinit var sexes: Array<String>
 
     companion object {
         fun newInstance() = EnfantEditFragment()
@@ -57,12 +56,47 @@ class EnfantEditFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModelEnfant.enfant?.observe(this, Observer { enfant ->
-            updateUi(enfant)
-            this.enfant = enfant
-        })
-
         initSpinnerView()
+
+        viewModelEnfant.enfant?.observe(this, Observer { enfant ->
+            this.enfant = enfant
+            updateUi(enfant)
+            initSpinners()
+        })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.btnSave -> {
+                updateObjectByUi(enfant)
+                return true
+            }
+            else ->
+                return super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun initSpinnerView() {
+        spinnerSexe = spinnerSexeView
+        spinnerEcoles = spinnerEcoleView
+        spinnerAnneeScolaire = spinnerAnneeScolaireView
+    }
+
+    private fun initSpinnerSexe() {
+        sexes = resources.getStringArray(R.array.sexes)
+        sexeAdapter = ArrayAdapter<Any>(
+            context,
+            android.R.layout.simple_spinner_item,
+            sexes
+        )
+        sexeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerSexe.adapter = sexeAdapter
+        val position = sexeAdapter.getPosition(enfant.sexe)
+        spinnerSexe.setSelection(position)
+    }
+
+    private fun initSpinners() {
+
         initSpinnerSexe()
 
         mercrediViewModel.ecoles.observe(this, Observer {
@@ -84,49 +118,18 @@ class EnfantEditFragment : Fragment() {
         })
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.btnSave -> {
-                updateObjectByUi(enfant)
-                return true
-            }
-            else ->
-                return super.onOptionsItemSelected(item)
-        }
-    }
-
-    private fun initSpinnerSexe() {
-        sexeAdapter = ArrayAdapter<Any>(
-            context,
-            android.R.layout.simple_spinner_item,
-            resources.getStringArray(R.array.sexes)
-        )
-        sexeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerSexe.adapter = sexeAdapter
-    }
-
-    private fun initSpinnerView() {
-        spinnerSexe = spinnerSexeView
-        spinnerEcoles = spinnerEcoleView
-        spinnerAnneeScolaire = spinnerAnneeScolaireView
-    }
-
     private fun updateUi(enfant: Enfant) {
-        //  enfantBirthday.text = enfant.birthday
-
-/*        if (enfant.sexe == sexes.get(1))
-            spinnerSexe.setSelection(1)
-        else if (enfant.sexe == sexes.get(2))
-            spinnerSexe.setSelection(2)*/
-
+        enfantNom.setText(enfant.nom, TextView.BufferType.EDITABLE)
+        enfantPrenom.setText(enfant.prenom, TextView.BufferType.EDITABLE)
         enfantNumeroNational.setText(enfant.numeroNational, TextView.BufferType.EDITABLE)
-        //   enfantRemarques.text = enfant.remarques
     }
 
     private fun updateObjectByUi(enfant: Enfant) {
 
         enfant.apply {
-            numeroNational = enfantNumeroNational.text.toString()
+            nom = enfantNom.text.toString()
+            prenom = enfantPrenom.text.toString()
+            numeroNational = enfantPrenom.text.toString()
             sexe = spinnerSexeView.selectedItem.toString()
             val nomEcoleSelected = spinnerEcoleView.selectedItem.toString()
             val ecole = ecoles.find { x -> x.nom == nomEcoleSelected }

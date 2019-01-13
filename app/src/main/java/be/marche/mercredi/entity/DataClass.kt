@@ -23,8 +23,8 @@ import com.google.gson.annotations.SerializedName
 data class Enfant(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
-    val nom: String,
-    val prenom: String,
+    var nom: String,
+    var prenom: String,
     var birthday: String,
     var anneeScolaireId: Int,
     var ecoleId: Int,
