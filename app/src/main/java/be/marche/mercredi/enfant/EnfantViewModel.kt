@@ -1,6 +1,7 @@
 package be.marche.mercredi.enfant
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -14,6 +15,7 @@ class EnfantViewModel(private val enfantRepository: EnfantRepository) : ViewMode
     private val viewModelScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     var enfant: LiveData<Enfant>? = null
+    var enfantPhoto: MutableLiveData<String>? = null
 
     override fun onCleared() {
         super.onCleared()
@@ -29,6 +31,7 @@ class EnfantViewModel(private val enfantRepository: EnfantRepository) : ViewMode
     fun save(enfant: Enfant) {
         viewModelScope.launch {
             enfantRepository.updateEnfant(enfant)
+            //todo save to server
         }
     }
 
