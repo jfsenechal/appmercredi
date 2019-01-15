@@ -1,6 +1,8 @@
 package be.marche.mercredi.enfant.fragments
 
+import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.*
@@ -77,15 +79,18 @@ class EnfantDetailFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-            REQUEST_SELECT_IMAGE_IN_ALBUM -> {
-                val contentURI = data!!.data
-                val bitmap = MediaStore.Images.Media.getBitmap(activity?.contentResolver, contentURI)
-                //todo post to server
-                enfant.photoUrl =
-                        "https://www.marche.be/administration/files/2012/07/logo_au_format_jpg_grand_medium.jpg";
-                viewModelEnfant.save(enfant)
-                Timber.i("zeze ici")
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                REQUEST_SELECT_IMAGE_IN_ALBUM -> {
+                    val contentURI = data!!.data
+                    val thumbnail: Bitmap = data.getParcelableExtra("data")
+                    val bitmap = MediaStore.Images.Media.getBitmap(activity?.contentResolver, contentURI)
+                    //todo post to server
+                    enfant.photoUrl =
+                            "https://www.marche.be/administration/files/2012/07/logo_au_format_jpg_grand_medium.jpg";
+                    viewModelEnfant.save(enfant)
+                    Timber.i("zeze ici")
+                }
             }
         }
     }
