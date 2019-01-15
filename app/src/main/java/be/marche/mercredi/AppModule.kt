@@ -4,6 +4,8 @@ import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterF
 import be.marche.mercredi.database.AppDatabase
 import be.marche.mercredi.enfant.EnfantRepository
 import be.marche.mercredi.enfant.EnfantViewModel
+import be.marche.mercredi.presence.PresenceRepository
+import be.marche.mercredi.presence.PresenceViewModel
 import be.marche.mercredi.repository.MercrediRepository
 import be.marche.mercredi.repository.MercrediService
 import be.marche.mercredi.sync.SyncViewModel
@@ -25,10 +27,12 @@ val appModule = module {
     single { get<AppDatabase>().enfantDao() }
     single { get<AppDatabase>().tuteurDao() }
     single { get<AppDatabase>().mercrediDao() }
+    single { get<AppDatabase>().presenceDao() }
 
     single { EnfantRepository(get()) }
     single { TuteurRepository(get()) }
     single { MercrediRepository(get()) }
+    single { PresenceRepository(get()) }
 
     single { createOkHttpClient() }
     single { createWebService<MercrediService>(get(), "https://cst.marche.be/") }
@@ -37,6 +41,7 @@ val appModule = module {
     viewModel { SyncViewModel(get(), get(), get(), get()) }
     viewModel { EnfantViewModel(get()) }
     viewModel { TuteurViewModel(get()) }
+    viewModel { PresenceViewModel(get(), get()) }
 }
 
 fun createOkHttpClient(): OkHttpClient {

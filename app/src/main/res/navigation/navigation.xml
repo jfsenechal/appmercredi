@@ -71,6 +71,8 @@
                 app:exitAnim="@anim/slide_out_left"
                 app:popEnterAnim="@anim/slide_in_left"
                 app:popExitAnim="@anim/slide_out_right"/>
+        <action android:id="@+id/action_enfantDetailFragment_to_presenceFragment"
+                app:destination="@id/presenceFragment"/>
     </fragment>
 
     <fragment android:id="@+id/enfantEditFragment"
@@ -84,5 +86,13 @@
                 app:popEnterAnim="@anim/slide_in_left"
                 app:popExitAnim="@anim/slide_out_right"
         />
+    </fragment>
+    <fragment android:id="@+id/presenceFragment"
+              android:name="be.marche.mercredi.presence.PresenceFragment"
+              android:label="presence_add_fragment"
+              tools:layout="@layout/presence_add_fragment">
+        <action android:id="@+id/action_presenceFragment_pop"
+                app:popUpTo="@id/presenceFragment"
+                app:popUpToInclusive="true"/>
     </fragment>
 </navigation>

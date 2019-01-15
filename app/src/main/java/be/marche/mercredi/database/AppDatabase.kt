@@ -8,11 +8,15 @@ import be.marche.mercredi.entity.*
 
 const val DATABASE_NAME = "mercredi"
 
-@Database(entities = [Enfant::class, Tuteur::class, Ecole::class, Jour::class, AnneeScolaire::class], version = 17)
+@Database(
+    entities = [Enfant::class, Tuteur::class, Ecole::class, Jour::class, AnneeScolaire::class, Presence::class],
+    version = 18
+)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun enfantDao(): EnfantDao
     abstract fun tuteurDao(): TuteurDao
     abstract fun mercrediDao(): MercrediDao
+    abstract fun presenceDao(): PresenceDao
 
     companion object {
         fun buildDatabase(context: Context) =

@@ -97,6 +97,7 @@ data class Jour(
     val prix1: String,
     val prix2: String,
     val prix3: String,
+    val remarques: String?,
     val color: String?
 )
 

@@ -28,6 +28,7 @@ class EnfantDetailFragment : Fragment() {
 
     companion object {
         private val REQUEST_SELECT_IMAGE_IN_ALBUM = 1
+        private val REQUEST_ADD_PRESENCE = 2
         fun newInstance() = EnfantDetailFragment()
     }
 
@@ -63,6 +64,10 @@ class EnfantDetailFragment : Fragment() {
             val intent = Intent(Intent.ACTION_GET_CONTENT)
             intent.type = "image/*"
             startActivityForResult(intent, REQUEST_SELECT_IMAGE_IN_ALBUM)
+        }
+
+        btnAddPresence.setOnClickListener {
+            findNavController().navigate(R.id.action_enfantDetailFragment_to_presenceFragment)
         }
     }
 

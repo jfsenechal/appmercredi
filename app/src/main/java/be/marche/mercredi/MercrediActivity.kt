@@ -20,7 +20,7 @@ class MercrediActivity : AppCompatActivity() {
             ConnectivityLiveData(application).observe(this, Observer { connected ->
                 when (connected) {
                     true -> {
-                        //  syncViewModel.refreshData()
+                        // syncViewModel.refreshData()
                         //  infoMessage.visibility = View.INVISIBLE
                     }
                     false -> {
