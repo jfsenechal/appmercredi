@@ -18,7 +18,6 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_enfant_detail.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import timber.log.Timber
 
 class EnfantDetailFragment : Fragment() {
 
@@ -94,7 +93,6 @@ class EnfantDetailFragment : Fragment() {
                     enfant.photoUrl =
                             "https://www.marche.be/administration/files/2012/07/logo_au_format_jpg_grand_medium.jpg";
                     viewModelEnfant.save(enfant)
-                    Timber.i("zeze ici")
                 }
             }
         }
@@ -105,7 +103,6 @@ class EnfantDetailFragment : Fragment() {
     }
 
     private fun updateUi(enfant: Enfant) {
-        Timber.i("zeze la")
         Picasso.get()
             .load(enfant.photoUrl)
             .placeholder(R.drawable.ic_image_black_24dp)

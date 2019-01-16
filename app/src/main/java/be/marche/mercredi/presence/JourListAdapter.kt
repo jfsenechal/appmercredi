@@ -3,9 +3,7 @@ package be.marche.mercredi.presence
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.cardview.widget.CardView
-import androidx.recyclerview.selection.ItemDetailsLookup
+import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.widget.RecyclerView
 import be.marche.mercredi.R
 import be.marche.mercredi.entity.Jour
@@ -13,39 +11,39 @@ import be.marche.mercredi.entity.Jour
 class JourListAdapter(
     private val jours: List<Jour>,
     private val listener: JourListAdapterListener?
-) : RecyclerView.Adapter<JourListAdapter.ViewHolderJour>(), View.OnClickListener {
+) : RecyclerView.Adapter<JourViewHolder>(), View.OnClickListener {
+
+    /**
+     * indiquer explicitement que chaque élément de cet adaptateur aura un identificateur stable unique de type Long
+     */
+    init {
+        setHasStableIds(true)
+    }
+
+    private var tracker: SelectionTracker<Long>? = null
 
     interface JourListAdapterListener {
         fun onJourSelected(jour: Jour)
     }
 
-    class ViewHolderJour(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val cardViewJour = itemView.findViewById<CardView>(R.id.cardViewJour)
-        val jourDateView = itemView.findViewById<TextView>(R.id.jourDateView)
-        val typeJourView = itemView.findViewById<TextView>(R.id.typeJourView)
-
-        fun getItemDetails(): ItemDetailsLookup.ItemDetails<Long> =
-            object : ItemDetailsLookup.ItemDetails<Long>() {
-                override fun getSelectionKey(): Long? = itemId
-
-                override fun getPosition(): Int = adapterPosition
-
-                // More code here
-
-            }
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderJour {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JourViewHolder {
         val viewItem = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_jour, parent, false)
-        return ViewHolderJour(viewItem)
+        return JourViewHolder(viewItem)
     }
 
     override fun getItemCount(): Int {
         return jours.count()
     }
 
-    override fun onBindViewHolder(holder: ViewHolderJour, position: Int) {
+    /**
+     * pour pouvoir utiliser la position d'un élément en tant qu'identificateur unique
+     */
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun onBindViewHolder(holder: JourViewHolder, position: Int) {
         val jour = jours[position]
 
         with(holder) {
@@ -60,6 +58,10 @@ class JourListAdapter(
         when (view.id) {
             R.id.cardViewJour -> listener?.onJourSelected(view.tag as Jour)
         }
+    }
+
+    fun setTracker(tracker: SelectionTracker<Long>?) {
+        this.tracker = tracker
     }
 
 }
