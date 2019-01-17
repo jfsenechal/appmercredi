@@ -3,13 +3,9 @@ package be.marche.mercredi.enfant
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import be.marche.mercredi.R
-import com.squareup.picasso.Picasso
-import be.marche.mercredi.entity.Enfant
 import be.marche.mercredi.entity.Presence
 
 class EnfantPresenceListAdapter(

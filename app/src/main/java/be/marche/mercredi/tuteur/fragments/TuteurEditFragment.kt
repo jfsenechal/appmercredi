@@ -43,7 +43,6 @@ class TuteurEditFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        Timber.i("zeze ici")
         viewModelTuteur.tuteur?.observe(this, Observer { tuteur ->
             this.tuteur = tuteur
         })
@@ -79,6 +78,7 @@ class TuteurEditFragment : Fragment() {
             telephoneBureauConjoint = conjointTelephoneBureau.text.toString()
         }
 
+        //todo update server
         viewModelTuteur.save(tuteur)
         Toast.makeText(context, "Sauvegardé", Toast.LENGTH_LONG).show()
 

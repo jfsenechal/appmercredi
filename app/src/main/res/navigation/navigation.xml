@@ -91,8 +91,7 @@
               android:name="be.marche.mercredi.presence.AddPresenceFragment"
               android:label="presence_add_fragment"
               tools:layout="@layout/presence_add_fragment">
-        <action android:id="@+id/action_presenceFragment_pop"
-                app:popUpTo="@id/presenceFragment"
+        <action android:id="@+id/action_presenceFragment_pop" app:popUpTo="@id/presenceFragment"
                 app:popUpToInclusive="true"/>
     </fragment>
 </navigation>

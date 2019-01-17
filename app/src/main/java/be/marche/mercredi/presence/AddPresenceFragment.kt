@@ -5,6 +5,7 @@ import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StableIdKeyProvider
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import be.marche.mercredi.R
 import be.marche.mercredi.enfant.EnfantViewModel
 import be.marche.mercredi.entity.Jour
+import be.marche.mercredi.entity.Presence
 import kotlinx.android.synthetic.main.jour_list_fragment.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -141,19 +143,33 @@ class AddPresenceFragment : Fragment(), JourListAdapter.JourListAdapterListener 
         val joursSelected = tracker?.selection
         val nbJours: Int? = tracker?.selection?.size()
 
-       // Timber.i("zeze lisste " + this.jours)
+        if (nbJours != null && nbJours > 0) {
 
-        joursSelected?.forEach { position ->
-            val jour: Jour = jours[position.toInt()]
-            Timber.i("zeze position $jour")
+            val presences = mutableListOf<Presence>()
+
+            joursSelected?.forEach { position ->
+                val jour: Jour = jours[position.toInt()]
+                val presence = Presence(0, jour.date, false, false)
+                presences.add(presence)
+                Timber.i("zeze position $presence")
+            }
+
+            //todo post server
+
+            viewModelPresence.insertPresence(presences)
+            Toast.makeText(
+                context,
+                resources.getQuantityString(R.plurals.presence_ajoutees, nbJours, nbJours),
+                Toast.LENGTH_LONG
+            ).show()
         }
 
+        findNavController().navigate(R.id.action_presenceFragment_pop)
     }
 
     override fun onJourSelected(jour: Jour) {
 
         Timber.i("zeze onjourSeleted")
-        Toast.makeText(context, tracker?.getSelection().toString(), Toast.LENGTH_LONG).show();
 
     }
 

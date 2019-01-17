@@ -13,6 +13,7 @@ import be.marche.mercredi.entity.Presence
 import be.marche.mercredi.presence.PresenceViewModel
 import kotlinx.android.synthetic.main.enfant_presences_fragment.*
 import org.koin.android.ext.android.inject
+import timber.log.Timber
 
 class EnfantListPresenceFragment : Fragment(), EnfantPresenceListAdapter.EnfantPresenceListAdapterListener {
 
@@ -52,6 +53,7 @@ class EnfantListPresenceFragment : Fragment(), EnfantPresenceListAdapter.EnfantP
         }
 
         presenceViewModel.presences?.observe(this, Observer { newPresences ->
+            Timber.i("zeze update ui " + newPresences)
             updateUi(newPresences)
         })
     }

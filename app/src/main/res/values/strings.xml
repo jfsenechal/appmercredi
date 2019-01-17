@@ -61,4 +61,9 @@
         <item quantity="one">%d jour sélectionné</item>
         <item quantity="other">%d jours sélectionnés</item>
     </plurals>
+
+    <plurals name="presence_ajoutees">
+        <item quantity="one">%d présence ajoutée</item>
+        <item quantity="other">%d présences ajoutées</item>
+    </plurals>
 </resources>

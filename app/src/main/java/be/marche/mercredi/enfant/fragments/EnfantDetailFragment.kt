@@ -26,7 +26,6 @@ class EnfantDetailFragment : Fragment() {
 
     companion object {
         private val REQUEST_SELECT_IMAGE_IN_ALBUM = 1
-        private val REQUEST_ADD_PRESENCE = 2
         fun newInstance() = EnfantDetailFragment()
     }
 
