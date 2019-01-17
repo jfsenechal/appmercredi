@@ -44,7 +44,7 @@ class EnfantEditFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        setHasOptionsMenu(true);
+        setHasOptionsMenu(true)
 
         return inflater.inflate(R.layout.enfant_edit_fragment, container, false)
     }

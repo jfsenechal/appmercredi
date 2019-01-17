@@ -94,7 +94,27 @@
             android:layout_height="wrap_content"
             android:id="@+id/btnAddPresence"
             app:layout_constraintTop_toBottomOf="@+id/enfantRemarques"
-            android:layout_marginTop="8dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"/>
+
+    <TextView
+            android:text="@string/titlePresences"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/titlePresencestextView"
+            app:layout_constraintTop_toBottomOf="@+id/btnAddPresence"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"/>
+
+    <fragment
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:name="be.marche.mercredi.enfant.fragments.EnfantListPresenceFragment"
+            android:id="@+id/fragment"
+            tools:layout="@layout/enfant_presences_fragment"
+            app:layout_constraintTop_toBottomOf="@+id/titlePresencestextView"
+            app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

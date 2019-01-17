@@ -19,6 +19,11 @@ class PresenceViewModel(
     private val viewModelScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     var jour: LiveData<Jour>? = null
+    var presences: LiveData<List<Presence>>? = null
+
+    init {
+        presences = presenceRepository.getAllPresences()
+    }
 
     override fun onCleared() {
         super.onCleared()
@@ -26,7 +31,6 @@ class PresenceViewModel(
     }
 
     val jours: LiveData<List<Jour>> = mercrediRepository.getAllJours()
-    val presences: LiveData<List<Presence>> = presenceRepository.getAllPresences()
 
 
     fun getJourById(jourId: Int): LiveData<Jour> {

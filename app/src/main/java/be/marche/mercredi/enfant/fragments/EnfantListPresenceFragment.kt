@@ -40,7 +40,7 @@ class EnfantListPresenceFragment : Fragment(), EnfantPresenceListAdapter.EnfantP
         super.onActivityCreated(savedInstanceState)
 
         if (!::presences.isInitialized) {
-            presences = mutableListOf()
+            presences = mutableListOf(Presence(1, "mercredi 3 janvier 2019", false, true))
         }
 
         listener = this
@@ -51,7 +51,7 @@ class EnfantListPresenceFragment : Fragment(), EnfantPresenceListAdapter.EnfantP
             adapter = enfantPresenceListAdapter
         }
 
-        presenceViewModel.presences.observe(this, Observer { newPresences ->
+        presenceViewModel.presences?.observe(this, Observer { newPresences ->
             updateUi(newPresences)
         })
     }

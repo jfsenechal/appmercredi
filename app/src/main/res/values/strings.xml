@@ -55,4 +55,10 @@
     <string name="FormTitreAnneeScolaire">Année scolaire</string>
     <string name="FormTitreSexe">Sexe</string>
     <string name="btnAddPresence">Ajouter une présence</string>
+    <string name="titlePresences">Présences</string>
+
+    <plurals name="jours_selectionnees">
+        <item quantity="one">%d jour sélectionné</item>
+        <item quantity="other">%d jours sélectionnés</item>
+    </plurals>
 </resources>

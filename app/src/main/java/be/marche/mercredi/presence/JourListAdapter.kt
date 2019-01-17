@@ -1,5 +1,6 @@
 package be.marche.mercredi.presence
 
+import android.app.Activity
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
@@ -50,34 +51,27 @@ class JourListAdapter(
     override fun onBindViewHolder(holder: JourViewHolder, position: Int) {
         val jour = jours[position]
 
-        Timber.i("position $position")
-
         with(holder) {
             cardViewJour.setOnClickListener(this@JourListAdapter)
+            cardViewJour.setOnClickListener {
+                if (tracker!!.isSelected(position.toLong())) {
+                    holder.cardViewJour.setCardBackgroundColor(R.attr.colorPrimaryDark)
+                } else {
+                    // Reset color to white if not selected
+                    holder.cardViewJour.setCardBackgroundColor(Color.WHITE)
+                }
+            }
             cardViewJour.tag = jour
             jourDateView.text = jour.date
             //typeJourView.text = jour.remarque
         }
 
-        val parent = holder.cardViewJour.parent as LinearLayout
 
-        Timber.i("zeze onbind $tracker")
-        if (tracker!!.isSelected(position.toLong())) {
-            holder.jourDateView.setTextColor(Color.GREEN)
-            parent.background = ColorDrawable(
-                Color.parseColor("#80deea")
-            )
-            holder.cardViewJour.setCardBackgroundColor(Color.BLUE)
-        } else {
-            holder.jourDateView.setTextColor(Color.RED)
-            // Reset color to white if not selected
-            parent.background = ColorDrawable(Color.WHITE)
-        }
     }
 
     override fun onClick(view: View) {
 
-        Timber.i("zeze" + tracker?.selection)
+        Timber.i("zeze onClick" + tracker?.selection)
         when (view.id) {
             R.id.cardViewJour -> {
                 Timber.i("zeze" + this.tracker)

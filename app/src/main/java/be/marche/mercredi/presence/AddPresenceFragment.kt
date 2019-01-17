@@ -1,9 +1,9 @@
 package be.marche.mercredi.presence
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -38,7 +38,14 @@ class AddPresenceFragment : Fragment(), JourListAdapter.JourListAdapterListener 
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        setHasOptionsMenu(true)
+
         return inflater.inflate(R.layout.jour_list_fragment, container, false)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.save, menu)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -65,7 +72,21 @@ class AddPresenceFragment : Fragment(), JourListAdapter.JourListAdapterListener 
 
         initTracker()
 
-        viewModelPresence.jours.observe(this, Observer { newJours -> UpdateUi(newJours) })
+        viewModelPresence.jours.observe(this, Observer { newJours ->
+            this.jours = newJours
+            UpdateUi(newJours)
+        })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.btnSave -> {
+                savePresences()
+                return true
+            }
+            else ->
+                return super.onOptionsItemSelected(item)
+        }
     }
 
     /**
@@ -99,8 +120,11 @@ class AddPresenceFragment : Fragment(), JourListAdapter.JourListAdapterListener 
             object : SelectionTracker.SelectionObserver<Long>() {
                 override fun onSelectionChanged() {
                     val nItems: Int? = tracker?.selection?.size()
-                    Timber.i("zeze popo $nItems")
-                    // More code here
+                    if (nItems != null && nItems > 0) {
+                        activity?.title = resources.getQuantityString(R.plurals.jours_selectionnees, nItems, nItems)
+                    } else {
+                        activity?.title = getResources().getString(R.string.app_name);
+                    }
                 }
             })
 
@@ -113,9 +137,20 @@ class AddPresenceFragment : Fragment(), JourListAdapter.JourListAdapterListener 
         jourListAdapter.notifyDataSetChanged()
     }
 
+    private fun savePresences() {
+        val jours = tracker?.selection
+        val nbJours: Int? = tracker?.selection?.size()
+
+        jours?.forEach {
+            val jour = jours.find { x -> x.date == nomEcoleSelected }
+            Timber.i("zeze save $nItems")
+        }
+
+    }
+
     override fun onJourSelected(jour: Jour) {
 
-        Timber.i("zeze ici")
+        Timber.i("zeze onjourSeleted")
         Toast.makeText(context, tracker?.getSelection().toString(), Toast.LENGTH_LONG).show();
 
     }
