@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.selection.SelectionPredicates
@@ -17,8 +18,9 @@ import be.marche.mercredi.entity.Jour
 import kotlinx.android.synthetic.main.fragment_jour_list.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import timber.log.Timber
 
-class PresenceFragment : Fragment(), JourListAdapter.JourListAdapterListener {
+class AddPresenceFragment : Fragment(), JourListAdapter.JourListAdapterListener {
 
     private var listener: JourListAdapter.JourListAdapterListener? = null
     private lateinit var jourListAdapter: JourListAdapter
@@ -29,7 +31,7 @@ class PresenceFragment : Fragment(), JourListAdapter.JourListAdapterListener {
     val viewModelEnfant: EnfantViewModel by sharedViewModel()
 
     companion object {
-        fun newInstance() = PresenceFragment()
+        fun newInstance() = AddPresenceFragment()
     }
 
     override fun onCreateView(
@@ -55,23 +57,13 @@ class PresenceFragment : Fragment(), JourListAdapter.JourListAdapterListener {
         listener = this
         jourListAdapter = JourListAdapter(jours, listener)
 
-        tracker = SelectionTracker.Builder<Long>(
-            "selection1",
-            recyclerViewJourList,
-            StableIdKeyProvider(recyclerViewJourList),
-            MyLookup(recyclerViewJourList),
-            StorageStrategy.createLongStorage()
-        ).withSelectionPredicate(
-            SelectionPredicates.createSelectAnything()
-        ).build()
-
-        //jourListAdapter.setTracker(tracker)
-
         recyclerViewJourList.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = jourListAdapter
             setHasFixedSize(true)
         }
+
+        initTracker()
 
         viewModelPresence.jours.observe(this, Observer { newJours -> UpdateUi(newJours) })
     }
@@ -93,8 +85,26 @@ class PresenceFragment : Fragment(), JourListAdapter.JourListAdapterListener {
      * que vous souhaitez permettre à l’utilisateur de sélectionner
      */
     private fun initTracker() {
+        tracker = SelectionTracker.Builder<Long>(
+            "selection1",
+            recyclerViewJourList,
+            StableIdKeyProvider(recyclerViewJourList),
+            MyLookup(recyclerViewJourList),
+            StorageStrategy.createLongStorage()
+        ).withSelectionPredicate(
+            SelectionPredicates.createSelectAnything()
+        ).build()
 
+        tracker?.addObserver(
+            object : SelectionTracker.SelectionObserver<Long>() {
+                override fun onSelectionChanged() {
+                    val nItems: Int? = tracker?.selection?.size()
+                    Timber.i("zeze popo $nItems")
+                    // More code here
+                }
+            })
 
+        jourListAdapter.setTracker(tracker)
     }
 
     private fun UpdateUi(newJours: List<Jour>) {
@@ -104,6 +114,9 @@ class PresenceFragment : Fragment(), JourListAdapter.JourListAdapterListener {
     }
 
     override fun onJourSelected(jour: Jour) {
+
+        Timber.i("zeze ici")
+        Toast.makeText(context, tracker?.getSelection().toString(), Toast.LENGTH_LONG).show();
 
     }
 

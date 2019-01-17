@@ -26,6 +26,8 @@ class PresenceViewModel(
     }
 
     val jours: LiveData<List<Jour>> = mercrediRepository.getAllJours()
+    val presences: LiveData<List<Presence>> = presenceRepository.getAllPresences()
+
 
     fun getJourById(jourId: Int): LiveData<Jour> {
         return mercrediRepository.getJourById(jourId)

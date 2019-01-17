@@ -88,7 +88,7 @@
         />
     </fragment>
     <fragment android:id="@+id/presenceFragment"
-              android:name="be.marche.mercredi.presence.PresenceFragment"
+              android:name="be.marche.mercredi.presence.AddPresenceFragment"
               android:label="presence_add_fragment"
               tools:layout="@layout/presence_add_fragment">
         <action android:id="@+id/action_presenceFragment_pop"
