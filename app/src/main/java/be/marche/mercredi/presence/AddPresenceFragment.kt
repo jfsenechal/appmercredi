@@ -1,7 +1,5 @@
 package be.marche.mercredi.presence
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -73,7 +71,7 @@ class AddPresenceFragment : Fragment(), JourListAdapter.JourListAdapterListener 
         initTracker()
 
         viewModelPresence.jours.observe(this, Observer { newJours ->
-            this.jours = newJours
+            //this.jours = newJours
             UpdateUi(newJours)
         })
     }
@@ -100,17 +98,19 @@ class AddPresenceFragment : Fragment(), JourListAdapter.JourListAdapterListener 
     /**
      * SelectionTracker => sélection multi-éléments
      * StableIdKeyProvider => fournisseur de clefs
-     * MyLookup => classe de recherche des détails de l'élément et une
+     * JourLookup => classe de recherche des détails de l'élément et une
      * StorageStrategy => stratégie de stockage
      * SelectionPredicates.createSelectAnything => méthode pour spécifier le nombre d’éléments
      * que vous souhaitez permettre à l’utilisateur de sélectionner
+     *
+     * JourItemKeyProvider(jours)
      */
     private fun initTracker() {
         tracker = SelectionTracker.Builder<Long>(
             "selection1",
             recyclerViewJourList,
             StableIdKeyProvider(recyclerViewJourList),
-            MyLookup(recyclerViewJourList),
+            JourLookup(recyclerViewJourList),
             StorageStrategy.createLongStorage()
         ).withSelectionPredicate(
             SelectionPredicates.createSelectAnything()
@@ -138,12 +138,14 @@ class AddPresenceFragment : Fragment(), JourListAdapter.JourListAdapterListener 
     }
 
     private fun savePresences() {
-        val jours = tracker?.selection
+        val joursSelected = tracker?.selection
         val nbJours: Int? = tracker?.selection?.size()
 
-        jours?.forEach {
-            val jour = jours.find { x -> x.date == nomEcoleSelected }
-            Timber.i("zeze save $nItems")
+       // Timber.i("zeze lisste " + this.jours)
+
+        joursSelected?.forEach { position ->
+            val jour: Jour = jours[position.toInt()]
+            Timber.i("zeze position $jour")
         }
 
     }

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
  * Pour que l' RecyclerView Selectionaddon fonctionne correctement, chaque fois que l'utilisateur touche le  RecyclerView widget,
  * vous devez traduire les coordonnées du contact en un  ItemDetails objet.
  */
-class MyLookup(private val recyclerView: RecyclerView) : ItemDetailsLookup<Long>() {
+class JourLookup(private val recyclerView: RecyclerView) : ItemDetailsLookup<Long>() {
 
     /**
      * Comme vous pouvez le voir dans le code ci-dessus, la getItemDetails() méthode reçoit un  MotionEvent objet.
@@ -19,8 +19,12 @@ class MyLookup(private val recyclerView: RecyclerView) : ItemDetailsLookup<Long>
     override fun getItemDetails(event: MotionEvent): ItemDetails<Long>? {
         val view = recyclerView.findChildViewUnder(event.x, event.y)
         if (view != null) {
-            return (recyclerView.getChildViewHolder(view) as JourViewHolder)
+
+            val itemDetails = (recyclerView.getChildViewHolder(view) as JourViewHolder)
                 .getItemDetails()
+
+            return itemDetails
+
         }
         return null
     }

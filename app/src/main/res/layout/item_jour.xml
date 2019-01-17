@@ -19,25 +19,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+            <CheckBox
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/jourcheckBoxView"
+                    card_view:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    card_view:layout_constraintTop_toTopOf="parent"
+                    />
+
             <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/jourDateView"
                     tools:text="Mercredi 12 janvier 2018"
-                    android:layout_marginTop="8dp"
-                    card_view:layout_constraintTop_toTopOf="parent"
-                    card_view:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="8dp"/>
+                    card_view:layout_constraintStart_toEndOf="@+id/jourcheckBoxView" android:layout_marginStart="8dp"
+                    card_view:layout_constraintTop_toTopOf="@+id/jourcheckBoxView"/>
 
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/typeJourView"
                     tools:text="Plaine de noel"
-                    card_view:layout_constraintTop_toBottomOf="@+id/jourDateView"
-                    card_view:layout_constraintStart_toStartOf="@+id/jourDateView"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"/>
+                    card_view:layout_constraintTop_toBottomOf="@+id/jourcheckBoxView"
+                    card_view:layout_constraintStart_toStartOf="@+id/jourDateView"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

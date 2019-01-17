@@ -52,13 +52,12 @@ class JourListAdapter(
         val jour = jours[position]
 
         with(holder) {
-            cardViewJour.setOnClickListener(this@JourListAdapter)
+            // cardViewJour.setOnClickListener(this@JourListAdapter)
             cardViewJour.setOnClickListener {
                 if (tracker!!.isSelected(position.toLong())) {
-                    holder.cardViewJour.setCardBackgroundColor(R.attr.colorPrimaryDark)
+                    holder.jourcheckBoxView.setChecked(true);
                 } else {
-                    // Reset color to white if not selected
-                    holder.cardViewJour.setCardBackgroundColor(Color.WHITE)
+                    holder.jourcheckBoxView.setChecked(false);
                 }
             }
             cardViewJour.tag = jour
