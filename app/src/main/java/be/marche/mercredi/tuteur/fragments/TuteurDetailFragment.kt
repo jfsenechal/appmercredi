@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import be.marche.mercredi.R
-import kotlinx.android.synthetic.main.fragment_tuteur_detail.*
+import kotlinx.android.synthetic.main.tuteur_detail_fragment.*
 import be.marche.mercredi.entity.Tuteur
 import be.marche.mercredi.tuteur.TuteurViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -26,7 +26,7 @@ class TuteurDetailFragment : Fragment() {
     ): View {
         setHasOptionsMenu(true);
 
-        return inflater.inflate(R.layout.fragment_tuteur_detail, container, false)
+        return inflater.inflate(R.layout.tuteur_detail_fragment, container, false)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

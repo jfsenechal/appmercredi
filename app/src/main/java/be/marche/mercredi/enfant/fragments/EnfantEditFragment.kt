@@ -15,7 +15,7 @@ import be.marche.mercredi.enfant.EnfantViewModel
 import be.marche.mercredi.entity.AnneeScolaire
 import be.marche.mercredi.entity.Ecole
 import be.marche.mercredi.entity.Enfant
-import kotlinx.android.synthetic.main.fragment_enfant_edit.*
+import kotlinx.android.synthetic.main.enfant_edit_fragment.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class EnfantEditFragment : Fragment() {
@@ -46,7 +46,7 @@ class EnfantEditFragment : Fragment() {
 
         setHasOptionsMenu(true);
 
-        return inflater.inflate(R.layout.fragment_enfant_edit, container, false)
+        return inflater.inflate(R.layout.enfant_edit_fragment, container, false)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

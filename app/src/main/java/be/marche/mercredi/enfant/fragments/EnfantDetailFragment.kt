@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import be.marche.mercredi.MercrediViewModel
@@ -15,7 +14,7 @@ import be.marche.mercredi.R
 import be.marche.mercredi.enfant.EnfantViewModel
 import be.marche.mercredi.entity.Enfant
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fragment_enfant_detail.*
+import kotlinx.android.synthetic.main.enfant_detail_fragment.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -38,7 +37,7 @@ class EnfantDetailFragment : Fragment() {
 
         setHasOptionsMenu(true);
 
-        return inflater.inflate(R.layout.fragment_enfant_detail, container, false)
+        return inflater.inflate(R.layout.enfant_detail_fragment, container, false)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/a"
-            layout="@layout/fragment_edit_tuteur_coordonnees"
+            layout="@layout/tuteur_edit_coordonnees_fragment"
             android:layout_marginTop="8dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/b"
-            layout="@layout/fragment_edit_conjoint_coordonnees"
+            layout="@layout/conjoint_edit_coordonnees_fragment"
             app:layout_constraintTop_toBottomOf="@+id/a"
             app:layout_constraintLeft_toLeftOf="parent"
     />

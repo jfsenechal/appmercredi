@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import be.marche.mercredi.R
 import be.marche.mercredi.enfant.EnfantViewModel
 import be.marche.mercredi.entity.Jour
-import kotlinx.android.synthetic.main.fragment_jour_list.*
+import kotlinx.android.synthetic.main.jour_list_fragment.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
@@ -38,7 +38,7 @@ class AddPresenceFragment : Fragment(), JourListAdapter.JourListAdapterListener 
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_jour_list, container, false)
+        return inflater.inflate(R.layout.jour_list_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

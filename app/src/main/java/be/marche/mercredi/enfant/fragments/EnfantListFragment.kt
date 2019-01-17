@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import be.marche.mercredi.R
-import kotlinx.android.synthetic.main.fragment_enfant_list.*
+import kotlinx.android.synthetic.main.enfant_list_fragment.*
 import be.marche.mercredi.enfant.EnfantListAdapter
 import be.marche.mercredi.enfant.EnfantViewModel
 import be.marche.mercredi.entity.Enfant
@@ -31,7 +31,7 @@ class EnfantListFragment : Fragment(), EnfantListAdapter.EnfantListAdapterListen
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
 
-        return inflater.inflate(R.layout.fragment_enfant_list, container, false)
+        return inflater.inflate(R.layout.enfant_list_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

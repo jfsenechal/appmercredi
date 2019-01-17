@@ -8,8 +8,8 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import be.marche.mercredi.R
 import kotlinx.android.synthetic.main.activity_tabbed.*
-import kotlinx.android.synthetic.main.fragment_edit_conjoint_coordonnees.*
-import kotlinx.android.synthetic.main.fragment_edit_tuteur_coordonnees.*
+import kotlinx.android.synthetic.main.conjoint_edit_coordonnees_fragment.*
+import kotlinx.android.synthetic.main.tuteur_edit_coordonnees_fragment.*
 import be.marche.mercredi.entity.Tuteur
 import be.marche.mercredi.tuteur.TuteurPagerAdapter
 import be.marche.mercredi.tuteur.TuteurViewModel

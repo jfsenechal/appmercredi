@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import be.marche.mercredi.R
-import kotlinx.android.synthetic.main.fragment_edit_conjoint_coordonnees.*
+import kotlinx.android.synthetic.main.conjoint_edit_coordonnees_fragment.*
 import be.marche.mercredi.entity.Tuteur
 import be.marche.mercredi.tuteur.TuteurViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -24,7 +24,7 @@ class ConjointEditCoordonneesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_edit_conjoint_coordonnees, container, false)
+        return inflater.inflate(R.layout.conjoint_edit_coordonnees_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
