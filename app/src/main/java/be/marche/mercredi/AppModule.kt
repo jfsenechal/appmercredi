@@ -35,7 +35,7 @@ val appModule = module {
     single { PresenceRepository(get()) }
 
     single { createOkHttpClient() }
-    single { createWebService<MercrediService>(get(), "https://jf.marche.be/api/") }
+    single { createWebService<MercrediService>(get(), "http://192.168.0.8/api/") }
 
     viewModel { MercrediViewModel(get(), get(), get(), get()) }
     viewModel { SyncViewModel(get(), get(), get(), get()) }

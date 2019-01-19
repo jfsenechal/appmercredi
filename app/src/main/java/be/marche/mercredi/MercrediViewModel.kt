@@ -37,7 +37,7 @@ class MercrediViewModel(
         return mercrediRepository.getEcoleById(ecoleId)
     }
 
-    fun getAnneeScolaireById(anneeId: Int): LiveData<AnneeScolaire> {
-        return mercrediRepository.getAnneeScolaireById(anneeId)
+    fun getAnneeScolaireByName(name: String): LiveData<AnneeScolaire> {
+        return mercrediRepository.getAnneeScolaireByName(name)
     }
 }

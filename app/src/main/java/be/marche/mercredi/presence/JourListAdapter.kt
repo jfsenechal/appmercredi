@@ -61,7 +61,7 @@ class JourListAdapter(
                 }
             }
             cardViewJour.tag = jour
-            jourDateView.text = jour.date
+            jourDateView.text = jour.date_jour
             //typeJourView.text = jour.remarque
         }
 

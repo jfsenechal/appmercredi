@@ -36,7 +36,7 @@ class TuteurDetailFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModelTuteur.tuteur = viewModelTuteur.getTuteurById(1)
+        viewModelTuteur.tuteur = viewModelTuteur.getTuteurById(118)
 
         viewModelTuteur.tuteur?.observe(this, Observer { tuteur ->
             updateUi(tuteur)

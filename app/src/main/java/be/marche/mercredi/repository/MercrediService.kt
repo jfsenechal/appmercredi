@@ -10,9 +10,9 @@ import retrofit2.http.Query
 private const val API_KEY = "212a06f2e52fbd14ecb684fae35a1d9d"
 
 interface MercrediService {
-    @GET("enfants.php?units=metric&lang=fr")
+    @GET("all")
     fun getAllData(
-        @Query("APPID") apikey: String = API_KEY
+
     ): Deferred<MercrediData>
 
     fun getOneEnfant(

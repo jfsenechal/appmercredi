@@ -42,8 +42,8 @@ interface MercrediDao {
     @Query("SELECT * FROM anneescolaire")
     fun getAllAnneesScolaires(): LiveData<List<AnneeScolaire>>
 
-    @Query("SELECT * FROM anneescolaire WHERE id = :anneeId")
-    fun getAnneeScolaireById(anneeId: Int): LiveData<AnneeScolaire>
+    @Query("SELECT * FROM anneescolaire WHERE nom = :anneeNom")
+    fun getAnneeScolaireByName(anneeNom: String): LiveData<AnneeScolaire>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAneesScolaires(annees: List<AnneeScolaire>)

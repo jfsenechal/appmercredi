@@ -110,7 +110,7 @@ class EnfantEditFragment : Fragment() {
 
         mercrediViewModel.anneesScolaires.observe(this, Observer {
             this.anneesScolaires = it
-            val nomAnneeScolaire = it.find { x -> x.id == this.enfant.anneeScolaireId }
+            val nomAnneeScolaire = it.find { x -> x.nom == this.enfant.anneeScolaire }
             anneeScolaireAdapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, it)
             val position = anneeScolaireAdapter.getPosition(nomAnneeScolaire)
             spinnerAnneeScolaire.adapter = anneeScolaireAdapter
@@ -136,8 +136,7 @@ class EnfantEditFragment : Fragment() {
             ecoleId = ecole!!.id
 
             val nomAnneeScolaireSelected = spinnerAnneeScolaire.selectedItem.toString()
-            val anneeScolaire = anneesScolaires.find { x -> x.nom == nomAnneeScolaireSelected }
-            anneeScolaireId = anneeScolaire!!.id
+            anneeScolaire = nomAnneeScolaireSelected
         }
 
         viewModelEnfant.save(enfant)

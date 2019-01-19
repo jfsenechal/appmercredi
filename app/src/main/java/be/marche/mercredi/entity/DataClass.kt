@@ -9,11 +9,6 @@ import com.google.gson.annotations.SerializedName
             entity = Ecole::class,
             parentColumns = ["id"],
             childColumns = ["ecoleId"]
-        ),
-        ForeignKey(
-            entity = AnneeScolaire::class,
-            parentColumns = ["id"],
-            childColumns = ["anneeScolaireId"]
         )
     ]
 )
@@ -47,7 +42,7 @@ data class Tuteur(
     @SerializedName("code_postal")
     var codePostal: String,
     var localite: String,
-    var telephone: String,
+    var telephone: String? = null,
     var sexe: String? = null,
     var civilite: String? = null,
     var email: String? = null,

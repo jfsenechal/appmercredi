@@ -149,7 +149,7 @@ class AddPresenceFragment : Fragment(), JourListAdapter.JourListAdapterListener 
 
             joursSelected?.forEach { position ->
                 val jour: Jour = jours[position.toInt()]
-                val presence = Presence(0, jour.date, false, false)
+                val presence = Presence(0, jour.date_jour, false, false)
                 presences.add(presence)
                 Timber.i("zeze position $presence")
             }

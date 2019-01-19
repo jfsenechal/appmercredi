@@ -10,7 +10,7 @@ const val DATABASE_NAME = "mercredi"
 
 @Database(
     entities = [Enfant::class, Tuteur::class, Ecole::class, Jour::class, AnneeScolaire::class, Presence::class],
-    version = 19
+    version = 21
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun enfantDao(): EnfantDao

@@ -51,7 +51,7 @@ class EnfantDetailFragment : Fragment() {
             mercrediViewModel.getEcoleById(enfant.ecoleId).observe(this, Observer { ecole ->
                 enfantEcole.text = ecole.nom
             })
-            mercrediViewModel.getAnneeScolaireById(enfant.anneeScolaireId).observe(this, Observer {
+            mercrediViewModel.getAnneeScolaireByName(enfant.anneeScolaire).observe(this, Observer {
                 enfantAnneeScolaire.text = it.nom
             })
             updateUi(enfant)

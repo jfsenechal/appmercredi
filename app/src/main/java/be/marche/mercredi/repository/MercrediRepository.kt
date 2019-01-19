@@ -23,8 +23,8 @@ class MercrediRepository(val mercrediDao: MercrediDao) : KoinComponent {
         return mercrediDao.getAllAnneesScolaires()
     }
 
-    fun getAnneeScolaireById(anneeId: Int): LiveData<AnneeScolaire> {
-        return mercrediDao.getAnneeScolaireById(anneeId)
+    fun getAnneeScolaireByName(name: String): LiveData<AnneeScolaire> {
+        return mercrediDao.getAnneeScolaireByName(name)
     }
 
     fun getAllJours(): LiveData<List<Jour>> {
@@ -41,7 +41,7 @@ class MercrediRepository(val mercrediDao: MercrediDao) : KoinComponent {
         }
     }
 
-    suspend fun insertAnneesScolaires(annees: List<String>) {
+    suspend fun insertAnneesScolaires(annees: List<AnneeScolaire>) {
         withContext(Dispatchers.IO) {
             mercrediDao.insertAneesScolaires(annees)
         }
