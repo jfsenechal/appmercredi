@@ -41,7 +41,7 @@ class MercrediRepository(val mercrediDao: MercrediDao) : KoinComponent {
         }
     }
 
-    suspend fun insertAnneesScolaires(annees: List<AnneeScolaire>) {
+    suspend fun insertAnneesScolaires(annees: List<String>) {
         withContext(Dispatchers.IO) {
             mercrediDao.insertAneesScolaires(annees)
         }

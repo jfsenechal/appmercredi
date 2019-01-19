@@ -23,14 +23,17 @@ data class Enfant(
     var nom: String,
     var prenom: String,
     var birthday: String,
-    var anneeScolaireId: Int,
+    @SerializedName("annee_scolaire")
+    var anneeScolaire: String,
+    @SerializedName("ecole_id")
     var ecoleId: Int,
+    @SerializedName("numero_national")
     var numeroNational: String?,
     var sexe: String?,
     var slugname: String?,
     var remarques: String?,
     @ColumnInfo(name = "photo_url")
-    @SerializedName("imageUrl")
+    @SerializedName("photo_url")
     var photoUrl: String
 )
 
@@ -41,6 +44,7 @@ data class Tuteur(
     val nom: String,
     val prenom: String,
     var adresse: String,
+    @SerializedName("code_postal")
     var codePostal: String,
     var localite: String,
     var telephone: String,
@@ -62,7 +66,6 @@ data class Tuteur(
     var gsmConjoint: String? = null,
     @SerializedName("email_conjoint")
     var emailConjoint: String? = null,
-    var updated: String? = null,
     var slugname: String? = null
 )
 
@@ -89,8 +92,7 @@ data class Paiement(
 data class Jour(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
-    @SerializedName("date_jour")
-    val date: String,
+    val date_jour: String,
     val prix1: String,
     val prix2: String,
     val prix3: String,
