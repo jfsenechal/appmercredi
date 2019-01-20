@@ -1,6 +1,5 @@
 package be.marche.mercredi
 
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import be.marche.mercredi.database.AppDatabase
 import be.marche.mercredi.enfant.EnfantRepository
 import be.marche.mercredi.enfant.EnfantViewModel
@@ -8,9 +7,12 @@ import be.marche.mercredi.presence.PresenceRepository
 import be.marche.mercredi.presence.PresenceViewModel
 import be.marche.mercredi.repository.MercrediRepository
 import be.marche.mercredi.repository.MercrediService
+import be.marche.mercredi.repository.UserRepository
 import be.marche.mercredi.sync.SyncViewModel
 import be.marche.mercredi.tuteur.TuteurRepository
 import be.marche.mercredi.tuteur.TuteurViewModel
+import be.marche.mercredi.user.UserViewModel
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidApplication
@@ -28,11 +30,13 @@ val appModule = module {
     single { get<AppDatabase>().tuteurDao() }
     single { get<AppDatabase>().mercrediDao() }
     single { get<AppDatabase>().presenceDao() }
+    single { get<AppDatabase>().userDao() }
 
     single { EnfantRepository(get()) }
     single { TuteurRepository(get()) }
     single { MercrediRepository(get()) }
     single { PresenceRepository(get()) }
+    single { UserRepository(get()) }
 
     single { createOkHttpClient() }
     single { createWebService<MercrediService>(get(), "http://192.168.0.8/api/") }
@@ -42,13 +46,20 @@ val appModule = module {
     viewModel { EnfantViewModel(get()) }
     viewModel { TuteurViewModel(get()) }
     viewModel { PresenceViewModel(get(), get()) }
+    viewModel { UserViewModel(get()) }
 }
 
 fun createOkHttpClient(): OkHttpClient {
     return OkHttpClient.Builder()
         .connectTimeout(60L, TimeUnit.SECONDS)
         .readTimeout(60L, TimeUnit.SECONDS)
-        .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+        .addInterceptor(HttpLoggingInterceptor().apply {
+            level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
+        })
+        /*  .addInterceptor { chain ->
+              val request = chain.request().newBuilder().addHeader("X-AUTH-TOKEN2", "test_api_key").build()
+              chain.proceed(request)
+          }*/
         .build()
 }
 

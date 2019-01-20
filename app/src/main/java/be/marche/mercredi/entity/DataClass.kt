@@ -117,3 +117,17 @@ data class AnneeScolaire(
         return nom
     }
 }
+
+@Entity()
+data class User(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int,
+    val nom: String,
+    val prenom: String,
+    val email: String,
+    val token: String
+) {
+    override fun toString(): String {
+        return email
+    }
+}

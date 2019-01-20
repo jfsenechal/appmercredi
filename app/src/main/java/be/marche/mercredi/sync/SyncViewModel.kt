@@ -21,6 +21,7 @@ class SyncViewModel(
 
     private val viewModelJob = Job()
     private val viewModelScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+    var token: String? = null
 
     override fun onCleared() {
         super.onCleared()
@@ -32,7 +33,9 @@ class SyncViewModel(
         viewModelScope.launch {
 
             Timber.i("Current Thread: %s", Thread.currentThread())
-            val request = mercrediService.getAllData()
+
+            val request = mercrediService.getAllData(token)
+
             val response = request.await()
 
             response.let {
@@ -45,6 +48,7 @@ class SyncViewModel(
                 enfantRepository.insertEnfants(it.enfants)
                 tuteurRepository.insertTuteurs(it.tuteur)
             }
+
         }
 
 
