@@ -5,16 +5,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import be.marche.mercredi.R
+import be.marche.mercredi.sync.SyncViewModel
+import be.marche.mercredi.user.UserViewModel
+import be.marche.mercredi.utils.ConnectivityLiveData
 import kotlinx.android.synthetic.main.home_fragment.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class MenuFragment : Fragment(), MenuListAdapter.MenuAdapterListener {
 
     companion object {
         fun newInstance() = MenuFragment()
     }
+
+    val syncViewModel: SyncViewModel by viewModel()
+    val userViewModel: UserViewModel by viewModel()
 
     private var listener: MenuListAdapter.MenuAdapterListener? = null
     private lateinit var menuListAdapter: MenuListAdapter
@@ -29,6 +38,12 @@ class MenuFragment : Fragment(), MenuListAdapter.MenuAdapterListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        userViewModel.user?.observe(this, Observer {
+            Timber.i("zeze sync ${it.token}")
+            syncViewModel.token = it.token
+            refreshDataBase()
+        })
 
         if (!::items.isInitialized) {
             items = mutableListOf()
@@ -89,5 +104,21 @@ class MenuFragment : Fragment(), MenuListAdapter.MenuAdapterListener {
         // Notify the adapter of the change.
         menuListAdapter.notifyDataSetChanged()
     }
+
+    private fun refreshDataBase() {
+        ConnectivityLiveData(activity?.application).observe(this, Observer { connected ->
+            when (connected) {
+                true -> {
+                    syncViewModel.refreshData()
+                    //  infoMessage.visibility = View.INVISIBLE
+                }
+                false -> {
+                    //  infoMessage.visibility = View.VISIBLE
+                    //  infoMessage.text = getString(R.string.message_no_connectivity)
+                }
+            }
+        })
+    }
+
 
 }

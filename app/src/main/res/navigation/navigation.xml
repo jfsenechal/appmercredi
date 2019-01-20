@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/navigation"
-            app:startDestination="@id/menuFragment">
+            app:startDestination="@id/loginFragment">
 
     <fragment android:id="@+id/menuFragment"
               android:name="be.marche.mercredi.menu.MenuFragment"
@@ -90,7 +90,7 @@
     <fragment android:id="@+id/presenceFragment"
               android:name="be.marche.mercredi.presence.AddPresenceFragment"
               android:label="presence_add_fragment"
-              tools:layout="@layout/presence_add_fragment">
+              tools:layout="@layout/jour_list_fragment">
         <action android:id="@+id/action_presenceFragment_pop" app:popUpTo="@id/presenceFragment"
                 app:popUpToInclusive="true"/>
     </fragment>

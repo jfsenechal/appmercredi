@@ -12,17 +12,16 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import androidx.navigation.fragment.findNavController
 import android.accounts.Account
 import android.accounts.AccountManager
-import timber.log.Timber
 
 
-class LoginFragment : Fragment() {
+class RedirectFragment : Fragment() {
 
     val userViewModel: UserViewModel by sharedViewModel()
     val loginViewModel: LoginViewModel by sharedViewModel()
     lateinit var accountManager: AccountManager
 
     companion object {
-        fun newInstance() = LoginFragment()
+        fun newInstance() = RedirectFragment()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -33,16 +32,6 @@ class LoginFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         accountManager = AccountManager.get(context) // "this" references the current Context
-
-        userViewModel.user?.observe(this, Observer {
-            var token = it?.token
-            if (token != null) {
-                Timber.i("zeze login ${token}")
-                findNavController().navigate(be.marche.mercredi.R.id.action_loginFragment_to_menuFragment)
-            }
-            Timber.i("zeze pas de token ")
-        })
-
         loginViewModel.getState().observe(this, Observer { updateUi(it!!) })
 
         loginButton.setOnClickListener {
@@ -70,7 +59,6 @@ class LoginFragment : Fragment() {
     }
 
     private fun createAccount(mUsername: String, your_account_type: String, mPassword: String) {
-        val accounts = accountManager.getAccountsByType("com.google")
 
         val account = Account(mUsername, your_account_type)
         accountManager.addAccountExplicitly(account, mPassword, null)

@@ -26,4 +26,10 @@ class UserRepository(val userDao: UserDao) : KoinComponent {
             userDao.insertUser(user)
         }
     }
+
+    suspend fun updateUser(user: User) {
+        withContext(Dispatchers.IO) {
+            userDao.updateUser(user)
+        }
+    }
 }

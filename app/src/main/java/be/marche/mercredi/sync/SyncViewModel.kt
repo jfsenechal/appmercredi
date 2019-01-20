@@ -9,7 +9,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class SyncViewModel(
     val mercrediService: MercrediService,
@@ -32,16 +31,11 @@ class SyncViewModel(
 
         viewModelScope.launch {
 
-            Timber.i("Current Thread: %s", Thread.currentThread())
-
             val request = mercrediService.getAllData(token)
 
             val response = request.await()
 
             response.let {
-
-                Timber.i("all data ${it}")
-
                 mercrediRepository.insertEcoles(it.ecoles)
                 mercrediRepository.insertAnneesScolaires(it.annees)
                 mercrediRepository.insertJours(it.jours)

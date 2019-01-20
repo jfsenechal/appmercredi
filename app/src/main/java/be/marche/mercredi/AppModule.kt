@@ -11,6 +11,7 @@ import be.marche.mercredi.repository.UserRepository
 import be.marche.mercredi.sync.SyncViewModel
 import be.marche.mercredi.tuteur.TuteurRepository
 import be.marche.mercredi.tuteur.TuteurViewModel
+import be.marche.mercredi.user.LoginViewModel
 import be.marche.mercredi.user.UserViewModel
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
@@ -47,6 +48,7 @@ val appModule = module {
     viewModel { TuteurViewModel(get()) }
     viewModel { PresenceViewModel(get(), get()) }
     viewModel { UserViewModel(get()) }
+    viewModel { LoginViewModel(get()) }
 }
 
 fun createOkHttpClient(): OkHttpClient {
