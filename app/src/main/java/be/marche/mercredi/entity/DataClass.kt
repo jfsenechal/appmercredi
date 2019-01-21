@@ -131,3 +131,5 @@ data class User(
         return email
     }
 }
+
+data class Message(val message: String)

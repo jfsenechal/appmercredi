@@ -36,6 +36,7 @@ class LoginFragment : Fragment() {
 
         userViewModel.user?.observe(this, Observer {
             var token = it?.token
+            token = null
             if (token != null) {
                 Timber.i("zeze login ${token}")
                 findNavController().navigate(be.marche.mercredi.R.id.action_loginFragment_to_menuFragment)
@@ -48,7 +49,7 @@ class LoginFragment : Fragment() {
         loginButton.setOnClickListener {
             val username = usernameEditText.text.toString()
             val password = passwordEditText.text.toString()
-            loginViewModel.login(username, password)
+            loginViewModel.loginReal(username, password)
         }
     }
 

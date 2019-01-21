@@ -39,10 +39,13 @@ class MenuFragment : Fragment(), MenuListAdapter.MenuAdapterListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        //todo observe token ?
         userViewModel.user?.observe(this, Observer {
             Timber.i("zeze sync ${it.token}")
             syncViewModel.token = it.token
-            refreshDataBase()
+            if (it.token.isNotEmpty()) {
+                refreshDataBase()
+            }
         })
 
         if (!::items.isInitialized) {

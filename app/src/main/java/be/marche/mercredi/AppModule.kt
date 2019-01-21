@@ -40,7 +40,7 @@ val appModule = module {
     single { UserRepository(get()) }
 
     single { createOkHttpClient() }
-    single { createWebService<MercrediService>(get(), "http://192.168.0.8/api/") }
+    single { createWebService<MercrediService>(get(), "http://192.168.0.8/") }
 
     viewModel { MercrediViewModel(get(), get(), get(), get()) }
     viewModel { SyncViewModel(get(), get(), get(), get()) }
@@ -48,7 +48,7 @@ val appModule = module {
     viewModel { TuteurViewModel(get()) }
     viewModel { PresenceViewModel(get(), get()) }
     viewModel { UserViewModel(get()) }
-    viewModel { LoginViewModel(get()) }
+    viewModel { LoginViewModel(get(),get()) }
 }
 
 fun createOkHttpClient(): OkHttpClient {
