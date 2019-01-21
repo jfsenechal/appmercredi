@@ -14,7 +14,6 @@ import android.accounts.Account
 import android.accounts.AccountManager
 import timber.log.Timber
 
-
 class LoginFragment : Fragment() {
 
     val userViewModel: UserViewModel by sharedViewModel()

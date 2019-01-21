@@ -48,7 +48,7 @@ val appModule = module {
     viewModel { TuteurViewModel(get()) }
     viewModel { PresenceViewModel(get(), get()) }
     viewModel { UserViewModel(get()) }
-    viewModel { LoginViewModel(get(),get()) }
+    viewModel { LoginViewModel(get(), get()) }
 }
 
 fun createOkHttpClient(): OkHttpClient {
@@ -58,10 +58,6 @@ fun createOkHttpClient(): OkHttpClient {
         .addInterceptor(HttpLoggingInterceptor().apply {
             level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
         })
-        /*  .addInterceptor { chain ->
-              val request = chain.request().newBuilder().addHeader("X-AUTH-TOKEN2", "test_api_key").build()
-              chain.proceed(request)
-          }*/
         .build()
 }
 

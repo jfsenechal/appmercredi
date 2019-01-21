@@ -37,7 +37,7 @@ class RedirectFragment : Fragment() {
         loginButton.setOnClickListener {
             val username = usernameEditText.text.toString()
             val password = passwordEditText.text.toString()
-            loginViewModel.login(username, password)
+            loginViewModel.loginReal(username, password)
         }
     }
 

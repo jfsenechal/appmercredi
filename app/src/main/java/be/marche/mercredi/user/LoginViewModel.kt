@@ -35,7 +35,7 @@ class LoginViewModel(val userRepository: UserRepository, val mercrediService: Me
         //todo post server
 
         if (username == "jf" && password == "homer") {
-            val user = User(0, "senechal", "jf", "jf@marche.be", "test_api_key")
+            val user = User(0, "senechal", "jf", "jf@marche.be", "ll")
             this.save((user))
             state.value = LoginViewModelStateSuccess
         } else {

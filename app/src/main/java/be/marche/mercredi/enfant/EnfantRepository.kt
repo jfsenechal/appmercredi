@@ -46,7 +46,7 @@ class EnfantRepository(val enfantDao: EnfantDao) : KoinComponent {
 
     fun getEnfant(enfantId: Int): LiveData<Enfant> {
         val enfant: MutableLiveData<Enfant> = MutableLiveData()
-        val call = mercrediService.getOneEnfant(enfantId)
+        val call = mercrediService.getOneEnfant(enfantId, "12345")
 
         call.enqueue(object : Callback<Enfant> {
             override fun onResponse(call: Call<Enfant>, response: Response<Enfant>) {
