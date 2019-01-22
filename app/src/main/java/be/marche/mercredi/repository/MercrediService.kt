@@ -33,7 +33,7 @@ interface MercrediService {
     @Multipart
     @POST("api/enfant/photo")
     fun uploadImage(@Part("image") image: RequestBody)
-    :Call<Response>
+            : Call<Response>
 
     @POST("api/update/tuteur")
     fun updateTuteur(
@@ -41,10 +41,10 @@ interface MercrediService {
         @Body tuteur: Tuteur
     ): Call<Tuteur>
 
-    @POST("api/update/enfant")
+    @POST("api/update/enfant/{id}")
     fun updateEnfant(
         @Header("X-AUTH-TOKEN") token: String?,
-        @Query(value = "id") enfantId: Int,
+        @Path("id") enfantId: Int,
         @Body enfant: Enfant
     ): Call<Enfant>
 

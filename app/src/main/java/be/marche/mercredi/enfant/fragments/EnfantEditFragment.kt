@@ -119,18 +119,21 @@ class EnfantEditFragment : Fragment() {
     }
 
     private fun updateUi(enfant: Enfant) {
-        enfantNom.setText(enfant.nom, TextView.BufferType.EDITABLE)
-        enfantPrenom.setText(enfant.prenom, TextView.BufferType.EDITABLE)
-        enfantNumeroNational.setText(enfant.numeroNational, TextView.BufferType.EDITABLE)
+        enfantNomEditView.setText(enfant.nom, TextView.BufferType.EDITABLE)
+        enfantPrenomEditView.setText(enfant.prenom, TextView.BufferType.EDITABLE)
+        enfantNumeroNationalEditView.setText(enfant.numeroNational, TextView.BufferType.EDITABLE)
+        enfantRemarquesEditView.setText(enfant.remarques, TextView.BufferType.EDITABLE)
     }
 
     private fun updateObjectByUi(enfant: Enfant) {
 
         enfant.apply {
-            nom = enfantNom.text.toString()
-            prenom = enfantPrenom.text.toString()
-            numeroNational = enfantPrenom.text.toString()
+            nom = enfantNomEditView.text.toString()
+            prenom = enfantPrenomEditView.text.toString()
+            numeroNational = enfantNumeroNationalEditView.text.toString()
+            remarques = enfantRemarquesEditView.text.toString()
             sexe = spinnerSexeView.selectedItem.toString()
+
             val nomEcoleSelected = spinnerEcoleView.selectedItem.toString()
             val ecole = ecoles.find { x -> x.nom == nomEcoleSelected }
             ecoleId = ecole!!.id
@@ -139,6 +142,7 @@ class EnfantEditFragment : Fragment() {
             anneeScolaire = nomAnneeScolaireSelected
         }
 
+        viewModelEnfant.saveReal(enfant, "123456")
         viewModelEnfant.save(enfant)
 
         Toast.makeText(context, "Sauvegardé", Toast.LENGTH_LONG).show()

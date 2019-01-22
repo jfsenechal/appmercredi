@@ -6,6 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
     <com.google.android.material.textfield.TextInputLayout
             android:layout_width="177dp"
             android:layout_height="wrap_content"
@@ -19,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/form_hint_nom"
-                android:id="@+id/enfantNom"/>
+                android:id="@+id/enfantNomEditView"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -36,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/form_hint_prenom"
-                android:id="@+id/enfantPrenom"/>
+                android:id="@+id/enfantPrenomEditView"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -78,7 +79,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/form_hint_numero_national"
-                android:id="@+id/enfantNumeroNational"/>
+                android:id="@+id/enfantNumeroNationalEditView"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -123,5 +124,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintEnd_toStartOf="@+id/spinnerEcoleView"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/enfantLabelRemarques"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerAnneeScolaireView">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/form_hint_remarques"
+                android:id="@+id/enfantRemarquesEditView" android:inputType="textMultiLine"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
