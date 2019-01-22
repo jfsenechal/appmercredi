@@ -7,7 +7,7 @@
         android:layout_height="match_parent">
 
     <ImageView
-            android:id="@+id/enfantPhoto"
+            android:id="@+id/enfantPhotoView"
             android:layout_width="150dp"
             android:layout_height="200dp"
             app:layout_constraintTop_toTopOf="parent"
@@ -23,7 +23,7 @@
             android:layout_marginTop="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             tools:text="DUPONT"
-            app:layout_constraintStart_toEndOf="@+id/enfantPhoto"
+            app:layout_constraintStart_toEndOf="@+id/enfantPhotoView"
             android:layout_marginStart="8dp"
             app:layout_constraintTop_toTopOf="parent"/>
 

@@ -2,9 +2,10 @@ package be.marche.mercredi.repository
 
 import be.marche.mercredi.entity.*
 import kotlinx.coroutines.Deferred
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import retrofit2.Call
-import okhttp3.Response
 import retrofit2.http.*
 
 interface MercrediService {
@@ -37,12 +38,12 @@ interface MercrediService {
     ): Call<Tuteur>
 
     @Multipart
-    @POST("api/enfant/photo/{id}")
+    @POST("api/update/enfant/photo/{id}")
     fun uploadImage(
         @Header("X-AUTH-TOKEN") token: String?,
-        @Path("id") enfantId: Int,
+        @Path("id") id: Int,
         @Part("image") image: RequestBody
-    ): Call<Response>
+    ): Call<ResponseBody>
 
     @POST("api/update/enfant/{id}")
     fun updateEnfant(

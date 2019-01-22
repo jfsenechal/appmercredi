@@ -11,7 +11,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -47,21 +49,16 @@ class MercrediViewModel(
     fun uploadImage(enfant: Enfant, requestBody: RequestBody) {
         viewModelScope.launch {
 
-            val request = mercrediService.uploadImage("123456", enfant.id, requestBody)
-            request.enqueue(object : Callback<okhttp3.Response> {
-                override fun onFailure(call: Call<okhttp3.Response>, t: Throwable) {
-
+            val request = mercrediService.uploadImage("****", enfant.id, requestBody)
+            request.enqueue(object : Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    Timber.i(" error image" + t.message)
                 }
 
-                override fun onResponse(call: Call<okhttp3.Response>, response: Response<okhttp3.Response>) {
-                    response.let {
-                        val data = it.body()
-
-                        Timber.i("zeze image ok ${response.body()}")
-
-
-                    }
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                    Timber.i(" response image" + response.body())
                 }
+
             })
         }
     }

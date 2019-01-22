@@ -2,7 +2,6 @@ package be.marche.mercredi.enfant.fragments
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -16,15 +15,13 @@ import be.marche.mercredi.enfant.EnfantViewModel
 import be.marche.mercredi.entity.Enfant
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.enfant_detail_fragment.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import okhttp3.RequestBody
-import okhttp3.Call
-import okhttp3.MediaType
-import okhttp3.Response
 import timber.log.Timber
 import java.io.File
-
 
 class EnfantDetailFragment : Fragment() {
 
@@ -65,7 +62,7 @@ class EnfantDetailFragment : Fragment() {
             updateUi(enfant)
         })
 
-        enfantPhoto.setOnClickListener {
+        enfantPhotoView.setOnClickListener {
             val intent = Intent(Intent.ACTION_GET_CONTENT)
             intent.type = "image/*"
             startActivityForResult(intent, REQUEST_SELECT_IMAGE_IN_ALBUM)
@@ -92,24 +89,24 @@ class EnfantDetailFragment : Fragment() {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 REQUEST_SELECT_IMAGE_IN_ALBUM -> {
-                    val contentURI = data!!.data
-                    val thumbnail: Bitmap = data.getParcelableExtra("data")
-                    val bitmap = MediaStore.Images.Media.getBitmap(activity?.contentResolver, contentURI)
-                    //todo post to server
-                    postServer(contentURI)
+                    val selectedImage = data!!.data
+                    enfantPhotoView.setImageURI(selectedImage);
+                    postServer(selectedImage)
                     enfant.photoUrl =
                             "https://www.marche.be/administration/files/2012/07/logo_au_format_jpg_grand_medium.jpg";
-                    viewModelEnfant.save(enfant)
+                    //viewModelEnfant.save(enfant)
                 }
             }
         }
     }
 
     private fun postServer(contentURI: Uri) {
-        Timber.i("zeze $contentURI")
-        var MEDIA_TYPE_PNG: MediaType = MediaType.parse("image/png")!!;
-        var file = File(contentURI.toString())
-        var requestBody: RequestBody = RequestBody.create(MEDIA_TYPE_PNG, file)
+
+        val MEDIA_TYPE_IMAGE: MediaType = MediaType.parse("image/*")!!
+        val file = File(contentURI.path)
+
+        val requestBody: RequestBody = RequestBody.create(MEDIA_TYPE_IMAGE, file)
+        val part: MultipartBody.Part = MultipartBody.Part.createFormData("image", file.getName(), requestBody)
 
         mercrediViewModel.uploadImage(enfant, requestBody)
     }
@@ -122,7 +119,7 @@ class EnfantDetailFragment : Fragment() {
         Picasso.get()
             .load(enfant.photoUrl)
             .placeholder(R.drawable.ic_image_black_24dp)
-            .into(enfantPhoto)
+            .into(enfantPhotoView)
 
         enfantNom.text = enfant.nom
         enfantPrenom.text = enfant.prenom

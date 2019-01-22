@@ -13,6 +13,7 @@ import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.LinearLayoutManager
 import be.marche.mercredi.R
 import be.marche.mercredi.enfant.EnfantViewModel
+import be.marche.mercredi.entity.Enfant
 import be.marche.mercredi.entity.Jour
 import be.marche.mercredi.entity.Presence
 import kotlinx.android.synthetic.main.jour_list_fragment.*
@@ -29,6 +30,7 @@ class AddPresenceFragment : Fragment(), JourListAdapter.JourListAdapterListener 
 
     val viewModelPresence: PresenceViewModel by inject()
     val viewModelEnfant: EnfantViewModel by sharedViewModel()
+    lateinit var enfant: Enfant
 
     companion object {
         fun newInstance() = AddPresenceFragment()
@@ -75,6 +77,10 @@ class AddPresenceFragment : Fragment(), JourListAdapter.JourListAdapterListener 
         viewModelPresence.jours.observe(this, Observer { newJours ->
             //this.jours = newJours
             UpdateUi(newJours)
+        })
+
+        viewModelEnfant.enfant?.observe(this, Observer { enfant ->
+            this.enfant = enfant
         })
     }
 
