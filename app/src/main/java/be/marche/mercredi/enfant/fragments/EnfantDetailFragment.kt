@@ -3,6 +3,7 @@ package be.marche.mercredi.enfant.fragments
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.*
@@ -21,6 +22,7 @@ import okhttp3.RequestBody
 import okhttp3.Call
 import okhttp3.MediaType
 import okhttp3.Response
+import timber.log.Timber
 import java.io.File
 
 
@@ -94,7 +96,7 @@ class EnfantDetailFragment : Fragment() {
                     val thumbnail: Bitmap = data.getParcelableExtra("data")
                     val bitmap = MediaStore.Images.Media.getBitmap(activity?.contentResolver, contentURI)
                     //todo post to server
-                    postServer()
+                    postServer(contentURI)
                     enfant.photoUrl =
                             "https://www.marche.be/administration/files/2012/07/logo_au_format_jpg_grand_medium.jpg";
                     viewModelEnfant.save(enfant)
@@ -103,12 +105,13 @@ class EnfantDetailFragment : Fragment() {
         }
     }
 
-    private fun postServer() {
+    private fun postServer(contentURI: Uri) {
+        Timber.i("zeze $contentURI")
         var MEDIA_TYPE_PNG: MediaType = MediaType.parse("image/png")!!;
-        var file = File("/storage/emulated/0/Pictures/MyApp/test.png");
+        var file = File(contentURI.toString())
         var requestBody: RequestBody = RequestBody.create(MEDIA_TYPE_PNG, file)
 
-        mercrediViewModel.uploadImage("test", requestBody)
+        mercrediViewModel.uploadImage(enfant, requestBody)
     }
 
     private fun startEdit() {

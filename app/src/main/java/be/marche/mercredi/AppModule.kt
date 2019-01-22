@@ -42,11 +42,11 @@ val appModule = module {
     single { createOkHttpClient() }
     single { createWebService<MercrediService>(get(), "http://192.168.0.8/") }
 
-    viewModel { MercrediViewModel(get(), get(), get(), get()) }
+    viewModel { MercrediViewModel(get(), get()) }
     viewModel { SyncViewModel(get(), get(), get(), get()) }
     viewModel { EnfantViewModel(get(), get()) }
     viewModel { TuteurViewModel(get(), get()) }
-    viewModel { PresenceViewModel(get(), get()) }
+    viewModel { PresenceViewModel(get(), get(), get()) }
     viewModel { UserViewModel(get()) }
     viewModel { LoginViewModel(get(), get()) }
 }

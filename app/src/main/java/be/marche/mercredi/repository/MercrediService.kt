@@ -30,16 +30,19 @@ interface MercrediService {
         @Field("password") password: String
     ): Call<User>
 
-    @Multipart
-    @POST("api/enfant/photo")
-    fun uploadImage(@Part("image") image: RequestBody)
-            : Call<Response>
-
     @POST("api/update/tuteur")
     fun updateTuteur(
         @Header("X-AUTH-TOKEN") token: String?,
         @Body tuteur: Tuteur
     ): Call<Tuteur>
+
+    @Multipart
+    @POST("api/enfant/photo/{id}")
+    fun uploadImage(
+        @Header("X-AUTH-TOKEN") token: String?,
+        @Path("id") enfantId: Int,
+        @Part("image") image: RequestBody
+    ): Call<Response>
 
     @POST("api/update/enfant/{id}")
     fun updateEnfant(
@@ -48,11 +51,11 @@ interface MercrediService {
         @Body enfant: Enfant
     ): Call<Enfant>
 
-    @POST("api/presence/new")
-    fun newPresence(
+    @POST("api/presences/new/{id}")
+    fun newPresences(
         @Header("X-AUTH-TOKEN") token: String?,
-        @Query(value = "id") enfantId: Int,
-        @Body presence: Presence
-    ): Call<Presence>
+        @Path("id") enfantId: Int,
+        @Body presences: List<Presence>
+    ): Call<List<Presence>>
 
 }

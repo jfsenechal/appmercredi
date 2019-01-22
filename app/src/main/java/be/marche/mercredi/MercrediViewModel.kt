@@ -2,15 +2,14 @@ package be.marche.mercredi
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import be.marche.mercredi.entity.AnneeScolaire
+import be.marche.mercredi.entity.Ecole
+import be.marche.mercredi.entity.Enfant
+import be.marche.mercredi.repository.MercrediRepository
+import be.marche.mercredi.repository.MercrediService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import be.marche.mercredi.enfant.EnfantRepository
-import be.marche.mercredi.entity.AnneeScolaire
-import be.marche.mercredi.entity.Ecole
-import be.marche.mercredi.repository.MercrediRepository
-import be.marche.mercredi.repository.MercrediService
-import be.marche.mercredi.tuteur.TuteurRepository
 import kotlinx.coroutines.launch
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -20,8 +19,6 @@ import timber.log.Timber
 
 class MercrediViewModel(
     val mercrediService: MercrediService,
-    val enfantRepository: EnfantRepository,
-    val tuteurRepository: TuteurRepository,
     val mercrediRepository: MercrediRepository
 ) :
     ViewModel() {
@@ -47,10 +44,10 @@ class MercrediViewModel(
         return mercrediRepository.getAnneeScolaireByName(name)
     }
 
-    fun uploadImage(imageName: String, requestBody: RequestBody) {
+    fun uploadImage(enfant: Enfant, requestBody: RequestBody) {
         viewModelScope.launch {
 
-            val request = mercrediService.uploadImage(requestBody)
+            val request = mercrediService.uploadImage("123456", enfant.id, requestBody)
             request.enqueue(object : Callback<okhttp3.Response> {
                 override fun onFailure(call: Call<okhttp3.Response>, t: Throwable) {
 
@@ -60,7 +57,7 @@ class MercrediViewModel(
                     response.let {
                         val data = it.body()
 
-                        Timber.i("zeze reponse ok ${response.body()}")
+                        Timber.i("zeze image ok ${response.body()}")
 
 
                     }

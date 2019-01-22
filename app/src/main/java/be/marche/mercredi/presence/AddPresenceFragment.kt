@@ -156,7 +156,7 @@ class AddPresenceFragment : Fragment(), JourListAdapter.JourListAdapterListener 
 
             //todo post server
 
-            viewModelPresence.insertPresence(presences)
+            viewModelPresence.insertPresenceReal(enfant, presences,"123456")
             Toast.makeText(
                 context,
                 resources.getQuantityString(R.plurals.presence_ajoutees, nbJours, nbJours),

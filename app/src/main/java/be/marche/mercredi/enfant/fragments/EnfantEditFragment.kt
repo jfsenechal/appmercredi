@@ -143,6 +143,7 @@ class EnfantEditFragment : Fragment() {
         }
 
         viewModelEnfant.saveReal(enfant, "123456")
+
         viewModelEnfant.save(enfant)
 
         Toast.makeText(context, "Sauvegardé", Toast.LENGTH_LONG).show()

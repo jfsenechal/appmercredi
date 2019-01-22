@@ -55,10 +55,10 @@ class EnfantViewModel(
 
                 override fun onResponse(call: Call<Enfant>, response: Response<Enfant>) {
                     response.let {
-                        val user = it.body()
-                        if (user != null) {
+                        val enfant = it.body()
+                        if (enfant != null) {
                             Timber.i("zeze reponse enfant ok ${response.body()}")
-                            save(user)
+                            save(enfant)
 
                         } else {
                             Timber.i("zeze reponse enfant ko ${response.body()}")
