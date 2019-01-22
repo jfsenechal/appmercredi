@@ -14,7 +14,6 @@ import be.marche.mercredi.entity.Tuteur
 import be.marche.mercredi.tuteur.TuteurPagerAdapter
 import be.marche.mercredi.tuteur.TuteurViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import timber.log.Timber
 
 class TuteurEditFragment : Fragment() {
 
@@ -37,13 +36,14 @@ class TuteurEditFragment : Fragment() {
 
         tuteurPagerAdapter = this.fragmentManager?.let { TuteurPagerAdapter(it) }
 
-        mypager.adapter = tuteurPagerAdapter
-        tabLayout.setupWithViewPager(mypager)
+        tuteurViewPager.adapter = tuteurPagerAdapter
+        tabLayout.setupWithViewPager(tuteurViewPager)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModelTuteur.tuteur?.observe(this, Observer { tuteur ->
+
             this.tuteur = tuteur
         })
     }
@@ -78,7 +78,7 @@ class TuteurEditFragment : Fragment() {
             telephoneBureauConjoint = conjointTelephoneBureau.text.toString()
         }
 
-        //todo update server
+        viewModelTuteur.saveReal(tuteur, "123456")
         viewModelTuteur.save(tuteur)
         Toast.makeText(context, "Sauvegardé", Toast.LENGTH_LONG).show()
 

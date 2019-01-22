@@ -2,16 +2,15 @@ package be.marche.mercredi.tuteur
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentStatePagerAdapter
 import be.marche.mercredi.tuteur.fragments.ConjointEditCoordonneesFragment
 import be.marche.mercredi.tuteur.fragments.TuteurEditCoordonneesFragment
 
-class TuteurPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class TuteurPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
     val titles: List<String> = listOf("Coordonnées", "Conjoint")
 
     override fun getItem(position: Int): Fragment {
-
         return when (position) {
             0 -> TuteurEditCoordonneesFragment.newInstance()
             else -> ConjointEditCoordonneesFragment.newInstance()

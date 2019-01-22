@@ -9,12 +9,15 @@ import be.marche.mercredi.R
 import kotlinx.android.synthetic.main.tuteur_detail_fragment.*
 import be.marche.mercredi.entity.Tuteur
 import be.marche.mercredi.tuteur.TuteurViewModel
+import be.marche.mercredi.user.UserViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import timber.log.Timber
 
 class TuteurDetailFragment : Fragment() {
 
     lateinit var tuteur: Tuteur
     val viewModelTuteur: TuteurViewModel by sharedViewModel()
+    val userViewModel: UserViewModel by sharedViewModel()
 
     companion object {
         fun newInstance() = TuteurDetailFragment()
@@ -36,9 +39,20 @@ class TuteurDetailFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        userViewModel.user?.observe(this, Observer {
+
+            var token = it?.token
+            //  token = null
+            Timber.i("zeze token $token")
+            if (token != null) {
+
+            }
+        })
+
         viewModelTuteur.tuteur = viewModelTuteur.getTuteurById(118)
 
         viewModelTuteur.tuteur?.observe(this, Observer { tuteur ->
+
             updateUi(tuteur)
         })
     }

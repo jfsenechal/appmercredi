@@ -29,19 +29,8 @@ class LoginViewModel(val userRepository: UserRepository, val mercrediService: Me
     private val viewModelJob = Job()
     private val viewModelScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     private val state = MutableLiveData<LoginViewModelState>()
+
     fun getState(): LiveData<LoginViewModelState> = state
-
-    fun login(username: String, password: String) {
-        //todo post server
-
-        if (username == "jf" && password == "homer") {
-            val user = User(0, "senechal", "jf", "jf@marche.be", "ll")
-            this.save((user))
-            state.value = LoginViewModelStateSuccess
-        } else {
-            state.value = LoginViewModelStateFailure("Wrong username / password!")
-        }
-    }
 
     fun save(user: User) {
         viewModelScope.launch {
@@ -75,8 +64,6 @@ class LoginViewModel(val userRepository: UserRepository, val mercrediService: Me
                 }
             })
         }
-
-
     }
 
 }

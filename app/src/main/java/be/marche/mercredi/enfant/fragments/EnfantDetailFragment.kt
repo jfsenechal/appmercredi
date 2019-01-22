@@ -17,6 +17,12 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.enfant_detail_fragment.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import okhttp3.RequestBody
+import okhttp3.Call
+import okhttp3.MediaType
+import okhttp3.Response
+import java.io.File
+
 
 class EnfantDetailFragment : Fragment() {
 
@@ -88,12 +94,21 @@ class EnfantDetailFragment : Fragment() {
                     val thumbnail: Bitmap = data.getParcelableExtra("data")
                     val bitmap = MediaStore.Images.Media.getBitmap(activity?.contentResolver, contentURI)
                     //todo post to server
+                    postServer()
                     enfant.photoUrl =
                             "https://www.marche.be/administration/files/2012/07/logo_au_format_jpg_grand_medium.jpg";
                     viewModelEnfant.save(enfant)
                 }
             }
         }
+    }
+
+    private fun postServer() {
+        var MEDIA_TYPE_PNG: MediaType = MediaType.parse("image/png")!!;
+        var file = File("/storage/emulated/0/Pictures/MyApp/test.png");
+        var requestBody: RequestBody = RequestBody.create(MEDIA_TYPE_PNG, file)
+
+        mercrediViewModel.uploadImage("test", requestBody)
     }
 
     private fun startEdit() {

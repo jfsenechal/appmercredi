@@ -1,18 +1,16 @@
 package be.marche.mercredi.user
 
+import android.accounts.Account
+import android.accounts.AccountManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.login_fragment.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import androidx.navigation.fragment.findNavController
-import android.accounts.Account
-import android.accounts.AccountManager
-import timber.log.Timber
 
 class LoginFragment : Fragment() {
 
@@ -34,13 +32,11 @@ class LoginFragment : Fragment() {
         accountManager = AccountManager.get(context) // "this" references the current Context
 
         userViewModel.user?.observe(this, Observer {
-            var token = it?.token
+            val token = it?.token
             //  token = null
             if (token != null) {
-                Timber.i("zeze login ${token}")
                 findNavController().navigate(be.marche.mercredi.R.id.action_loginFragment_to_menuFragment)
             }
-            Timber.i("zeze pas de token ")
         })
 
         loginViewModel.getState().observe(this, Observer { updateUi(it!!) })
@@ -57,7 +53,6 @@ class LoginFragment : Fragment() {
             LoginViewModelStateSuccess -> {
                 errorMessageTextView.visibility = View.INVISIBLE
                 loginButton.isEnabled = state.loginButtonEnabled
-                Toast.makeText(context, "Logged! Loading next Activity...", Toast.LENGTH_SHORT).show()
 
                 findNavController().navigate(be.marche.mercredi.R.id.action_loginFragment_to_menuFragment)
             }
