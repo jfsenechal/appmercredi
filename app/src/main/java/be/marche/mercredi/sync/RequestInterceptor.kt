@@ -5,7 +5,6 @@ import okhttp3.Headers
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
-import timber.log.Timber
 
 class RequestInterceptor(private val userViewModel: UserViewModel) : Interceptor {
 
@@ -26,7 +25,6 @@ class RequestInterceptor(private val userViewModel: UserViewModel) : Interceptor
 
         val headers: Headers = Headers.Builder()
             .add("X-AUTH-TOKEN", token)
-            .add("User-Agent", "you-app-name2")
             .build()
 
         val newRequest: Request = originalRequest.newBuilder()
