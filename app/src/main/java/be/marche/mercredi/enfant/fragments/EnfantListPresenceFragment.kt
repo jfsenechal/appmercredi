@@ -41,7 +41,7 @@ class EnfantListPresenceFragment : Fragment(), EnfantPresenceListAdapter.EnfantP
         super.onActivityCreated(savedInstanceState)
 
         if (!::presences.isInitialized) {
-            presences = mutableListOf(Presence(1, "mercredi 3 janvier 2019", false, true))
+            presences = mutableListOf();
         }
 
         listener = this

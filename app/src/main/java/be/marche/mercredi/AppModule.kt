@@ -8,6 +8,7 @@ import be.marche.mercredi.presence.PresenceViewModel
 import be.marche.mercredi.repository.MercrediRepository
 import be.marche.mercredi.repository.MercrediService
 import be.marche.mercredi.repository.UserRepository
+import be.marche.mercredi.sync.RequestInterceptor
 import be.marche.mercredi.sync.SyncViewModel
 import be.marche.mercredi.tuteur.TuteurRepository
 import be.marche.mercredi.tuteur.TuteurViewModel
@@ -39,25 +40,27 @@ val appModule = module {
     single { PresenceRepository(get()) }
     single { UserRepository(get()) }
 
-    single { createOkHttpClient() }
-    single { createWebService<MercrediService>(get(), "http://192.168.0.8/") }
-
     viewModel { MercrediViewModel(get(), get()) }
-    viewModel { SyncViewModel(get(), get(), get(), get()) }
+    viewModel { SyncViewModel(get(), get(), get(), get(), get()) }
     viewModel { EnfantViewModel(get(), get()) }
     viewModel { TuteurViewModel(get(), get()) }
     viewModel { PresenceViewModel(get(), get(), get()) }
-    viewModel { UserViewModel(get()) }
     viewModel { LoginViewModel(get(), get()) }
+    viewModel { UserViewModel(get()) }
+
+    single { RequestInterceptor(get()) }
+    single { createOkHttpClient<OkHttpClient>(get()) }
+    single { createWebService<MercrediService>(get(), "http://172.17.30.218/") }//http://192.168.0.8/
 }
 
-fun createOkHttpClient(): OkHttpClient {
+inline fun <reified T> createOkHttpClient(t: RequestInterceptor): OkHttpClient {
     return OkHttpClient.Builder()
         .connectTimeout(60L, TimeUnit.SECONDS)
         .readTimeout(60L, TimeUnit.SECONDS)
         .addInterceptor(HttpLoggingInterceptor().apply {
             level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
         })
+        .addInterceptor(t)
         .build()
 }
 

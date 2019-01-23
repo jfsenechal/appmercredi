@@ -16,6 +16,7 @@ import be.marche.mercredi.enfant.EnfantViewModel
 import be.marche.mercredi.entity.Enfant
 import be.marche.mercredi.entity.Jour
 import be.marche.mercredi.entity.Presence
+import be.marche.mercredi.user.UserViewModel
 import kotlinx.android.synthetic.main.jour_list_fragment.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -30,7 +31,9 @@ class AddPresenceFragment : Fragment(), JourListAdapter.JourListAdapterListener 
 
     val viewModelPresence: PresenceViewModel by inject()
     val viewModelEnfant: EnfantViewModel by sharedViewModel()
+    val userViewModel: UserViewModel by sharedViewModel()
     lateinit var enfant: Enfant
+    lateinit var token: String
 
     companion object {
         fun newInstance() = AddPresenceFragment()
@@ -81,6 +84,10 @@ class AddPresenceFragment : Fragment(), JourListAdapter.JourListAdapterListener 
 
         viewModelEnfant.enfant?.observe(this, Observer { enfant ->
             this.enfant = enfant
+        })
+
+        userViewModel.user?.observe(this, Observer {
+             token = it.token
         })
     }
 
@@ -148,21 +155,18 @@ class AddPresenceFragment : Fragment(), JourListAdapter.JourListAdapterListener 
     private fun savePresences() {
         val joursSelected = tracker?.selection
         val nbJours: Int? = tracker?.selection?.size()
+        val joursId: MutableList<Int> = mutableListOf()
 
         if (nbJours != null && nbJours > 0) {
 
-            val presences = mutableListOf<Presence>()
-
             joursSelected?.forEach { position ->
                 val jour: Jour = jours[position.toInt()]
-                val presence = Presence(0, jour.date_jour, false, false)
-                presences.add(presence)
-                Timber.i("zeze position $presence")
+                joursId.add(jour.id)
             }
 
-            //todo post server
+            viewModelPresence.insertPresenceReal(enfant, joursId, token)
+           // viewModelPresence.insertPresence(presences)
 
-            viewModelPresence.insertPresenceReal(enfant, presences,"123456")
             Toast.makeText(
                 context,
                 resources.getQuantityString(R.plurals.presence_ajoutees, nbJours, nbJours),

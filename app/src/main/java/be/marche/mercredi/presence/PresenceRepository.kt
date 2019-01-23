@@ -23,7 +23,7 @@ class PresenceRepository(val presenceDao: PresenceDao) : KoinComponent {
         }
     }
 
-    suspend fun updateEnfant(presence: Presence) {
+    suspend fun updatePresence(presence: Presence) {
         withContext(Dispatchers.IO) {
             presenceDao.updatePresences(listOf(presence))
         }

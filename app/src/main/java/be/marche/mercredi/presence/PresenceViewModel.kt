@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import be.marche.mercredi.entity.Enfant
 import be.marche.mercredi.entity.Jour
 import be.marche.mercredi.entity.Presence
+import be.marche.mercredi.entity.ResponseRetrofit
 import be.marche.mercredi.repository.MercrediRepository
 import be.marche.mercredi.repository.MercrediService
 import kotlinx.coroutines.CoroutineScope
@@ -39,7 +40,6 @@ class PresenceViewModel(
 
     val jours: LiveData<List<Jour>> = mercrediRepository.getAllJours()
 
-
     fun getJourById(jourId: Int): LiveData<Jour> {
         return mercrediRepository.getJourById(jourId)
     }
@@ -50,26 +50,24 @@ class PresenceViewModel(
         }
     }
 
-    fun insertPresenceReal(enfant: Enfant, presences: List<Presence>,token: String) {
+    fun insertPresenceReal(enfant: Enfant, jours: List<Int>, token: String) {
 
         viewModelScope.launch {
 
-            val request = mercrediService.newPresences(token, enfant.id, presences)
-            request.enqueue(object : Callback<List<Presence>> {
-                override fun onFailure(call: Call<List<Presence>>, t: Throwable) {
+            val request = mercrediService.newPresences(token, enfant.id, jours)
+            request.enqueue(object : Callback<ResponseRetrofit> {
+                override fun onFailure(call: Call<ResponseRetrofit>, t: Throwable) {
 
                 }
 
-                override fun onResponse(call: Call<List<Presence>>, response: Response<List<Presence>>) {
+                override fun onResponse(call: Call<ResponseRetrofit>, response: Response<ResponseRetrofit>) {
                     response.let {
-                        val presence = it.body()
-                        if (presence != null) {
+                        val presences = it.body()
+                        if (presences != null) {
                             Timber.i("zeze reponse presence ok ${response.body()}")
-                            insertPresence(presence)
-
+                            //to refresh data
                         } else {
                             Timber.i("zeze reponse presence ko ${response.body()}")
-
                         }
                     }
                 }

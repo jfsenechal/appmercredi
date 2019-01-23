@@ -7,5 +7,6 @@ data class MercrediData(
     val tuteur: Tuteur,
     val ecoles: List<Ecole>,
     val annees: List<AnneeScolaire>,
-    val jours: List<Jour>
+    val jours: List<Jour>,
+    val presences: List<Presence>
 )

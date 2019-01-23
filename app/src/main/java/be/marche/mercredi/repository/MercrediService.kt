@@ -2,7 +2,6 @@ package be.marche.mercredi.repository
 
 import be.marche.mercredi.entity.*
 import kotlinx.coroutines.Deferred
-import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -56,7 +55,7 @@ interface MercrediService {
     fun newPresences(
         @Header("X-AUTH-TOKEN") token: String?,
         @Path("id") enfantId: Int,
-        @Body presences: List<Presence>
-    ): Call<List<Presence>>
+        @Body jours: List<Int>
+    ): Call<ResponseRetrofit>
 
 }

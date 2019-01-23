@@ -64,10 +64,19 @@ data class Tuteur(
     var slugname: String? = null
 )
 
-@Entity()
+@Entity(
+    foreignKeys = [
+        ForeignKey(
+            entity = Enfant::class,
+            parentColumns = ["id"],
+            childColumns = ["enfantId"]
+        )
+    ]
+)
 data class Presence(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
+    val enfantId: Int,
     val date: String,
     val absent: Boolean = false,
     var payer: Boolean
@@ -132,4 +141,7 @@ data class User(
     }
 }
 
-data class Message(val message: String)
+data class ResponseRetrofit(
+    val isError: Boolean,
+    val message: String
+)

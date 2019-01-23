@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -13,6 +12,7 @@ import be.marche.mercredi.MercrediViewModel
 import be.marche.mercredi.R
 import be.marche.mercredi.enfant.EnfantViewModel
 import be.marche.mercredi.entity.Enfant
+import be.marche.mercredi.user.UserViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.enfant_detail_fragment.*
 import okhttp3.MediaType
@@ -22,12 +22,15 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 import java.io.File
+import java.io.InputStream
 
 class EnfantDetailFragment : Fragment() {
 
     val viewModelEnfant: EnfantViewModel by sharedViewModel()
+    val userViewModel: UserViewModel by sharedViewModel()
     val mercrediViewModel: MercrediViewModel by inject()
     lateinit var enfant: Enfant
+    lateinit var token: String
 
     companion object {
         private val REQUEST_SELECT_IMAGE_IN_ALBUM = 1
@@ -62,6 +65,10 @@ class EnfantDetailFragment : Fragment() {
             updateUi(enfant)
         })
 
+        userViewModel.user?.observe(this, Observer {
+            token = it.token
+        })
+
         enfantPhotoView.setOnClickListener {
             val intent = Intent(Intent.ACTION_GET_CONTENT)
             intent.type = "image/*"
@@ -91,6 +98,8 @@ class EnfantDetailFragment : Fragment() {
                 REQUEST_SELECT_IMAGE_IN_ALBUM -> {
                     val selectedImage = data!!.data
                     enfantPhotoView.setImageURI(selectedImage);
+                    val inputStream = readTextFromUri(selectedImage)
+                    Timber.i("zeze input $inputStream")
                     postServer(selectedImage)
                     enfant.photoUrl =
                             "https://www.marche.be/administration/files/2012/07/logo_au_format_jpg_grand_medium.jpg";
@@ -98,6 +107,15 @@ class EnfantDetailFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun readTextFromUri(uri: Uri): InputStream? {
+        val stringBuilder = StringBuilder()
+        context?.contentResolver?.openInputStream(uri)?.use { inputStream ->
+            return inputStream
+        }
+        return null
+        //return stringBuilder.toString()
     }
 
     private fun postServer(contentURI: Uri) {
@@ -108,7 +126,7 @@ class EnfantDetailFragment : Fragment() {
         val requestBody: RequestBody = RequestBody.create(MEDIA_TYPE_IMAGE, file)
         val part: MultipartBody.Part = MultipartBody.Part.createFormData("image", file.getName(), requestBody)
 
-        mercrediViewModel.uploadImage(enfant, requestBody)
+        mercrediViewModel.uploadImage(token, enfant, requestBody)
     }
 
     private fun startEdit() {

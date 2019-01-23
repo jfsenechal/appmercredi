@@ -13,12 +13,15 @@ import kotlinx.android.synthetic.main.tuteur_edit_coordonnees_fragment.*
 import be.marche.mercredi.entity.Tuteur
 import be.marche.mercredi.tuteur.TuteurPagerAdapter
 import be.marche.mercredi.tuteur.TuteurViewModel
+import be.marche.mercredi.user.UserViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class TuteurEditFragment : Fragment() {
 
     val viewModelTuteur: TuteurViewModel by sharedViewModel()
+    val userViewModel: UserViewModel by sharedViewModel()
     lateinit var tuteur: Tuteur
+    lateinit var token: String
 
     private var tuteurPagerAdapter: TuteurPagerAdapter? = null
 
@@ -33,6 +36,10 @@ class TuteurEditFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        userViewModel.user?.observe(this, Observer {
+            token = it.token
+        })
 
         tuteurPagerAdapter = this.fragmentManager?.let { TuteurPagerAdapter(it) }
 
@@ -78,7 +85,7 @@ class TuteurEditFragment : Fragment() {
             telephoneBureauConjoint = conjointTelephoneBureau.text.toString()
         }
 
-        viewModelTuteur.saveReal(tuteur, "123456")
+        viewModelTuteur.saveReal(tuteur, token)
         viewModelTuteur.save(tuteur)
         Toast.makeText(context, "Sauvegardé", Toast.LENGTH_LONG).show()
 

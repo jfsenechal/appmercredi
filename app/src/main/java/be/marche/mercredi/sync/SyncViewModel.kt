@@ -2,6 +2,7 @@ package be.marche.mercredi.sync
 
 import androidx.lifecycle.ViewModel
 import be.marche.mercredi.enfant.EnfantRepository
+import be.marche.mercredi.presence.PresenceRepository
 import be.marche.mercredi.repository.MercrediRepository
 import be.marche.mercredi.repository.MercrediService
 import be.marche.mercredi.tuteur.TuteurRepository
@@ -14,7 +15,8 @@ class SyncViewModel(
     val mercrediService: MercrediService,
     val enfantRepository: EnfantRepository,
     val tuteurRepository: TuteurRepository,
-    val mercrediRepository: MercrediRepository
+    val mercrediRepository: MercrediRepository,
+    val presenceRepository: PresenceRepository
 ) :
     ViewModel() {
 
@@ -41,6 +43,7 @@ class SyncViewModel(
                 mercrediRepository.insertJours(it.jours)
                 enfantRepository.insertEnfants(it.enfants)
                 tuteurRepository.insertTuteurs(it.tuteur)
+                presenceRepository.insertPresences(it.presences)
             }
 
         }
