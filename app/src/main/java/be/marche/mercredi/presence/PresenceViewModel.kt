@@ -50,11 +50,11 @@ class PresenceViewModel(
         }
     }
 
-    fun insertPresenceReal(enfant: Enfant, jours: List<Int>, token: String) {
+    fun insertPresenceReal(enfant: Enfant, jours: List<Int>) {
 
         viewModelScope.launch {
 
-            val request = mercrediService.newPresences(token, enfant.id, jours)
+            val request = mercrediService.newPresences( enfant.id, jours)
             request.enqueue(object : Callback<ResponseRetrofit> {
                 override fun onFailure(call: Call<ResponseRetrofit>, t: Throwable) {
 

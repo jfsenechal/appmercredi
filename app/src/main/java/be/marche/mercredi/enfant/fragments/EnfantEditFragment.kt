@@ -15,7 +15,6 @@ import be.marche.mercredi.enfant.EnfantViewModel
 import be.marche.mercredi.entity.AnneeScolaire
 import be.marche.mercredi.entity.Ecole
 import be.marche.mercredi.entity.Enfant
-import be.marche.mercredi.user.UserViewModel
 import kotlinx.android.synthetic.main.enfant_edit_fragment.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -23,7 +22,6 @@ class EnfantEditFragment : Fragment() {
 
     val viewModelEnfant: EnfantViewModel by sharedViewModel()
     val mercrediViewModel: MercrediViewModel by sharedViewModel()
-    val userViewModel: UserViewModel by sharedViewModel()
 
     lateinit var enfant: Enfant
     lateinit var ecoles: List<Ecole>
@@ -65,10 +63,6 @@ class EnfantEditFragment : Fragment() {
             this.enfant = enfant
             updateUi(enfant)
             initSpinners()
-        })
-
-        userViewModel.user?.observe(this, Observer {
-             token = it.token
         })
     }
 
@@ -149,7 +143,7 @@ class EnfantEditFragment : Fragment() {
             anneeScolaire = nomAnneeScolaireSelected
         }
 
-        viewModelEnfant.saveReal(enfant, token)
+        viewModelEnfant.saveReal(enfant)
 
         viewModelEnfant.save(enfant)
 

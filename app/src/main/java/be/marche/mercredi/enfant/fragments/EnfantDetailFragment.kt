@@ -12,7 +12,6 @@ import be.marche.mercredi.MercrediViewModel
 import be.marche.mercredi.R
 import be.marche.mercredi.enfant.EnfantViewModel
 import be.marche.mercredi.entity.Enfant
-import be.marche.mercredi.user.UserViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.enfant_detail_fragment.*
 import okhttp3.MediaType
@@ -27,10 +26,8 @@ import java.io.InputStream
 class EnfantDetailFragment : Fragment() {
 
     val viewModelEnfant: EnfantViewModel by sharedViewModel()
-    val userViewModel: UserViewModel by sharedViewModel()
     val mercrediViewModel: MercrediViewModel by inject()
     lateinit var enfant: Enfant
-    lateinit var token: String
 
     companion object {
         private val REQUEST_SELECT_IMAGE_IN_ALBUM = 1
@@ -63,10 +60,6 @@ class EnfantDetailFragment : Fragment() {
                 enfantAnneeScolaire.text = it.nom
             })
             updateUi(enfant)
-        })
-
-        userViewModel.user?.observe(this, Observer {
-            token = it.token
         })
 
         enfantPhotoView.setOnClickListener {
@@ -126,7 +119,7 @@ class EnfantDetailFragment : Fragment() {
         val requestBody: RequestBody = RequestBody.create(MEDIA_TYPE_IMAGE, file)
         val part: MultipartBody.Part = MultipartBody.Part.createFormData("image", file.getName(), requestBody)
 
-        mercrediViewModel.uploadImage(token, enfant, requestBody)
+        mercrediViewModel.uploadImage(enfant, requestBody)
     }
 
     private fun startEdit() {

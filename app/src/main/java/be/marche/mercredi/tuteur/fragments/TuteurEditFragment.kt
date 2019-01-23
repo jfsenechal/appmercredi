@@ -7,21 +7,18 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import be.marche.mercredi.R
-import kotlinx.android.synthetic.main.activity_tabbed.*
-import kotlinx.android.synthetic.main.conjoint_edit_coordonnees_fragment.*
-import kotlinx.android.synthetic.main.tuteur_edit_coordonnees_fragment.*
 import be.marche.mercredi.entity.Tuteur
 import be.marche.mercredi.tuteur.TuteurPagerAdapter
 import be.marche.mercredi.tuteur.TuteurViewModel
-import be.marche.mercredi.user.UserViewModel
+import kotlinx.android.synthetic.main.activity_tabbed.*
+import kotlinx.android.synthetic.main.conjoint_edit_coordonnees_fragment.*
+import kotlinx.android.synthetic.main.tuteur_edit_coordonnees_fragment.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class TuteurEditFragment : Fragment() {
 
     val viewModelTuteur: TuteurViewModel by sharedViewModel()
-    val userViewModel: UserViewModel by sharedViewModel()
     lateinit var tuteur: Tuteur
-    lateinit var token: String
 
     private var tuteurPagerAdapter: TuteurPagerAdapter? = null
 
@@ -36,10 +33,6 @@ class TuteurEditFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        userViewModel.user?.observe(this, Observer {
-            token = it.token
-        })
 
         tuteurPagerAdapter = this.fragmentManager?.let { TuteurPagerAdapter(it) }
 
@@ -85,7 +78,7 @@ class TuteurEditFragment : Fragment() {
             telephoneBureauConjoint = conjointTelephoneBureau.text.toString()
         }
 
-        viewModelTuteur.saveReal(tuteur, token)
+        viewModelTuteur.saveReal(tuteur)
         viewModelTuteur.save(tuteur)
         Toast.makeText(context, "Sauvegardé", Toast.LENGTH_LONG).show()
 

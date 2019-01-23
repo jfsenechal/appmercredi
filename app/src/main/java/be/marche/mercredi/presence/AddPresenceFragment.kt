@@ -31,9 +31,7 @@ class AddPresenceFragment : Fragment(), JourListAdapter.JourListAdapterListener 
 
     val viewModelPresence: PresenceViewModel by inject()
     val viewModelEnfant: EnfantViewModel by sharedViewModel()
-    val userViewModel: UserViewModel by sharedViewModel()
     lateinit var enfant: Enfant
-    lateinit var token: String
 
     companion object {
         fun newInstance() = AddPresenceFragment()
@@ -84,10 +82,6 @@ class AddPresenceFragment : Fragment(), JourListAdapter.JourListAdapterListener 
 
         viewModelEnfant.enfant?.observe(this, Observer { enfant ->
             this.enfant = enfant
-        })
-
-        userViewModel.user?.observe(this, Observer {
-             token = it.token
         })
     }
 
@@ -164,7 +158,7 @@ class AddPresenceFragment : Fragment(), JourListAdapter.JourListAdapterListener 
                 joursId.add(jour.id)
             }
 
-            viewModelPresence.insertPresenceReal(enfant, joursId, token)
+            viewModelPresence.insertPresenceReal(enfant, joursId)
            // viewModelPresence.insertPresence(presences)
 
             Toast.makeText(

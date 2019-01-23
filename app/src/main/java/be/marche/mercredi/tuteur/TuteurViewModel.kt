@@ -45,10 +45,10 @@ class TuteurViewModel(
         return tuteurRepository.getTuteurById(tuteurId)
     }
 
-    fun saveReal(tuteur: Tuteur, token: String) {
+    fun saveReal(tuteur: Tuteur) {
         viewModelScope.launch {
 
-            val request = mercrediService.updateTuteur(token, tuteur)
+            val request = mercrediService.updateTuteur(tuteur)
             request.enqueue(object : Callback<Tuteur> {
                 override fun onFailure(call: Call<Tuteur>, t: Throwable) {
 

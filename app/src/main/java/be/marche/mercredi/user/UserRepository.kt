@@ -17,6 +17,10 @@ class UserRepository(val userDao: UserDao) : KoinComponent {
         return userDao.getOneUser()
     }
 
+    fun getOneUser2(): User? {
+        return userDao.getOneUser2()
+    }
+
     fun getUserId(userId: Int): LiveData<User> {
         return userDao.getUserById(userId)
     }
@@ -32,4 +36,5 @@ class UserRepository(val userDao: UserDao) : KoinComponent {
             userDao.updateUser(user)
         }
     }
+
 }

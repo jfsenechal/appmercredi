@@ -40,13 +40,7 @@ class TuteurDetailFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         userViewModel.user?.observe(this, Observer {
-
-            var token = it?.token
-            //  token = null
-            Timber.i("zeze token $token")
-            if (token != null) {
-
-            }
+            val token = it?.token
         })
 
         viewModelTuteur.tuteur = viewModelTuteur.getTuteurById(118)

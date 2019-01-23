@@ -42,7 +42,6 @@ class MenuFragment : Fragment(), MenuListAdapter.MenuAdapterListener {
 
         //todo observe token ?
         userViewModel.user?.observe(this, Observer {
-            Timber.i("zeze sync ${it.token}")
             syncViewModel.token = it.token
             if (it.token.isNotEmpty()) {
                 refreshDataBase()

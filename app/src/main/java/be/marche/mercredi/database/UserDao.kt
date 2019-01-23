@@ -13,6 +13,9 @@ interface UserDao {
     @Query("SELECT * FROM user LIMIT 0,1")
     fun getOneUser(): LiveData<User>
 
+    @Query("SELECT * FROM user LIMIT 0,1")
+    fun getOneUser2(): User
+
     @Query("SELECT * FROM user WHERE id = :id")
     fun getUserById(id: Int): LiveData<User>
 

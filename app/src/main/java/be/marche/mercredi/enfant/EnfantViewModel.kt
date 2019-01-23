@@ -39,15 +39,14 @@ class EnfantViewModel(
     fun save(enfant: Enfant) {
         viewModelScope.launch {
             enfantRepository.updateEnfant(enfant)
-            //todo save to server
         }
     }
 
-    fun saveReal(enfant: Enfant, token: String) {
+    fun saveReal(enfant: Enfant) {
 
         viewModelScope.launch {
 
-            val request = mercrediService.updateEnfant(token, enfant.id, enfant)
+            val request = mercrediService.updateEnfant( enfant.id, enfant)
             request.enqueue(object : Callback<Enfant> {
                 override fun onFailure(call: Call<Enfant>, t: Throwable) {
 

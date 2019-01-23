@@ -7,6 +7,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class UserViewModel(
     private val userRepository: UserRepository
@@ -26,6 +27,10 @@ class UserViewModel(
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
+    }
+
+    fun getOneUser2(): User? {
+        return userRepository.getOneUser2()
     }
 
     fun getUserById(userId: Int): LiveData<User> {

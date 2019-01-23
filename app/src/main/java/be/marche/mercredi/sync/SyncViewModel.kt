@@ -33,7 +33,7 @@ class SyncViewModel(
 
         viewModelScope.launch {
 
-            val request = mercrediService.getAllData(token)
+            val request = mercrediService.getAllData()
 
             val response = request.await()
 

@@ -16,9 +16,11 @@ class RequestInterceptor(private val userViewModel: UserViewModel) : Interceptor
          */
         val originalRequest: Request = chain.request()
 
-        val token = userViewModel.userStatic?.token
+        val user = userViewModel.getOneUser2()
+
+        val token = user?.token
+
         if (token == null) {
-            Timber.i("zeze interceptor $token")
             return chain.proceed(originalRequest)
         }
 
