@@ -3,7 +3,6 @@ package be.marche.mercredi.user
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import be.marche.mercredi.entity.User
-import be.marche.mercredi.repository.UserRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

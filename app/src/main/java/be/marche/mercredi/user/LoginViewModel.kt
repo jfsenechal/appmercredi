@@ -4,9 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import be.marche.mercredi.entity.User
-import be.marche.mercredi.repository.MercrediRepository
 import be.marche.mercredi.repository.MercrediService
-import be.marche.mercredi.repository.UserRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

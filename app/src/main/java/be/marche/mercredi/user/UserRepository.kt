@@ -1,4 +1,4 @@
-package be.marche.mercredi.repository
+package be.marche.mercredi.user
 
 import androidx.lifecycle.LiveData
 import be.marche.mercredi.database.UserDao

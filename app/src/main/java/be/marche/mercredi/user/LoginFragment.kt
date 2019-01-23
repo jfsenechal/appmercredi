@@ -32,6 +32,7 @@ class LoginFragment : Fragment() {
         accountManager = AccountManager.get(context) // "this" references the current Context
 
         userViewModel.user?.observe(this, Observer {
+            //todo token toujours valide ?
             val token = it?.token
             //  token = null
             if (token != null) {
@@ -68,7 +69,7 @@ class LoginFragment : Fragment() {
         val accounts = accountManager.getAccountsByType("com.google")
 
         val account = Account(mUsername, your_account_type)
-        accountManager.addAccountExplicitly(account, mPassword, null)
+      //  accountManager.addAccountExplicitly(account, mPassword, null)
     }
 
 }

@@ -7,7 +7,7 @@ import be.marche.mercredi.presence.PresenceRepository
 import be.marche.mercredi.presence.PresenceViewModel
 import be.marche.mercredi.repository.MercrediRepository
 import be.marche.mercredi.repository.MercrediService
-import be.marche.mercredi.repository.UserRepository
+import be.marche.mercredi.user.UserRepository
 import be.marche.mercredi.sync.RequestInterceptor
 import be.marche.mercredi.sync.SyncViewModel
 import be.marche.mercredi.tuteur.TuteurRepository
