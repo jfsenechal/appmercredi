@@ -51,17 +51,17 @@ class JourListAdapter(
             // cardViewJour.setOnClickListener(this@JourListAdapter)
             cardViewJour.setOnClickListener {
                 if (tracker!!.isSelected(position.toLong())) {
-                    holder.jourcheckBoxView.setChecked(true);
+                    holder.jourcheckBoxView.setChecked(true)
+                    holder.jourcheckBoxView.setVisibility(View.VISIBLE)
                 } else {
-                    holder.jourcheckBoxView.setChecked(false);
+                    holder.jourcheckBoxView.setChecked(false)
+                    holder.jourcheckBoxView.setVisibility(View.INVISIBLE)
                 }
             }
             cardViewJour.tag = jour
             jourDateView.text = jour.date_jour_fr
-            //typeJourView.text = jour.remarque
+            typeJourView.text = jour.remarques
         }
-
-
     }
 
     override fun onClick(view: View) {

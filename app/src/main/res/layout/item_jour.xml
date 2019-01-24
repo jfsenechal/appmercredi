@@ -27,7 +27,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     card_view:layout_constraintTop_toTopOf="parent"
-                    />
+                    android:visibility="invisible"/>
 
             <TextView
                     android:layout_width="wrap_content"
@@ -38,12 +38,13 @@
                     card_view:layout_constraintTop_toTopOf="@+id/jourcheckBoxView"/>
 
             <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/typeJourView"
                     tools:text="Plaine de noel"
-                    card_view:layout_constraintTop_toBottomOf="@+id/jourcheckBoxView"
-                    card_view:layout_constraintStart_toStartOf="@+id/jourDateView"/>
+                    card_view:layout_constraintTop_toBottomOf="@+id/jourDateView"
+                    android:layout_marginTop="8dp" card_view:layout_constraintStart_toEndOf="@+id/jourcheckBoxView"
+                    android:layout_marginStart="16dp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
