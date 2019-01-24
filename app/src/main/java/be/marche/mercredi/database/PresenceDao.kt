@@ -10,8 +10,8 @@ interface PresenceDao {
     @Query("SELECT * FROM presence")
     fun getAllPresences(): LiveData<List<Presence>>
 
-    @Query("SELECT * FROM presence WHERE id = :id")
-    fun getPresenceById(id: Int): LiveData<Presence>
+    @Query("SELECT * FROM presence WHERE enfantId = :enfantId ORDER BY date DESC")
+    fun getPresenceByEnfantId(enfantId: Int): LiveData<List<Presence>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertPresences(presences: List<Presence>)

@@ -2,20 +2,15 @@ package be.marche.mercredi.tuteur
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import be.marche.mercredi.entity.Tuteur
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import be.marche.mercredi.entity.Tuteur
-import be.marche.mercredi.repository.MercrediService
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import timber.log.Timber
 
 class TuteurViewModel(
-    private val tuteurRepository: TuteurRepository,
-         private             val mercrediService: MercrediService) :
+    private val tuteurRepository: TuteurRepository
+) :
     ViewModel() {
 
     /**
@@ -47,27 +42,7 @@ class TuteurViewModel(
 
     fun saveReal(tuteur: Tuteur) {
         viewModelScope.launch {
-
-            val request = mercrediService.updateTuteur(tuteur)
-            request.enqueue(object : Callback<Tuteur> {
-                override fun onFailure(call: Call<Tuteur>, t: Throwable) {
-
-                }
-
-                override fun onResponse(call: Call<Tuteur>, response: Response<Tuteur>) {
-                    response.let {
-                        val user = it.body()
-                        if (user != null) {
-                            Timber.i("zeze reponse tuteur ok ${response.body()}")
-                            save(user)
-
-                        } else {
-                            Timber.i("zeze reponse tuteur ko ${response.body()}")
-
-                        }
-                    }
-                }
-            })
+            tuteurRepository.saveReal(tuteur)
         }
     }
 

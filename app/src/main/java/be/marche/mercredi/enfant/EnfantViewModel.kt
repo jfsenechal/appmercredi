@@ -3,27 +3,26 @@ package be.marche.mercredi.enfant
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import be.marche.mercredi.entity.Enfant
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import be.marche.mercredi.entity.Enfant
-import be.marche.mercredi.repository.MercrediService
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import timber.log.Timber
 
 class EnfantViewModel(
-    private val enfantRepository: EnfantRepository,
-    private val mercrediService: MercrediService
+    private val enfantRepository: EnfantRepository
 ) : ViewModel() {
 
     private val viewModelJob = Job()
+    //Dispatchers.Main : informer le système Android que nous devrons mettre à jour le thread d'interface utilisateur
     private val viewModelScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     var enfant: LiveData<Enfant>? = null
     var enfantPhoto: MutableLiveData<String>? = null
+
+    init {
+
+    }
 
     override fun onCleared() {
         super.onCleared()
@@ -43,31 +42,9 @@ class EnfantViewModel(
     }
 
     fun saveReal(enfant: Enfant) {
-
         viewModelScope.launch {
-
-            val request = mercrediService.updateEnfant( enfant.id, enfant)
-            request.enqueue(object : Callback<Enfant> {
-                override fun onFailure(call: Call<Enfant>, t: Throwable) {
-
-                }
-
-                override fun onResponse(call: Call<Enfant>, response: Response<Enfant>) {
-                    response.let {
-                        val enfant = it.body()
-                        if (enfant != null) {
-                            Timber.i("zeze reponse enfant ok ${response.body()}")
-                            save(enfant)
-
-                        } else {
-                            Timber.i("zeze reponse enfant ko ${response.body()}")
-
-                        }
-                    }
-                }
-            })
+            enfantRepository.saveReal(enfant)
         }
-
     }
 
 }

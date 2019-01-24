@@ -21,6 +21,7 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 import java.io.File
+import java.io.FileNotFoundException
 import java.io.InputStream
 
 class EnfantDetailFragment : Fragment() {
@@ -90,9 +91,10 @@ class EnfantDetailFragment : Fragment() {
             when (requestCode) {
                 REQUEST_SELECT_IMAGE_IN_ALBUM -> {
                     val selectedImage = data!!.data
-                    enfantPhotoView.setImageURI(selectedImage);
+                    enfantPhotoView.setImageURI(selectedImage)
                     val inputStream = readTextFromUri(selectedImage)
-                    Timber.i("zeze input $inputStream")
+                    val inputStream2 = getInputStreamForVirtualFile(selectedImage,"image/*")
+                    Timber.i("zeze input $inputStream2")
                     postServer(selectedImage)
                     enfant.photoUrl =
                             "https://www.marche.be/administration/files/2012/07/logo_au_format_jpg_grand_medium.jpg";
@@ -109,6 +111,17 @@ class EnfantDetailFragment : Fragment() {
         }
         return null
         //return stringBuilder.toString()
+    }
+
+    private fun getInputStreamForVirtualFile(uri: Uri, mimeTypeFilter: String): InputStream? {
+
+        val openableMimeTypes: Array<String>? = context?.contentResolver?.getStreamTypes(uri, mimeTypeFilter)
+
+        return if (openableMimeTypes?.isNotEmpty() == true) {
+            context?.contentResolver?.openTypedAssetFileDescriptor(uri, openableMimeTypes[0], null)?.createInputStream()
+        } else {
+            throw FileNotFoundException()
+        }
     }
 
     private fun postServer(contentURI: Uri) {

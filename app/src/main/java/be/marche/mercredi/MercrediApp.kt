@@ -9,8 +9,10 @@ class MercrediApp : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        // Start Koin
         startKoin(this, listOf(appModule))
-        Timber.plant(Timber.DebugTree())
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
     }
 }

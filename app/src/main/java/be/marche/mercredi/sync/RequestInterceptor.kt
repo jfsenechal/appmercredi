@@ -20,7 +20,7 @@ class RequestInterceptor(private val userViewModel: UserViewModel) : Interceptor
         val token = user?.token
 
         if (token == null) {
-            return chain.proceed(originalRequest)
+            return chain.proceed(chain.request())
         }
 
         val headers: Headers = Headers.Builder()

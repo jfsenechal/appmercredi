@@ -75,13 +75,15 @@ class AddPresenceFragment : Fragment(), JourListAdapter.JourListAdapterListener 
 
         initTracker()
 
-        viewModelPresence.jours.observe(this, Observer { newJours ->
-            //this.jours = newJours
-            UpdateUi(newJours)
-        })
-
         viewModelEnfant.enfant?.observe(this, Observer { enfant ->
             this.enfant = enfant
+            Timber.i("zeze $enfant")
+            viewModelPresence.getJoursByEnfantId(enfant.id)
+            Timber.i("zeze ici")
+            viewModelPresence.jours?.observe(this, Observer { newJours ->
+                Timber.i("zeze $newJours")
+                UpdateUi(newJours)
+            })
         })
     }
 

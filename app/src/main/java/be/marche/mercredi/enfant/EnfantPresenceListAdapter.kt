@@ -38,7 +38,7 @@ class EnfantPresenceListAdapter(
         with(holder) {
             presenceDateView.setOnClickListener(this@EnfantPresenceListAdapter)
             presenceDateView.tag = presence
-            presenceDateView.text = presence.date
+            presenceDateView.text = presence.date_fr
         }
     }
 

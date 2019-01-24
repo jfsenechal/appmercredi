@@ -78,6 +78,7 @@ data class Presence(
     val id: Int,
     val enfantId: Int,
     val date: String,
+    val date_fr: String,
     val absent: Boolean = false,
     var payer: Boolean
 )
@@ -92,11 +93,22 @@ data class Paiement(
     val mode: String?
 )
 
-@Entity()
+
+@Entity(
+    foreignKeys = [
+        ForeignKey(
+            entity = Enfant::class,
+            parentColumns = ["id"],
+            childColumns = ["enfantId"]
+        )
+    ]
+)
 data class Jour(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
+    val enfantId: Int,
     val date_jour: String,
+    val date_jour_fr: String,
     val prix1: String,
     val prix2: String,
     val prix3: String,

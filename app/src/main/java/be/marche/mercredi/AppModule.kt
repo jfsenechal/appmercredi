@@ -34,23 +34,28 @@ val appModule = module {
     single { get<AppDatabase>().presenceDao() }
     single { get<AppDatabase>().userDao() }
 
-    single { EnfantRepository(get()) }
-    single { TuteurRepository(get()) }
+    single { EnfantRepository(get(), get()) }
+    single { TuteurRepository(get(), get()) }
     single { MercrediRepository(get()) }
-    single { PresenceRepository(get()) }
+    single { PresenceRepository(get(), get()) }
     single { UserRepository(get()) }
 
     viewModel { MercrediViewModel(get(), get()) }
     viewModel { SyncViewModel(get(), get(), get(), get(), get()) }
-    viewModel { EnfantViewModel(get(), get()) }
-    viewModel { TuteurViewModel(get(), get()) }
-    viewModel { PresenceViewModel(get(), get(), get()) }
+    viewModel { EnfantViewModel(get()) }
+    viewModel { TuteurViewModel(get()) }
+    viewModel { PresenceViewModel(get(), get()) }
     viewModel { LoginViewModel(get(), get()) }
     viewModel { UserViewModel(get()) }
 
     single { RequestInterceptor(get()) }
     single { createOkHttpClient<OkHttpClient>(get()) }
-    single { createWebService<MercrediService>(get(), "http://172.17.30.218/") }//http://192.168.0.8/
+    single {
+        createWebService<MercrediService>(
+            get(),
+            "http://192.168.0.8/"
+        )
+    }//http://192.168.0.8/  http://172.17.30.218/
 }
 
 inline fun <reified T> createOkHttpClient(t: RequestInterceptor): OkHttpClient {

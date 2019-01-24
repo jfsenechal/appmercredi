@@ -27,8 +27,8 @@ class MercrediRepository(val mercrediDao: MercrediDao) : KoinComponent {
         return mercrediDao.getAnneeScolaireByName(name)
     }
 
-    fun getAllJours(): LiveData<List<Jour>> {
-        return mercrediDao.getAllJours()
+    fun getJoursByEnfantId(enfantId: Int): LiveData<List<Jour>> {
+        return mercrediDao.getJoursByEnfantId(enfantId)
     }
 
     fun getJourById(jourId: Int): LiveData<Jour> {

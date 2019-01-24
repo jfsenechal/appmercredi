@@ -18,6 +18,15 @@ class UserViewModel(
 
     var user: LiveData<User>? = null
     var userStatic: User? = null
+    var token: String? = null
+
+    fun token(): String? {
+        return token
+    }
+
+    fun refreshToken(): String? {
+        return "123456"
+    }
 
     init {
         user = userRepository.getOneUser()
@@ -42,4 +51,5 @@ class UserViewModel(
             userRepository.insertUser(user)
         }
     }
+
 }

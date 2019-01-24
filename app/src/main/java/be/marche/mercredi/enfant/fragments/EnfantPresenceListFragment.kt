@@ -9,15 +9,18 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import be.marche.mercredi.R
 import be.marche.mercredi.enfant.EnfantPresenceListAdapter
+import be.marche.mercredi.enfant.EnfantViewModel
 import be.marche.mercredi.entity.Presence
 import be.marche.mercredi.presence.PresenceViewModel
 import kotlinx.android.synthetic.main.enfant_presences_fragment.*
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 
-class EnfantListPresenceFragment : Fragment(), EnfantPresenceListAdapter.EnfantPresenceListAdapterListener {
+class EnfantPresenceListFragment : Fragment(), EnfantPresenceListAdapter.EnfantPresenceListAdapterListener {
 
     val presenceViewModel: PresenceViewModel by inject()
+    val viewModelEnfant: EnfantViewModel by sharedViewModel()
 
     companion object {
         fun newInstance() = EnfantListFragment()
@@ -51,11 +54,14 @@ class EnfantListPresenceFragment : Fragment(), EnfantPresenceListAdapter.EnfantP
             layoutManager = LinearLayoutManager(context)
             adapter = enfantPresenceListAdapter
         }
-
-        presenceViewModel.presences?.observe(this, Observer { newPresences ->
-            Timber.i("zeze update ui " + newPresences)
-            updateUi(newPresences)
+        viewModelEnfant.enfant?.observe(this, Observer { enfant ->
+            presenceViewModel.getPresencesByEnfantId(enfant.id)
+            presenceViewModel.presences?.observe(this, Observer { newPresences ->
+                Timber.i("zeze update ui " + newPresences)
+                updateUi(newPresences)
+            })
         })
+
     }
 
     override fun onPresenceSelected(presence: Presence) {

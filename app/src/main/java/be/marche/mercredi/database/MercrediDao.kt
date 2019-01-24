@@ -27,8 +27,8 @@ interface MercrediDao {
     /**
      * Jours de garde
      */
-    @Query("SELECT * FROM jour")
-    fun getAllJours(): LiveData<List<Jour>>
+    @Query("SELECT * FROM jour WHERE enfantId = :enfantId")
+    fun getJoursByEnfantId(enfantId: Int): LiveData<List<Jour>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertJours(jours: List<Jour>)

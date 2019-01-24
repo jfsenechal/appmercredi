@@ -40,9 +40,9 @@ class SyncViewModel(
             response.let {
                 mercrediRepository.insertEcoles(it.ecoles)
                 mercrediRepository.insertAnneesScolaires(it.annees)
-                mercrediRepository.insertJours(it.jours)
                 enfantRepository.insertEnfants(it.enfants)
                 tuteurRepository.insertTuteurs(it.tuteur)
+                mercrediRepository.insertJours(it.jours)
                 presenceRepository.insertPresences(it.presences)
             }
 

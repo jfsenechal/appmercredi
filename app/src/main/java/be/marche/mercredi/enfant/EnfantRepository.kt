@@ -6,14 +6,27 @@ import androidx.work.NetworkType
 import be.marche.mercredi.database.EnfantDao
 import be.marche.mercredi.entity.Enfant
 import be.marche.mercredi.repository.MercrediService
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import timber.log.Timber
 
-class EnfantRepository(val enfantDao: EnfantDao) : KoinComponent {
+class EnfantRepository(
+    private val enfantDao: EnfantDao,
+    private val mercrediService: MercrediService
+) : KoinComponent {
 
-    val mercrediService: MercrediService by inject()
+    // val mercrediService: MercrediService by inject()
+
+    private val viewModelJob = Job()
+    private val viewModelScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     val constraints = Constraints.Builder()
         .setRequiredNetworkType(NetworkType.CONNECTED)
@@ -37,5 +50,34 @@ class EnfantRepository(val enfantDao: EnfantDao) : KoinComponent {
         withContext(Dispatchers.IO) {
             enfantDao.updateEnfants(listOf(enfant))
         }
+    }
+
+    fun saveReal(enfant: Enfant) {
+
+        var ok: Boolean = false
+        viewModelScope.launch {
+
+            val request = mercrediService.updateEnfant(enfant.id, enfant)
+            request.enqueue(object : Callback<Enfant> {
+                override fun onFailure(call: Call<Enfant>, t: Throwable) {
+
+                }
+
+                override fun onResponse(call: Call<Enfant>, response: Response<Enfant>) {
+                    response.let {
+                        val enfant = it.body()
+                        if (enfant != null) {
+                            Timber.i("zeze reponse enfant ok ${response.body()}")
+                            ok = true
+                        } else {
+                            Timber.i("zeze reponse enfant ko ${response.body()}")
+                        }
+                    }
+                }
+            })
+            if (ok)
+                updateEnfant(enfant)
+        }
+
     }
 }
