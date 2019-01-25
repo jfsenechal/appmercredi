@@ -20,7 +20,7 @@
                 android:layout_height="match_parent">
 
             <CheckBox
-                    android:layout_width="100dp"
+                    android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/jourcheckBoxView"
                     card_view:layout_constraintStart_toStartOf="parent"

@@ -7,6 +7,8 @@ import be.marche.mercredi.presence.PresenceRepository
 import be.marche.mercredi.presence.PresenceViewModel
 import be.marche.mercredi.repository.MercrediRepository
 import be.marche.mercredi.repository.MercrediService
+import be.marche.mercredi.sante.SanteRepository
+import be.marche.mercredi.sante.SanteViewModel
 import be.marche.mercredi.user.UserRepository
 import be.marche.mercredi.sync.RequestInterceptor
 import be.marche.mercredi.sync.SyncViewModel
@@ -33,12 +35,14 @@ val appModule = module {
     single { get<AppDatabase>().mercrediDao() }
     single { get<AppDatabase>().presenceDao() }
     single { get<AppDatabase>().userDao() }
+    single { get<AppDatabase>().santeDao() }
 
     single { EnfantRepository(get(), get()) }
     single { TuteurRepository(get(), get()) }
     single { MercrediRepository(get()) }
     single { PresenceRepository(get(), get()) }
     single { UserRepository(get()) }
+    single { SanteRepository(get(),get()) }
 
     viewModel { MercrediViewModel(get(), get()) }
     viewModel { SyncViewModel(get(), get(), get(), get(), get()) }
@@ -47,6 +51,7 @@ val appModule = module {
     viewModel { PresenceViewModel(get(), get()) }
     viewModel { LoginViewModel(get(), get()) }
     viewModel { UserViewModel(get()) }
+    viewModel { SanteViewModel(get()) }
 
     single { RequestInterceptor(get()) }
     single { createOkHttpClient<OkHttpClient>(get()) }

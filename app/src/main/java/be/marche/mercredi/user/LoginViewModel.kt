@@ -22,7 +22,10 @@ sealed class LoginViewModelState(
 object LoginViewModelStateSuccess : LoginViewModelState()
 class LoginViewModelStateFailure(errorMessage: String) : LoginViewModelState(errorMessage, true)
 
-class LoginViewModel(val userRepository: UserRepository, val mercrediService: MercrediService) : ViewModel() {
+class LoginViewModel(
+    private val userRepository: UserRepository,
+    private val mercrediService: MercrediService
+) : ViewModel() {
 
     private val viewModelJob = Job()
     private val viewModelScope = CoroutineScope(Dispatchers.Main + viewModelJob)
@@ -30,10 +33,9 @@ class LoginViewModel(val userRepository: UserRepository, val mercrediService: Me
 
     fun getState(): LiveData<LoginViewModelState> = state
 
-    fun save(user: User) {
+    fun insertUser(user: User) {
         viewModelScope.launch {
             userRepository.insertUser(user)
-            //todo save to server
         }
     }
 
@@ -52,7 +54,7 @@ class LoginViewModel(val userRepository: UserRepository, val mercrediService: Me
                         val user = it.body()
                         if (user != null) {
                             Timber.i("zeze reponse ok ${response.body()}")
-                            save(user)
+                            insertUser(user)
                             state.value = LoginViewModelStateSuccess
                         } else {
                             Timber.i("zeze reponse ko ${response.body()}")

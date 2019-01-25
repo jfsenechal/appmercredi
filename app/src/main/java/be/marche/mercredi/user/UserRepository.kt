@@ -9,10 +9,6 @@ import org.koin.standalone.KoinComponent
 
 class UserRepository(val userDao: UserDao) : KoinComponent {
 
-    fun getAllUser(): LiveData<List<User>> {
-        return userDao.getAllUser()
-    }
-
     fun getOneUser(): LiveData<User> {
         return userDao.getOneUser()
     }

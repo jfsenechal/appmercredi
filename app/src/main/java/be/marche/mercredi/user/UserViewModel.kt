@@ -46,7 +46,7 @@ class UserViewModel(
         return userRepository.getUserId(userId)
     }
 
-    fun insertPresence(user: User) {
+    fun insertUser(user: User) {
         viewModelScope.launch {
             userRepository.insertUser(user)
         }
