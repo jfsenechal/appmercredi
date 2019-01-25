@@ -5,6 +5,7 @@ import be.marche.mercredi.enfant.EnfantRepository
 import be.marche.mercredi.presence.PresenceRepository
 import be.marche.mercredi.repository.MercrediRepository
 import be.marche.mercredi.repository.MercrediService
+import be.marche.mercredi.sante.SanteRepository
 import be.marche.mercredi.tuteur.TuteurRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +17,8 @@ class SyncViewModel(
     val enfantRepository: EnfantRepository,
     val tuteurRepository: TuteurRepository,
     val mercrediRepository: MercrediRepository,
-    val presenceRepository: PresenceRepository
+    val presenceRepository: PresenceRepository,
+    val santeRepository: SanteRepository
 ) :
     ViewModel() {
 
@@ -43,12 +45,12 @@ class SyncViewModel(
                 enfantRepository.insertEnfants(it.enfants)
                 tuteurRepository.insertTuteurs(it.tuteur)
                 mercrediRepository.insertJours(it.jours)
+                santeRepository.insertQuestions(it.santeQuestions)
+                santeRepository.insertSanteFiches(it.santeFiches)
+                santeRepository.insertReponses(it.santeReponses)
                 presenceRepository.insertPresences(it.presences)
             }
-
         }
-
-
     }
 
 }

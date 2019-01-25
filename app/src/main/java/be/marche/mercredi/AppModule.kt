@@ -45,7 +45,7 @@ val appModule = module {
     single { SanteRepository(get(),get()) }
 
     viewModel { MercrediViewModel(get(), get()) }
-    viewModel { SyncViewModel(get(), get(), get(), get(), get()) }
+    viewModel { SyncViewModel(get(), get(), get(), get(), get(), get()) }
     viewModel { EnfantViewModel(get()) }
     viewModel { TuteurViewModel(get()) }
     viewModel { PresenceViewModel(get(), get()) }
