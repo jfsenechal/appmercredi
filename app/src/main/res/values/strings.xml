@@ -78,4 +78,8 @@
     <string name="error_field_required">This field is required</string>
 
     <string name="form_hint_remarques">Remarques</string>
+    <string name="btn_action_sante">Sante</string>
+    <string name="form_hint_question_intitule">L\'enfant est-t-il atteint de diabète</string>
+    <string name="form_label_question_complent">TextView</string>
+    <string name="form_hint_question_complement">Complement</string>
 </resources>

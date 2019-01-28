@@ -2,6 +2,7 @@ package be.marche.mercredi.entity
 
 import androidx.room.*
 
+
 @Entity()
 data class Ecole(
     @PrimaryKey(autoGenerate = true)

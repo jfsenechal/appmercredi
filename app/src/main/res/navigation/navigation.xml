@@ -73,6 +73,7 @@
                 app:popExitAnim="@anim/slide_out_right"/>
         <action android:id="@+id/action_enfantDetailFragment_to_presenceFragment"
                 app:destination="@id/presenceFragment"/>
+        <action android:id="@+id/action_enfantDetailFragment_to_santeFragment" app:destination="@id/santeFragment"/>
     </fragment>
 
     <fragment android:id="@+id/enfantEditFragment"
@@ -98,4 +99,6 @@
               android:label="LoginFragment">
         <action android:id="@+id/action_loginFragment_to_menuFragment" app:destination="@id/menuFragment"/>
     </fragment>
+    <fragment android:id="@+id/santeFragment" android:name="be.marche.mercredi.sante.SanteFragment"
+              android:label="SanteFragment"/>
 </navigation>

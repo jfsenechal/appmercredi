@@ -33,6 +33,10 @@ class SanteViewModel(
         return santeRepository.getAllQuestions()
     }
 
+    fun getQuestionsById(questionId: Int): LiveData<SanteQuestion> {
+        return santeRepository.getQuestionById(questionId)
+    }
+
     fun getReponsesBySanteFicheId(enfantId: Int): LiveData<List<SanteReponse>> {
         return santeRepository.getReponsesBySanteFicheId(enfantId)
     }

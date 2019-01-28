@@ -4,14 +4,13 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity()
-data class SanteQuestion(
+data class Plaine(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val intitule: String,
-    val complement: Boolean?,
-    val complement_label: String?
-) {
-    override fun toString(): String {
-        return intitule
-    }
-}
+    val inscriptionOuverture: Boolean,
+    val prix1: String,
+    val prix2: String,
+    val prix3: String,
+    val remarques: String?
+)

@@ -46,7 +46,7 @@ class EnfantDetailFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.edit, menu)
+        inflater.inflate(R.menu.enfant, menu)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -77,7 +77,11 @@ class EnfantDetailFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.btnEdit -> {
-                startEdit()
+                findNavController().navigate(R.id.action_enfantDetailFragment_to_enfantEditFragment)
+                return true
+            }
+            R.id.btnSante -> {
+                findNavController().navigate(R.id.action_enfantDetailFragment_to_santeFragment)
                 return true
             }
             else ->
@@ -93,11 +97,11 @@ class EnfantDetailFragment : Fragment() {
                     val selectedImage = data!!.data
                     enfantPhotoView.setImageURI(selectedImage)
                     val inputStream = readTextFromUri(selectedImage)
-                    val inputStream2 = getInputStreamForVirtualFile(selectedImage,"image/*")
+                    val inputStream2 = getInputStreamForVirtualFile(selectedImage, "image/*")
                     Timber.i("zeze input $inputStream2")
                     postServer(selectedImage)
                     enfant.photoUrl =
-                            "https://www.marche.be/administration/files/2012/07/logo_au_format_jpg_grand_medium.jpg";
+                        "https://www.marche.be/administration/files/2012/07/logo_au_format_jpg_grand_medium.jpg";
                     //viewModelEnfant.save(enfant)
                 }
             }
@@ -133,10 +137,6 @@ class EnfantDetailFragment : Fragment() {
         val part: MultipartBody.Part = MultipartBody.Part.createFormData("image", file.getName(), requestBody)
 
         mercrediViewModel.uploadImage(enfant, requestBody)
-    }
-
-    private fun startEdit() {
-        findNavController().navigate(R.id.action_enfantDetailFragment_to_enfantEditFragment)
     }
 
     private fun updateUi(enfant: Enfant) {

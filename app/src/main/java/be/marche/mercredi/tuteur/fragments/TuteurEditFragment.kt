@@ -10,7 +10,7 @@ import be.marche.mercredi.R
 import be.marche.mercredi.entity.Tuteur
 import be.marche.mercredi.tuteur.TuteurPagerAdapter
 import be.marche.mercredi.tuteur.TuteurViewModel
-import kotlinx.android.synthetic.main.activity_tabbed.*
+import kotlinx.android.synthetic.main.tuteur_edit_tabbed.*
 import kotlinx.android.synthetic.main.conjoint_edit_coordonnees_fragment.*
 import kotlinx.android.synthetic.main.tuteur_edit_coordonnees_fragment.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -24,7 +24,7 @@ class TuteurEditFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true);
-        return inflater.inflate(R.layout.activity_tabbed, container, false)
+        return inflater.inflate(R.layout.tuteur_edit_tabbed, container, false)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

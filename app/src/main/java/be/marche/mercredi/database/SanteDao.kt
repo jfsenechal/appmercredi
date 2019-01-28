@@ -25,8 +25,11 @@ interface SanteDao {
     fun insertQuestions(questions: List<SanteQuestion>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertReponses(santeReponses: List<SanteReponse>)
+    fun insertReponses(santeReponses: List<SanteReponse>?)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertSanteFiches(santeFiches: List<SanteFiche>)
+
+    @Query("SELECT * FROM santequestion WHERE id = :questionId")
+    fun getQuestionById(questionId: Int): LiveData<SanteQuestion>
 }

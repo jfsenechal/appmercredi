@@ -7,16 +7,16 @@ import androidx.room.PrimaryKey
 @Entity(
     foreignKeys = [
         ForeignKey(
-            entity = SanteFiche::class,
+            entity = Plaine::class,
             parentColumns = ["id"],
-            childColumns = ["santeFicheId"]
+            childColumns = ["plaineId"]
         )
     ]
 )
-data class SanteReponse(
+data class PlaineJour(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
-    val santeFicheId: Int,
-    val reponse: String,//oui ou non
-    val remarque: String?
+    val plaineId: Int,
+    val date_jour: String,
+    val date_jour_fr: String
 )
