@@ -82,4 +82,6 @@
     <string name="form_hint_question_intitule">L\'enfant est-t-il atteint de diabète</string>
     <string name="form_label_question_complent">TextView</string>
     <string name="form_hint_question_complement">Complement</string>
+    <string name="btn_next">Suivant</string>
+    <string name="btn_prev">Précédent</string>
 </resources>

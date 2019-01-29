@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/labelQuestionComplementView"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp">
+            android:layout_marginStart="8dp" android:id="@+id/textInputLayout3">
 
         <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -50,6 +50,8 @@
                 android:inputType="textMultiLine"
                 tools:text="Oui piqure  3 fois par jour"/>
     </com.google.android.material.textfield.TextInputLayout>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

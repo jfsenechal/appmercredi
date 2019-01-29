@@ -10,7 +10,6 @@ import be.marche.mercredi.R
 import be.marche.mercredi.entity.SanteQuestion
 import kotlinx.android.synthetic.main.sante_question_fragment.*
 import org.koin.android.ext.android.inject
-import timber.log.Timber
 
 class QuestionFragment : Fragment() {
 
@@ -22,7 +21,7 @@ class QuestionFragment : Fragment() {
 
         fun newInstance(position: Int): QuestionFragment {
             val frag = QuestionFragment()
-            val args: Bundle = Bundle()
+            val args = Bundle()
             args.putInt(KEY_POSITION, position)
             frag.setArguments(args);
 
@@ -39,12 +38,10 @@ class QuestionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         var position: Int = getArguments()!!.getInt(KEY_POSITION, 1);
-        Timber.i("zeze postion $position")
-        if (position == 0) position = 1
+
         santeViewModel.getQuestionsById(position).observe(this, Observer {
             updateUi(it)
         })
-
     }
 
     private fun updateUi(santeQuestion: SanteQuestion) {

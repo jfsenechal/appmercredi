@@ -5,15 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import be.marche.mercredi.R
+import be.marche.mercredi.entity.SanteQuestion
 import kotlinx.android.synthetic.main.sante_tabbed.*
 import org.koin.android.ext.android.inject
 
 class SanteFragment : Fragment() {
 
     val santeViewModel: SanteViewModel by inject()
-
-    private var santePagerAdapter: SantePagerAdapter? = null
+    lateinit var questions: List<SanteQuestion>
+    lateinit var santePagerAdapter: SantePagerAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true);
@@ -23,8 +25,16 @@ class SanteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        santePagerAdapter = this.fragmentManager?.let { SantePagerAdapter(it) }
-        santeViewPager.adapter = santePagerAdapter
+        santeViewModel.getAllQuestions().observe(this, Observer { questions ->
+            santePagerAdapter = SantePagerAdapter(this.fragmentManager!!, questions)
+            santeViewPager.setCurrentItem(1)
+            santeViewPager.adapter = santePagerAdapter
+        })
+
+        btnNextView.setOnClickListener {
+            val currentItem = santeViewPager.currentItem
+            santeViewPager.setCurrentItem(currentItem + 1)
+        }
     }
 
 }
