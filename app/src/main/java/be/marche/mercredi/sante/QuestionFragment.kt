@@ -14,6 +14,7 @@ import be.marche.mercredi.entity.SanteReponse
 import kotlinx.android.synthetic.main.sante_question_fragment.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import timber.log.Timber
 
 
 class QuestionFragment : Fragment() {
@@ -57,8 +58,8 @@ class QuestionFragment : Fragment() {
                                 it.questionId == santeQuestion.id
                             }
 
-                            updateUi(santeQuestion, santeReponse)
                             listenSwitch(santeQuestion, santeReponse)
+                            updateUi(santeQuestion, santeReponse)
                         }
                     })
                 })
@@ -70,17 +71,20 @@ class QuestionFragment : Fragment() {
 
         monSwitch.setOnClickListener {
 
-            if (santeQuestion.complement == true) {
-
-                if (monSwitch.isChecked) {
+            if (monSwitch.isChecked) {
+                if (santeQuestion.complement == true) {
                     labelQuestionComplementView.setVisibility(View.VISIBLE)
                     complementEditTextView.setVisibility(View.VISIBLE)
-                    monSwitch.text = getString(R.string.switch_oui)
-                } else {
+                }
+                monSwitch.text = getString(R.string.switch_oui)
+                Timber.i("zeze listener checked on")
+            } else {
+                if (santeQuestion.complement == true) {
                     labelQuestionComplementView.setVisibility(View.INVISIBLE)
                     complementEditTextView.setVisibility(View.INVISIBLE)
-                    monSwitch.text = getString(R.string.switch_non)
                 }
+                monSwitch.text = getString(R.string.switch_non)
+                Timber.i("zeze listener checked off")
             }
         }
     }
@@ -97,6 +101,7 @@ class QuestionFragment : Fragment() {
             if (santeReponse.reponse == "oui") {
                 monSwitch.text = getString(R.string.switch_oui)
                 monSwitch.setChecked(true)
+                Timber.i("zeze update ui reponse oui")
             }
             if (santeReponse.remarque != null && santeReponse.remarque.length > 0) {
                 complementEditTextView.setText(santeReponse.remarque, TextView.BufferType.EDITABLE)
