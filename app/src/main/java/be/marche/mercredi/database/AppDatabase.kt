@@ -12,7 +12,7 @@ const val DATABASE_NAME = "mercredi"
     entities = [
         Enfant::class, Tuteur::class, Ecole::class, Jour::class, AnneeScolaire::class, Presence::class,
         User::class, SanteFiche::class, SanteQuestion::class, SanteReponse::class],
-    version = 32
+    version = 33
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun enfantDao(): EnfantDao

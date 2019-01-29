@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import be.marche.mercredi.R
+import be.marche.mercredi.enfant.EnfantViewModel
 import be.marche.mercredi.entity.SanteQuestion
 import kotlinx.android.synthetic.main.sante_tabbed.*
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 
 class SanteFragment : Fragment() {

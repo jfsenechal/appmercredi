@@ -84,4 +84,6 @@
     <string name="form_hint_question_complement">Complement</string>
     <string name="btn_next">Suivant</string>
     <string name="btn_prev">Précédent</string>
+    <string name="switch_non">non</string>
+    <string name="switch_oui">oui</string>
 </resources>

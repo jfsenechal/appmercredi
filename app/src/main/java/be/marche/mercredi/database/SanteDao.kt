@@ -32,4 +32,7 @@ interface SanteDao {
 
     @Query("SELECT * FROM santequestion WHERE id = :questionId")
     fun getQuestionById(questionId: Int): LiveData<SanteQuestion>
+
+    @Query("SELECT * FROM santereponse WHERE santeFicheId = :santeFicheId")
+    fun getReponseBySanteFicheId(santeFicheId: Int) : SanteReponse
 }

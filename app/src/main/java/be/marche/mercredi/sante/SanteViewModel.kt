@@ -33,16 +33,20 @@ class SanteViewModel(
         return santeRepository.getAllQuestions()
     }
 
-    fun getQuestionsById(questionId: Int): LiveData<SanteQuestion> {
+    fun getQuestionById(questionId: Int): LiveData<SanteQuestion> {
         return santeRepository.getQuestionById(questionId)
     }
 
-    fun getReponsesBySanteFicheId(enfantId: Int): LiveData<List<SanteReponse>> {
-        return santeRepository.getReponsesBySanteFicheId(enfantId)
+    fun getReponsesBySanteFicheId(santeFicheId: Int): LiveData<List<SanteReponse>> {
+        return santeRepository.getReponsesBySanteFicheId(santeFicheId)
     }
 
     fun getSanteFicheByEnfantId(enfantId: Int): LiveData<SanteFiche> {
         return santeRepository.getSanteFicheByEnfantId(enfantId)
+    }
+
+    fun getReponseBySanteFicheIdAndQuestionId(enfantId: Int): LiveData<List<SanteReponse>> {
+        return santeRepository.getReponsesBySanteFicheId(enfantId)
     }
 
     fun insertSanteQuestions(questions: List<SanteQuestion>) {

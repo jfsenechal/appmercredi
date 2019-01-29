@@ -17,6 +17,7 @@ data class SanteReponse(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val santeFicheId: Int,
+    val questionId: Int,
     val reponse: String,//oui ou non
     val remarque: String?
 )

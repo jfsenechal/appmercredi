@@ -46,6 +46,7 @@ class SanteRepository(
     }
 
     fun getQuestionById(questionId: Int): LiveData<SanteQuestion> {
-        return  santeDao.getQuestionById(questionId)
+        return santeDao.getQuestionById(questionId)
     }
+
 }

@@ -4,18 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import be.marche.mercredi.R
+import be.marche.mercredi.enfant.EnfantViewModel
 import be.marche.mercredi.entity.SanteQuestion
+import be.marche.mercredi.entity.SanteReponse
 import kotlinx.android.synthetic.main.sante_question_fragment.*
 import org.koin.android.ext.android.inject
-import timber.log.Timber
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
 class QuestionFragment : Fragment() {
 
     val santeViewModel: SanteViewModel by inject()
+    val viewModelEnfant: EnfantViewModel by sharedViewModel()
+    lateinit var santeReponses: List<SanteReponse>
 
     companion object {
 
@@ -41,38 +46,65 @@ class QuestionFragment : Fragment() {
 
         val position: Int = getArguments()!!.getInt(KEY_POSITION, 1)
 
-        santeViewModel.getQuestionsById(position).observe(this, Observer {
-            if (it != null) {
-                updateUi(it)
-                listenSwitch(it)
-            }
+        viewModelEnfant.enfant?.observe(this, Observer { enfant ->
+            santeViewModel.getSanteFicheByEnfantId(enfant.id).observe(this, Observer { santeFiche ->
+                santeViewModel.getReponsesBySanteFicheId(santeFiche.id).observe(this, Observer { santeReponses ->
+                    this.santeReponses = santeReponses
+                    santeViewModel.getQuestionById(position).observe(this, Observer { santeQuestion ->
+                        if (santeQuestion != null) {
+
+                            val santeReponse = santeReponses.find {
+                                it.questionId == santeQuestion.id
+                            }
+
+                            updateUi(santeQuestion, santeReponse)
+                            listenSwitch(santeQuestion, santeReponse)
+                        }
+                    })
+                })
+            })
         })
     }
 
-    private fun listenSwitch(santeQuestion: SanteQuestion) {
+    private fun listenSwitch(santeQuestion: SanteQuestion, santeReponse: SanteReponse?) {
 
         monSwitch.setOnClickListener {
 
             if (santeQuestion.complement == true) {
 
                 if (monSwitch.isChecked) {
-                    Timber.i("zeze switch 1on ")
                     labelQuestionComplementView.setVisibility(View.VISIBLE)
                     complementEditTextView.setVisibility(View.VISIBLE)
+                    monSwitch.text = getString(R.string.switch_oui)
                 } else {
-                    Timber.i("zeze switch 1off")
                     labelQuestionComplementView.setVisibility(View.INVISIBLE)
                     complementEditTextView.setVisibility(View.INVISIBLE)
+                    monSwitch.text = getString(R.string.switch_non)
                 }
             }
         }
     }
 
-    private fun updateUi(santeQuestion: SanteQuestion) {
+    private fun updateUi(santeQuestion: SanteQuestion, santeReponse: SanteReponse?) {
+
         questionIntituleView.text = santeQuestion.intitule
         labelQuestionComplementView.text = santeQuestion.complement_label
         labelQuestionComplementView.setVisibility(View.INVISIBLE)
         complementEditTextView.setVisibility(View.INVISIBLE)
-    }
+        monSwitch.text = getString(R.string.switch_non)
 
+        if (santeReponse != null) {
+            if (santeReponse.reponse == "oui") {
+                monSwitch.text = getString(R.string.switch_oui)
+                monSwitch.setChecked(true)
+            }
+            if (santeReponse.remarque != null && santeReponse.remarque.length > 0) {
+                complementEditTextView.setText(santeReponse.remarque, TextView.BufferType.EDITABLE)
+                complementEditTextView.setVisibility(View.VISIBLE)
+                if (santeQuestion.complement == true) {
+                    labelQuestionComplementView.setVisibility(View.VISIBLE)
+                }
+            }
+        }
+    }
 }
