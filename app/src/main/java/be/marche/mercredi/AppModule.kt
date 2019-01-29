@@ -58,7 +58,7 @@ val appModule = module {
     single {
         createWebService<MercrediService>(
             get(),
-            "http://172.17.30.218/"
+            "http://192.168.0.8/"
         )
     }//http://192.168.0.8/  http://172.17.30.218/
 }
