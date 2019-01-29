@@ -46,13 +46,30 @@ class MercrediViewModel(
         return mercrediRepository.getAnneeScolaireByName(name)
     }
 
+    fun uploadImage2(part: MultipartBody.Part, requestBody: RequestBody) {
+        viewModelScope.launch {
+
+            val request = mercrediService.uploadImage2(part, requestBody)
+            request.enqueue(object : Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    Timber.i(t, "zeze error image")
+                }
+
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                    Timber.i("zeze response image" + response.body())
+                }
+
+            })
+        }
+    }
+
     fun uploadImage(enfant: Enfant, requestBody: RequestBody) {
         viewModelScope.launch {
 
             val request = mercrediService.uploadImage(enfant.id, requestBody)
             request.enqueue(object : Callback<ResponseBody> {
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    Timber.i(t,"zeze error image" )
+                    Timber.i(t, "zeze error image")
                 }
 
                 override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {

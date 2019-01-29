@@ -6,6 +6,11 @@ import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
+import okhttp3.MultipartBody
+import retrofit2.http.POST
+import retrofit2.http.Multipart
+
+
 
 interface MercrediService {
     @GET("api/all")
@@ -30,6 +35,12 @@ interface MercrediService {
         @Path("id") id: Int,
         @Part("image") image: RequestBody
     ): Call<ResponseBody>
+
+    @Multipart
+    @POST("api/update/enfant/photo/{id}")
+    fun uploadImage2(
+        @Part file: MultipartBody.Part,
+        @Part("image") requestBody: RequestBody): Call<ResponseBody>
 
     @POST("api/update/enfant/{id}")
     fun updateEnfant(
