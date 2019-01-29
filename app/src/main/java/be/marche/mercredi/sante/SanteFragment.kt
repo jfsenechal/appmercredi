@@ -10,6 +10,7 @@ import be.marche.mercredi.R
 import be.marche.mercredi.entity.SanteQuestion
 import kotlinx.android.synthetic.main.sante_tabbed.*
 import org.koin.android.ext.android.inject
+import timber.log.Timber
 
 class SanteFragment : Fragment() {
 
@@ -26,6 +27,9 @@ class SanteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         santeViewModel.getAllQuestions().observe(this, Observer { questions ->
+            for (question in questions) {
+           //     Timber.i("zeze quest " + question.intitule)
+            }
             santePagerAdapter = SantePagerAdapter(this.fragmentManager!!, questions)
             santeViewPager.setCurrentItem(1)
             santeViewPager.adapter = santePagerAdapter
@@ -34,6 +38,11 @@ class SanteFragment : Fragment() {
         btnNextView.setOnClickListener {
             val currentItem = santeViewPager.currentItem
             santeViewPager.setCurrentItem(currentItem + 1)
+        }
+
+        btnPreView.setOnClickListener {
+            val currentItem = santeViewPager.currentItem
+            santeViewPager.setCurrentItem(currentItem - 1)
         }
     }
 

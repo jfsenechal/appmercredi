@@ -29,7 +29,6 @@
             android:id="@+id/labelQuestionComplementView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/form_hint_question_intitule"
             android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/monSwitch"
             app:layout_constraintStart_toStartOf="@id/questionIntituleView"
@@ -45,7 +44,6 @@
         <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/form_hint_question_complement"
                 android:id="@+id/complementEditTextView"
                 android:inputType="textMultiLine"
                 tools:text="Oui piqure  3 fois par jour"/>

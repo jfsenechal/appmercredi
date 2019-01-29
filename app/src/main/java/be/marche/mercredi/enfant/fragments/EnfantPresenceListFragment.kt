@@ -57,7 +57,6 @@ class EnfantPresenceListFragment : Fragment(), EnfantPresenceListAdapter.EnfantP
         viewModelEnfant.enfant?.observe(this, Observer { enfant ->
             presenceViewModel.getPresencesByEnfantId(enfant.id)
             presenceViewModel.presences?.observe(this, Observer { newPresences ->
-                Timber.i("zeze update ui " + newPresences)
                 updateUi(newPresences)
             })
         })

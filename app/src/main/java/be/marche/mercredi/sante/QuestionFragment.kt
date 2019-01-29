@@ -10,6 +10,8 @@ import be.marche.mercredi.R
 import be.marche.mercredi.entity.SanteQuestion
 import kotlinx.android.synthetic.main.sante_question_fragment.*
 import org.koin.android.ext.android.inject
+import timber.log.Timber
+
 
 class QuestionFragment : Fragment() {
 
@@ -37,16 +39,40 @@ class QuestionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var position: Int = getArguments()!!.getInt(KEY_POSITION, 1);
+        val position: Int = getArguments()!!.getInt(KEY_POSITION, 1)
 
         santeViewModel.getQuestionsById(position).observe(this, Observer {
-            updateUi(it)
+            if (it != null) {
+                updateUi(it)
+                listenSwitch(it)
+            }
         })
+    }
+
+    private fun listenSwitch(santeQuestion: SanteQuestion) {
+
+        monSwitch.setOnClickListener {
+
+            if (santeQuestion.complement == true) {
+
+                if (monSwitch.isChecked) {
+                    Timber.i("zeze switch 1on ")
+                    labelQuestionComplementView.setVisibility(View.VISIBLE)
+                    complementEditTextView.setVisibility(View.VISIBLE)
+                } else {
+                    Timber.i("zeze switch 1off")
+                    labelQuestionComplementView.setVisibility(View.INVISIBLE)
+                    complementEditTextView.setVisibility(View.INVISIBLE)
+                }
+            }
+        }
     }
 
     private fun updateUi(santeQuestion: SanteQuestion) {
         questionIntituleView.text = santeQuestion.intitule
         labelQuestionComplementView.text = santeQuestion.complement_label
+        labelQuestionComplementView.setVisibility(View.INVISIBLE)
+        complementEditTextView.setVisibility(View.INVISIBLE)
     }
 
 }
