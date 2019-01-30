@@ -1,9 +1,13 @@
 package be.marche.mercredi.enfant.fragments
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.*
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -20,6 +24,7 @@ import timber.log.Timber
 
 class EnfantDetailFragment : Fragment() {
 
+    private val PERMISSION_READ_EXTERNAL_STORAGE = 0
     val viewModelEnfant: EnfantViewModel by sharedViewModel()
     val mercrediViewModel: MercrediViewModel by inject()
     lateinit var enfant: Enfant
@@ -58,6 +63,7 @@ class EnfantDetailFragment : Fragment() {
         })
 
         enfantPhotoView.setOnClickListener {
+            setupPermissions()
             val intent = Intent(Intent.ACTION_GET_CONTENT)
             intent.type = "image/*"
             startActivityForResult(intent, REQUEST_SELECT_IMAGE_IN_ALBUM)
@@ -89,19 +95,68 @@ class EnfantDetailFragment : Fragment() {
             when (requestCode) {
                 REQUEST_SELECT_IMAGE_IN_ALBUM -> {
 
-                    val fileHelper: FileHelper = FileHelper(this.context!!)
-                    val selectedImage = data!!.data
+                    val selectedImage = data?.data
+                    if (selectedImage != null) {
+                        val fileHelper = FileHelper()
+                        val realPath = fileHelper.getPathFromURI(this.context!!, selectedImage)
 
-                    val openInputStream = context?.contentResolver?.openInputStream(selectedImage)
+                        Timber.i("zeze path %s", realPath)
+                        if (realPath != null) {
 
-                    enfantPhotoView.setImageURI(selectedImage)
+                            val file = fileHelper.createFile(realPath)
+                            val requestBody = fileHelper.createRequestBody(file)
+                            val part = fileHelper.createPart(file, requestBody)
 
-                    val inputStream2 = fileHelper.getInputStreamForVirtualFile(selectedImage, "image/*")
-                    Timber.i("zeze input $inputStream2")
-                    fileHelper.postServer(selectedImage)
-                    enfant.photoUrl =
-                        "https://www.marche.be/administration/files/2012/07/logo_au_format_jpg_grand_medium.jpg";
-                    //viewModelEnfant.save(enfant)
+                            mercrediViewModel.uploadImage(enfant.id, part, requestBody)
+
+                            enfantPhotoView.setImageURI(selectedImage)
+
+                            enfant.photoUrl =
+                                "https://www.marche.be/administration/files/2012/07/logo_au_format_jpg_grand_medium.jpg";
+                            //viewModelEnfant.save(enfant)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setupPermissions() {
+        Timber.i("zeze demarrage auto")
+        val permission = ContextCompat.checkSelfPermission(
+            context!!,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        )
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+
+            Timber.i("zeze Permission to read denied")
+
+            ActivityCompat.requestPermissions(
+                activity!!,
+                arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
+                PERMISSION_READ_EXTERNAL_STORAGE
+            )
+
+            // Should we show an explanation?
+            if (shouldShowRequestPermissionRationale(
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                )
+            ) {
+                // Explain to the user why we need to read the contacts
+
+            }
+        }
+
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        when (requestCode) {
+            PERMISSION_READ_EXTERNAL_STORAGE -> {
+                if (grantResults.isNotEmpty()
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                ) {
+                    //callPhone()
                 }
             }
         }

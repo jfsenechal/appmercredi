@@ -32,13 +32,7 @@ interface MercrediService {
     @Multipart
     @POST("api/update/enfant/photo/{id}")
     fun uploadImage(
-        @Path("id") id: Int,
-        @Part("image") image: RequestBody
-    ): Call<ResponseBody>
-
-    @Multipart
-    @POST("api/update/enfant/photo/{id}")
-    fun uploadImage2(
+        @Path("id") enfantId: Int,
         @Part file: MultipartBody.Part,
         @Part("image") requestBody: RequestBody): Call<ResponseBody>
 

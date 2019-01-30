@@ -2,77 +2,65 @@ package be.marche.mercredi.utils
 
 import android.content.Context
 import android.net.Uri
+import android.provider.DocumentsContract
 import android.provider.MediaStore
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import timber.log.Timber
 import java.io.File
-import java.io.FileNotFoundException
-import java.io.InputStream
 
-class FileHelper(val context: Context) {
+class FileHelper {
 
-
-    fun getRealPathFromURI(contentURI: Uri): String {
-        val result: String
-        val cursor = context.getContentResolver().query(contentURI, null, null, null, null)
-        if (cursor == null) { // Source is Dropbox or other similar local file path
-            result = contentURI.getPath()
-        } else {
-            cursor!!.moveToFirst()
-            val idx = cursor!!.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
-            result = cursor!!.getString(idx)
-            cursor!!.close()
-        }
-        return result
+    fun createFile(realPath: String): File {
+        return File(realPath)
     }
 
-    fun uploadToServer(filePath: String) {
-        // val retrofit = NetworkClient.getRetrofitClient(this)
-        //  val uploadAPIs = retrofit.create(UploadAPIs::class.java!!)
-        //Create a file object using file path
-        val file = File(filePath)
-        // Create a request body with file and image media type
-        val fileReqBody = RequestBody.create(MediaType.parse("image/*"), file)
-        // Create MultipartBody.Part using file request-body,file name and part name
-        val part = MultipartBody.Part.createFormData("upload", file.name, fileReqBody)
-        //Create request body with text description and text media type
-        val description = RequestBody.create(MediaType.parse("text/plain"), "image-type")
-        //
-
-        //mercrediViewModel.uploadImage2(part, description)
-    }
-
-    fun createPart(filePath: String): MultipartBody.Part {
-        val mimeType = "jpg"//FileUtil.getMimeType(filePath)
-        val mediaType = MediaType.parse(mimeType ?: filePath)
-        val file = File(filePath)
-        val requestBody: RequestBody = RequestBody.create(mediaType, file)
-        val data = MultipartBody.Part.createFormData("file", file.name, requestBody)
-
-        return data
-    }
-
-    fun getInputStreamForVirtualFile(uri: Uri, mimeTypeFilter: String): InputStream? {
-
-        val openableMimeTypes: Array<String>? = context.contentResolver?.getStreamTypes(uri, mimeTypeFilter)
-
-        return if (openableMimeTypes?.isNotEmpty() == true) {
-            context.contentResolver?.openTypedAssetFileDescriptor(uri, openableMimeTypes[0], null)?.createInputStream()
-        } else {
-            throw FileNotFoundException()
-        }
-    }
-
-    fun postServer(contentURI: Uri) {
-
+    fun createRequestBody(file: File): RequestBody {
         val MEDIA_TYPE_IMAGE: MediaType = MediaType.parse("image/*")!!
-        val file = File(contentURI.path)
+        return RequestBody.create(MEDIA_TYPE_IMAGE, file)
+    }
 
-        val requestBody: RequestBody = RequestBody.create(MEDIA_TYPE_IMAGE, file)
-        val part: MultipartBody.Part = MultipartBody.Part.createFormData("image", file.getName(), requestBody)
+    fun createPart(file: File, requestBody: RequestBody): MultipartBody.Part {
+        return MultipartBody.Part.createFormData("image", file.name, requestBody)
+    }
 
-        //mercrediViewModel.uploadImage(enfant, requestBody)
+    fun getPathFromURI(context: Context, uri: Uri): String? {
+        val path: String = uri.path
+        var realPath: String? = null
+
+        val databaseUri: Uri
+        val selection: String?
+        val selectionArgs: Array<String>?
+        if (path.contains("/document/image:")) { // files selected from "Documents"
+            databaseUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+            selection = "_id=?"
+            selectionArgs = arrayOf(DocumentsContract.getDocumentId(uri).split(":")[1])
+        } else { // files selected from all other sources, especially on Samsung devices
+            databaseUri = uri
+            selection = null
+            selectionArgs = null
+        }
+        try {
+            val projection = arrayOf(
+                MediaStore.Images.Media.DATA,
+                MediaStore.Images.Media._ID,
+                MediaStore.Images.Media.ORIENTATION,
+                MediaStore.Images.Media.DATE_TAKEN
+            ) // some example data you can query
+            val cursor = context.contentResolver.query(
+                databaseUri,
+                projection, selection, selectionArgs, null
+            )
+            if (cursor.moveToFirst()) {
+                val columnIndex = cursor.getColumnIndex(projection[0])
+                realPath = cursor.getString(columnIndex)
+            }
+            cursor.close()
+        } catch (e: Exception) {
+            Timber.i("zeze get path error " + e.message)
+        }
+        return realPath
     }
 
 }
