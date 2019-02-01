@@ -7,10 +7,19 @@ import be.marche.mercredi.entity.SanteQuestion
 
 class SantePagerAdapter(fm: FragmentManager, val questions: List<SanteQuestion>) : FragmentStatePagerAdapter(fm) {
 
+    interface QuestionListener {
+        fun onQuestionChanged(position: Int)
+    }
+
+    var questionListener: QuestionListener? = null
     val titles: List<String> = listOf("Coordonnées", "Conjoint")
 
     override fun getItem(position: Int): Fragment {
-        return  QuestionFragment.newInstance(position)
+        //questionListener?.onQuestionChanged(position)
+        when (position) {
+            0 -> return SanteFicheEditFragment()
+            else -> return QuestionEditFragment.newInstance(position)
+        }
     }
 
     override fun getCount(): Int = questions.size

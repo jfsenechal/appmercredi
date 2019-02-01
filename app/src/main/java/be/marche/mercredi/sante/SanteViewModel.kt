@@ -1,6 +1,7 @@
 package be.marche.mercredi.sante
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import be.marche.mercredi.entity.SanteFiche
 import be.marche.mercredi.entity.SanteQuestion
@@ -17,7 +18,9 @@ class SanteViewModel(
     private val viewModelJob = Job()
     private val viewModelScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    var santeReponses: LiveData<List<SanteReponse>>? = null
+    var santeFiche: LiveData<SanteFiche>? = null
+    var santeReponses: List<SanteReponse>? = null
+
     var santeQuestions: LiveData<List<SanteQuestion>>? = null
 
     init {

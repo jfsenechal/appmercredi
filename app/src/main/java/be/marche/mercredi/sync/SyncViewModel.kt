@@ -11,6 +11,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class SyncViewModel(
     val mercrediService: MercrediService,
@@ -46,6 +47,7 @@ class SyncViewModel(
                 tuteurRepository.insertTuteurs(it.tuteur)
                 mercrediRepository.insertJours(it.jours)
                 santeRepository.insertQuestions(it.santeQuestions)
+                Timber.i("zeze sync " + it.santeFiches)
                 santeRepository.insertSanteFiches(it.santeFiches)
                 santeRepository.insertReponses(it.santeReponses)
                 presenceRepository.insertPresences(it.presences)

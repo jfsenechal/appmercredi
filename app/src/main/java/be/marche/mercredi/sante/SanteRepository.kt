@@ -9,6 +9,7 @@ import be.marche.mercredi.repository.MercrediService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.koin.standalone.KoinComponent
+import timber.log.Timber
 
 class SanteRepository(
     private val santeDao: SanteDao,

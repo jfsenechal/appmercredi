@@ -17,7 +17,7 @@ class EnfantViewModel(
     //Dispatchers.Main : informer le système Android que nous devrons mettre à jour le thread d'interface utilisateur
     private val viewModelScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    var enfant: LiveData<Enfant>? = null
+    lateinit var enfant: LiveData<Enfant>
     var enfantPhoto: MutableLiveData<String>? = null
 
     init {

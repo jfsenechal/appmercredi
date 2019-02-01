@@ -86,4 +86,7 @@
     <string name="btn_prev">Précédent</string>
     <string name="switch_non">non</string>
     <string name="switch_oui">oui</string>
+    <string name="label_nom_medecin">Nom du médecin</string>
+    <string name="label_telephone_medecin">Téléphone du médecin</string>
+    <string name="label_personnes_urgence">Personnes en cas d\'urgence</string>
 </resources>
