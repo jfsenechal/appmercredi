@@ -134,7 +134,7 @@ class AddPresenceFragment : Fragment(), JourListAdapter.JourListAdapterListener 
                     if (nItems != null && nItems > 0) {
                         activity?.title = resources.getQuantityString(R.plurals.jours_selectionnees, nItems, nItems)
                     } else {
-                        activity?.title = getResources().getString(R.string.app_name);
+                        activity?.title = getResources().getString(R.string.app_name)
                     }
                 }
             })
@@ -161,7 +161,7 @@ class AddPresenceFragment : Fragment(), JourListAdapter.JourListAdapterListener 
             }
 
             viewModelPresence.insertPresenceReal(enfant, joursId)
-           // viewModelPresence.insertPresence(presences)
+            // viewModelPresence.insertPresence(presences)
 
             Toast.makeText(
                 context,
@@ -177,6 +177,11 @@ class AddPresenceFragment : Fragment(), JourListAdapter.JourListAdapterListener 
 
         Timber.i("zeze onjourSeleted")
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        activity?.title = getResources().getString(R.string.app_name);
     }
 
 }

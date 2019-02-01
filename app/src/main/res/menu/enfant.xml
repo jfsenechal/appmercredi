@@ -8,10 +8,10 @@
             android:icon="@drawable/ic_outline_healing_24px"/>
 
     <item
-            android:title="@string/btn_action_save"
+            android:title="@string/btn_action_edit"
             app:showAsAction="always"
-            android:id="@+id/btnSave"
-            android:icon="@drawable/ic_save_black_24dp"/>
+            android:id="@+id/btnEdit"
+            android:icon="@drawable/ic_mode_edit_black_24dp"/>
 
 
 </menu>
