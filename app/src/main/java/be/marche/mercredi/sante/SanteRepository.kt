@@ -24,6 +24,10 @@ class SanteRepository(
         return santeDao.getReponsesBySanteFicheId(santeFicheId)
     }
 
+    fun getReponseBySanteFicheIdAndQuestionId(santeFicheId: Int, questionId: Int): LiveData<SanteReponse> {
+        return santeDao.getReponseBySanteFicheIdAndQuestionId(santeFicheId, questionId)
+    }
+
     fun getSanteFicheByEnfantId(enfantId: Int): LiveData<SanteFiche> {
         return santeDao.getSanteFicheByEnfantId(enfantId)
     }

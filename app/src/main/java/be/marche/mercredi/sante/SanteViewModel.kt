@@ -19,7 +19,7 @@ class SanteViewModel(
     private val viewModelScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     var santeFiche: LiveData<SanteFiche>? = null
-    var santeReponses: List<SanteReponse>? = null
+    var santeReponses: LiveData<List<SanteReponse>>? = null
 
     var santeQuestions: LiveData<List<SanteQuestion>>? = null
 
@@ -45,11 +45,12 @@ class SanteViewModel(
     }
 
     fun getSanteFicheByEnfantId(enfantId: Int): LiveData<SanteFiche> {
-        return santeRepository.getSanteFicheByEnfantId(enfantId)
+        santeFiche = santeRepository.getSanteFicheByEnfantId(enfantId)
+        return santeFiche as LiveData<SanteFiche>
     }
 
-    fun getReponseBySanteFicheIdAndQuestionId(enfantId: Int): LiveData<List<SanteReponse>> {
-        return santeRepository.getReponsesBySanteFicheId(enfantId)
+    fun getReponseBySanteFicheIdAndQuestionId(santeFicheId: Int, questionId: Int): LiveData<SanteReponse> {
+        return santeRepository.getReponseBySanteFicheIdAndQuestionId(santeFicheId, questionId)
     }
 
     fun insertSanteQuestions(questions: List<SanteQuestion>) {

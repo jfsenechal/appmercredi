@@ -18,12 +18,10 @@ import timber.log.Timber
 class SanteFragment : Fragment(), SantePagerAdapter.QuestionListener {
 
     override fun onQuestionChanged(position: Int) {
-        Timber.i("zeze question a change postion " + position)
+
     }
 
-    val viewModelEnfant: EnfantViewModel by sharedViewModel()
     val santeViewModel: SanteViewModel by inject()
-    lateinit var questions: List<SanteQuestion>
     lateinit var santePagerAdapter: SantePagerAdapter
 
 
@@ -35,27 +33,10 @@ class SanteFragment : Fragment(), SantePagerAdapter.QuestionListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Timber.i("zeze creation santeFrag")
-        viewModelEnfant.enfant.observe(this, Observer { enfant ->
-
-            santeViewModel.getSanteFicheByEnfantId(enfant.id).observe(this, Observer {
-
-                Timber.i("zeze fiche " + it)
-
-                santeViewModel.getReponsesBySanteFicheId(it.id).observe(this, Observer { santeReponses ->
-                    Timber.i("zeze reponses" + santeReponses)
-                    santeViewModel.santeReponses = santeReponses
-
-                    santeViewModel.getAllQuestions().observe(this, Observer { questions ->
-                        for (question in questions) {
-                            //     Timber.i("zeze quest " + question.intitule)
-                        }
-                        santePagerAdapter = SantePagerAdapter(this.fragmentManager!!, questions)
-                        santePagerAdapter.questionListener = this
-                        santeViewPager.adapter = santePagerAdapter
-                    })
-                })
-            })
+        santeViewModel.getAllQuestions().observe(this, Observer { questions ->
+            santePagerAdapter = SantePagerAdapter(this.fragmentManager!!, questions)
+            santeViewPager.setCurrentItem(1)
+            santeViewPager.adapter = santePagerAdapter
         })
 
         btnNextView.setOnClickListener {

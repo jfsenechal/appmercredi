@@ -18,6 +18,9 @@ interface SanteDao {
     @Query("SELECT * FROM SanteReponse WHERE santeFicheId = :santeFicheId")
     fun getReponsesBySanteFicheId(santeFicheId: Int): LiveData<List<SanteReponse>>
 
+    @Query("SELECT * FROM SanteReponse WHERE santeFicheId = :santeFicheId AND questionId = :questionId")
+    fun getReponseBySanteFicheIdAndQuestionId(santeFicheId: Int, questionId: Int): LiveData<SanteReponse>
+
     @Query("SELECT * FROM SanteFiche WHERE enfantId = :enfantId LIMIT 0,1")
     fun getSanteFicheByEnfantId(enfantId: Int): LiveData<SanteFiche>
 
@@ -34,5 +37,5 @@ interface SanteDao {
     fun getQuestionById(questionId: Int): LiveData<SanteQuestion>
 
     @Query("SELECT * FROM santereponse WHERE santeFicheId = :santeFicheId")
-    fun getReponseBySanteFicheId(santeFicheId: Int) : SanteReponse
+    fun getReponseBySanteFicheId(santeFicheId: Int): SanteReponse
 }

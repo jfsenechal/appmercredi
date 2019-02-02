@@ -12,7 +12,6 @@ import be.marche.mercredi.enfant.EnfantViewModel
 import be.marche.mercredi.entity.SanteFiche
 import kotlinx.android.synthetic.main.sante_fiche_edit_fragment.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import timber.log.Timber
 
 class SanteFicheEditFragment : Fragment() {
 
@@ -35,17 +34,11 @@ class SanteFicheEditFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModelEnfant.enfant.observe(this, Observer { enfant ->
-
-            Timber.i("zeze enfant"+enfant.id)
-
             santeViewModel.getSanteFicheByEnfantId(enfant.id).observe(this, Observer { santeFiche ->
-
-                Timber.i("zeze fiche " + santeFiche)
                 if (santeFiche != null) {
                     updateUi(santeFiche)
                 }
             })
-
         })
     }
 

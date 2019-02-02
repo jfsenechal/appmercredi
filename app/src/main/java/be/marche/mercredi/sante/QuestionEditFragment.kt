@@ -28,7 +28,6 @@ class QuestionEditFragment : Fragment() {
         const val KEY_POSITION = "position"
 
         fun newInstance(position: Int): QuestionEditFragment {
-//            Timber.i("zeze position creation " + position)
             val frag = QuestionEditFragment()
             val args = Bundle()
             args.putInt(KEY_POSITION, position)
@@ -47,22 +46,27 @@ class QuestionEditFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        this.santeReponses = santeViewModel.santeReponses
+        var santeReponse: SanteReponse? = null
+        var santeFicheId: Int? = null
+        santeViewModel.santeFiche?.observe(this, Observer {
+            santeFicheId = it.id
+        })
 
         santeViewModel.getQuestionById(position).observe(this, Observer { santeQuestion ->
             if (santeQuestion != null) {
+                if (santeFicheId != null) {
+                    santeReponse = santeViewModel.getReponseBySanteFicheIdAndQuestionId(santeFicheId!!, santeQuestion.id).value
+                }
 
+                /*
                 val santeReponse = santeReponses?.find {
                     it.questionId == santeQuestion.id
-                }
+                }*/
 
                 listenSwitch(santeQuestion, santeReponse)
                 updateUi(santeQuestion, santeReponse)
-            } else {
-                Toast.makeText(context, "question null", Toast.LENGTH_SHORT).show()
             }
         })
-
     }
 
     private fun listenSwitch(santeQuestion: SanteQuestion, santeReponse: SanteReponse?) {
@@ -94,9 +98,9 @@ class QuestionEditFragment : Fragment() {
         monSwitch.text = getString(R.string.switch_non)
 
         Timber.i("zeze reponse" + santeReponse)
-        Timber.i("zeze reponses" + this.santeReponses)
         if (santeReponse != null) {
             if (santeReponse.reponse == "oui") {
+                Timber.i("zeze reponse oui" + santeReponse)
                 monSwitch.text = getString(R.string.switch_oui)
                 monSwitch.setChecked(true)
             }

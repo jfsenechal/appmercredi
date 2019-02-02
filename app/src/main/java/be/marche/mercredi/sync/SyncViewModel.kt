@@ -47,7 +47,6 @@ class SyncViewModel(
                 tuteurRepository.insertTuteurs(it.tuteur)
                 mercrediRepository.insertJours(it.jours)
                 santeRepository.insertQuestions(it.santeQuestions)
-                Timber.i("zeze sync " + it.santeFiches)
                 santeRepository.insertSanteFiches(it.santeFiches)
                 santeRepository.insertReponses(it.santeReponses)
                 presenceRepository.insertPresences(it.presences)
