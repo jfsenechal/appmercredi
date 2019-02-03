@@ -24,7 +24,7 @@ class SanteViewModel(
     var santeQuestions: LiveData<List<SanteQuestion>>? = null
 
     init {
-
+        santeQuestions = getAllQuestions()
     }
 
     override fun onCleared() {

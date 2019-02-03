@@ -33,7 +33,7 @@ class SanteFragment : Fragment(), SantePagerAdapter.QuestionListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        santeViewModel.getAllQuestions().observe(this, Observer { questions ->
+        santeViewModel.santeQuestions?.observe(this, Observer { questions ->
             santePagerAdapter = SantePagerAdapter(this.fragmentManager!!, questions)
             santeViewPager.setCurrentItem(1)
             santeViewPager.adapter = santePagerAdapter
