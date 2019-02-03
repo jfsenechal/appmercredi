@@ -22,6 +22,8 @@ class SanteViewModel(
     var santeReponses: LiveData<List<SanteReponse>>? = null
 
     var santeQuestions: LiveData<List<SanteQuestion>>? = null
+    val santeQuestion  = MutableLiveData<SanteQuestion>()
+    val santeReponse  = MutableLiveData<SanteReponse>()
 
     init {
         santeQuestions = getAllQuestions()
@@ -30,6 +32,14 @@ class SanteViewModel(
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
+    }
+
+    fun loadQuestion(questionId: Int) {
+        santeQuestion.value = santeRepository.getQuestionById(questionId).value
+    }
+
+    fun loadReponse(questionId: Int, santeFicheId: Int) {
+        santeReponse.value = santeRepository.getReponseBySanteFicheIdAndQuestionId(santeFicheId, questionId).value
     }
 
     fun getAllQuestions(): LiveData<List<SanteQuestion>> {
