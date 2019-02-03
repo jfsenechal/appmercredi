@@ -34,9 +34,7 @@ class QuestionEditFragment : Fragment() {
             val frag = QuestionEditFragment()
             val args = Bundle()
             args.putInt(KEY_POSITION, position)
-            frag.setArguments(args);
-
-
+            frag.setArguments(args)
 
             return frag
         }
@@ -71,7 +69,6 @@ class QuestionEditFragment : Fragment() {
                 })
             })
         })
-
     }
 
     fun testCode() {
@@ -141,10 +138,8 @@ class QuestionEditFragment : Fragment() {
         complementEditTextView.setVisibility(View.INVISIBLE)
         monSwitch.text = getString(R.string.switch_non)
 
-        Timber.i("zeze reponse" + santeReponse)
         if (santeReponse != null) {
             if (santeReponse.reponse == "oui") {
-                Timber.i("zeze reponse oui" + santeReponse)
                 monSwitch.text = getString(R.string.switch_oui)
                 monSwitch.setChecked(true)
             }
