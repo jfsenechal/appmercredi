@@ -37,10 +37,6 @@ class SanteFicheEditFragment : Fragment() {
 
         val enfantLiveData = viewModelEnfant.enfant
 
-        val enfantId: LiveData<Int>? = Transformations.map(viewModelEnfant.enfant) { enfant ->
-            enfant.id
-        }
-
         val santeFicheLiveData = Transformations.switchMap(enfantLiveData) {
             santeViewModel.getSanteFicheByEnfantId(it.id)
         }
@@ -48,14 +44,6 @@ class SanteFicheEditFragment : Fragment() {
         santeFicheLiveData.observe(this, Observer {
             updateUi(it)
         })
-
-     /*   viewModelEnfant.enfant.observe(this, Observer { enfant ->
-            santeViewModel.getSanteFicheByEnfantId(enfant.id).observe(this, Observer { santeFiche ->
-                if (santeFiche != null) {
-                    updateUi(santeFiche)
-                }
-            })
-        })*/
     }
 
     private fun updateUi(santeFiche: SanteFiche?) {

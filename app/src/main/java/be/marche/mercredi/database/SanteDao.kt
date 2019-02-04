@@ -38,4 +38,7 @@ interface SanteDao {
 
     @Query("SELECT * FROM santereponse WHERE santeFicheId = :santeFicheId")
     fun getReponseBySanteFicheId(santeFicheId: Int): SanteReponse
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertReponse(reponse: SanteReponse)
 }

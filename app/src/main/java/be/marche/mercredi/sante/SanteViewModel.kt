@@ -81,4 +81,10 @@ class SanteViewModel(
         }
     }
 
+    fun insertReponse(santeReponse: SanteReponse) {
+        viewModelScope.launch {
+            santeRepository.insertReponse(santeReponse)
+        }
+    }
+
 }

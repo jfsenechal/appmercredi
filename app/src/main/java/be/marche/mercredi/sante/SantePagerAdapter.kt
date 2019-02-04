@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import androidx.fragment.app.FragmentStatePagerAdapter
 import be.marche.mercredi.entity.SanteQuestion
 
-class SantePagerAdapter(fm: FragmentManager, val questions: List<SanteQuestion>) : FragmentPagerAdapter(fm) {
+class SantePagerAdapter(fm: FragmentManager, val questions: List<SanteQuestion>) : FragmentStatePagerAdapter(fm) {
 
     interface QuestionListener {
         fun onQuestionChanged(position: Int)

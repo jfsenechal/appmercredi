@@ -44,7 +44,7 @@ class MenuFragment : Fragment(), MenuListAdapter.MenuAdapterListener {
         userViewModel.user?.observe(this, Observer {
             syncViewModel.token = it.token
             if (it.token.isNotEmpty()) {
-                refreshDataBase()
+             //   refreshDataBase()
             }
         })
 

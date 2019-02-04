@@ -25,6 +25,7 @@ class QuestionEditFragment : Fragment() {
     var santeReponses: List<SanteReponse>? = null
     var position: Int = 0
     var positionLiveData: MutableLiveData<Int> = MutableLiveData()
+            val args = Bundle()
 
     companion object {
 
@@ -71,6 +72,51 @@ class QuestionEditFragment : Fragment() {
         })
     }
 
+
+    private fun listenSwitch(santeQuestion: SanteQuestion, santeReponse: SanteReponse?) {
+
+        monSwitch.setOnCheckedChangeListener { _, isChecked ->
+
+            if (isChecked) {
+                if (santeQuestion.complement == true) {
+                    labelQuestionComplementView.setVisibility(View.VISIBLE)
+                    complementEditTextView.setVisibility(View.VISIBLE)
+                }
+                monSwitch.text = getString(R.string.switch_oui)
+            } else {
+                if (santeQuestion.complement == true) {
+                    labelQuestionComplementView.setVisibility(View.INVISIBLE)
+                    complementEditTextView.setVisibility(View.INVISIBLE)
+                }
+                monSwitch.text = getString(R.string.switch_non)
+            }
+        }
+    }
+
+    private fun updateUi(santeQuestion: SanteQuestion, santeReponse: SanteReponse?) {
+
+        questionIntituleView.text = santeQuestion.intitule
+        labelQuestionComplementView.text = santeQuestion.complement_label
+        labelQuestionComplementView.setVisibility(View.INVISIBLE)
+        complementEditTextView.setVisibility(View.INVISIBLE)
+        monSwitch.text = getString(R.string.switch_non)
+
+        if (santeReponse != null) {
+            if (santeReponse.reponse == "oui") {
+                monSwitch.text = getString(R.string.switch_oui)
+                monSwitch.setChecked(true)
+            }
+            if (santeReponse.remarque != null && santeReponse.remarque!!.isNotEmpty()) {
+                complementEditTextView.setText(santeReponse.remarque, TextView.BufferType.EDITABLE)
+                complementEditTextView.setVisibility(View.VISIBLE)
+                if (santeQuestion.complement == true) {
+                    labelQuestionComplementView.setVisibility(View.VISIBLE)
+                }
+            }
+        }
+    }
+
+
     fun testCode() {
         var santeReponse: SanteReponse? = null
         var santeFicheId: Int? = null
@@ -108,48 +154,5 @@ class QuestionEditFragment : Fragment() {
                 updateUi(santeQuestion, santeReponse)
             }
         })
-    }
-
-    private fun listenSwitch(santeQuestion: SanteQuestion, santeReponse: SanteReponse?) {
-
-        monSwitch.setOnCheckedChangeListener { _, isChecked ->
-
-            if (isChecked) {
-                if (santeQuestion.complement == true) {
-                    labelQuestionComplementView.setVisibility(View.VISIBLE)
-                    complementEditTextView.setVisibility(View.VISIBLE)
-                }
-                monSwitch.text = getString(R.string.switch_oui)
-            } else {
-                if (santeQuestion.complement == true) {
-                    labelQuestionComplementView.setVisibility(View.INVISIBLE)
-                    complementEditTextView.setVisibility(View.INVISIBLE)
-                }
-                monSwitch.text = getString(R.string.switch_non)
-            }
-        }
-    }
-
-    private fun updateUi(santeQuestion: SanteQuestion, santeReponse: SanteReponse?) {
-
-        questionIntituleView.text = santeQuestion.intitule
-        labelQuestionComplementView.text = santeQuestion.complement_label
-        labelQuestionComplementView.setVisibility(View.INVISIBLE)
-        complementEditTextView.setVisibility(View.INVISIBLE)
-        monSwitch.text = getString(R.string.switch_non)
-
-        if (santeReponse != null) {
-            if (santeReponse.reponse == "oui") {
-                monSwitch.text = getString(R.string.switch_oui)
-                monSwitch.setChecked(true)
-            }
-            if (santeReponse.remarque != null && santeReponse.remarque.length > 0) {
-                complementEditTextView.setText(santeReponse.remarque, TextView.BufferType.EDITABLE)
-                complementEditTextView.setVisibility(View.VISIBLE)
-                if (santeQuestion.complement == true) {
-                    labelQuestionComplementView.setVisibility(View.VISIBLE)
-                }
-            }
-        }
     }
 }

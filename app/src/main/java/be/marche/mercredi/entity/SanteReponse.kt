@@ -18,6 +18,6 @@ data class SanteReponse(
     val id: Int,
     val santeFicheId: Int,
     val questionId: Int,
-    val reponse: String,//oui ou non
-    val remarque: String?
+    var reponse: String,//oui ou non
+    var remarque: String?
 )

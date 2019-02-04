@@ -44,6 +44,13 @@ class SanteRepository(
         }
     }
 
+
+    suspend fun insertReponse(reponse: SanteReponse) {
+        withContext(Dispatchers.IO) {
+            santeDao.insertReponse(reponse)
+        }
+    }
+
     suspend fun insertSanteFiches(santeFiches: List<SanteFiche>) {
         withContext(Dispatchers.IO) {
             santeDao.insertSanteFiches(santeFiches)
