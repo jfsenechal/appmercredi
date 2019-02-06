@@ -5,18 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.Transformations
 import be.marche.mercredi.R
 import be.marche.mercredi.enfant.EnfantViewModel
 import be.marche.mercredi.entity.SanteQuestion
 import be.marche.mercredi.entity.SanteReponse
 import kotlinx.android.synthetic.main.sante_question_edit_fragment.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import timber.log.Timber
 
 class QuestionEditFragment : Fragment() {
 
@@ -24,8 +20,6 @@ class QuestionEditFragment : Fragment() {
     val viewModelEnfant: EnfantViewModel by sharedViewModel()
     var santeReponses: List<SanteReponse>? = null
     var position: Int = 0
-    var positionLiveData: MutableLiveData<Int> = MutableLiveData()
-            val args = Bundle()
 
     companion object {
 
@@ -72,7 +66,6 @@ class QuestionEditFragment : Fragment() {
         })
     }
 
-
     private fun listenSwitch(santeQuestion: SanteQuestion, santeReponse: SanteReponse?) {
 
         monSwitch.setOnCheckedChangeListener { _, isChecked ->
@@ -114,45 +107,5 @@ class QuestionEditFragment : Fragment() {
                 }
             }
         }
-    }
-
-
-    fun testCode() {
-        var santeReponse: SanteReponse? = null
-        var santeFicheId: Int? = null
-
-        positionLiveData.value = position
-
-        santeViewModel.santeFiche?.observe(this, Observer {
-            santeFicheId = it.id
-        })
-
-        val questionLiveData = Transformations.switchMap(positionLiveData) {
-            santeViewModel.getQuestionById(it)
-        }
-
-        questionLiveData.observe(this, Observer { santeQuestion ->
-
-
-        })
-
-
-        santeViewModel.getQuestionById(position).observe(this, Observer { santeQuestion ->
-            if (santeQuestion != null) {
-                if (santeFicheId != null) {
-                    santeReponse =
-                        santeViewModel.getReponseBySanteFicheIdAndQuestionId(santeFicheId!!, santeQuestion.id).value
-                    //            santeViewModel.loadReponse(santeQuestion.id, santeFicheId)
-                }
-
-                /*
-                val santeReponse = santeReponses?.find {
-                    it.questionId == santeQuestion.id
-                }*/
-
-                listenSwitch(santeQuestion, santeReponse)
-                updateUi(santeQuestion, santeReponse)
-            }
-        })
     }
 }
