@@ -13,6 +13,7 @@ import androidx.lifecycle.Transformations
 import androidx.viewpager.widget.ViewPager
 import be.marche.mercredi.R
 import be.marche.mercredi.enfant.EnfantViewModel
+import be.marche.mercredi.entity.SanteFiche
 import kotlinx.android.synthetic.main.sante_tabbed.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -23,7 +24,7 @@ class SanteFragment : Fragment(), SantePagerAdapter.QuestionListener {
     val viewModelEnfant: EnfantViewModel by sharedViewModel()
     lateinit var santePagerAdapter: SantePagerAdapter
     var previousView: View? = null
-    var santeFicheId: Int = 0
+    lateinit var santeFiche: SanteFiche
     var questionId: Int = 0
 
     override fun onQuestionChanged(position: Int) {
@@ -45,7 +46,7 @@ class SanteFragment : Fragment(), SantePagerAdapter.QuestionListener {
         }
 
         santeFicheLiveData.observe(this, Observer {
-            santeFicheId = it.id
+            santeFiche = it
         })
 
         santeViewModel.santeQuestions?.observe(this, Observer { questions ->
@@ -57,17 +58,29 @@ class SanteFragment : Fragment(), SantePagerAdapter.QuestionListener {
 
                 override fun onPageSelected(position: Int) {
 
-                    val fragment = santePagerAdapter.getItem(position)
+                    var previousPosition = position
+
+                    if (previousPosition > 0) {
+                        previousPosition = previousPosition - 1
+                    }
+
+                    val fragment = santePagerAdapter.getItem(previousPosition)
 
                     previousView = santeViewPager.get(0)
 
                     if (fragment is QuestionEditFragment) {
-                        questionId = position - 1
+                        questionId = previousPosition
 
                         if (questionId < 0) {
                             return
                         }
                         traitementQuestionEditFragment()
+                        return
+                    }
+
+                    if (fragment is SanteFicheEditFragment) {
+                        traitementFicheEditFragement()
+                        return
                     }
                 }
             })
@@ -84,6 +97,21 @@ class SanteFragment : Fragment(), SantePagerAdapter.QuestionListener {
         }
     }
 
+    private fun traitementFicheEditFragement() {
+
+        val medecinNomEditTextView = previousView?.findViewById<EditText>(R.id.medecinNomEditTextView)
+        val medecinTelephoneditTextView = previousView?.findViewById<EditText>(R.id.medecinTelephoneditTextView)
+        val personnesUrgencesEditTextView = previousView?.findViewById<EditText>(R.id.personnesUrgencesEditTextView)
+
+        santeFiche.apply {
+            medecinNom = medecinNomEditTextView?.text.toString()
+            medecinTelephone = medecinTelephoneditTextView?.text.toString()
+            personneUrgence = personnesUrgencesEditTextView?.text.toString()
+        }
+
+        santeViewModel.insertSanteFiche(santeFiche)
+    }
+
     private fun traitementQuestionEditFragment() {
 
         val complementTextView = previousView?.findViewById<EditText>(R.id.complementEditTextView)
@@ -92,7 +120,7 @@ class SanteFragment : Fragment(), SantePagerAdapter.QuestionListener {
         val newReponse: String = switchView?.text.toString()
         val newComplement: String = complementTextView?.text.toString()
 
-        santeViewModel.getReponseBySanteFicheIdAndQuestionId(santeFicheId, questionId)
+        santeViewModel.getReponseBySanteFicheIdAndQuestionId(santeFiche.id, questionId)
             .observe(this@SanteFragment, Observer { santeReponse ->
                 if (santeReponse != null) {
                     var change = false

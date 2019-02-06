@@ -87,4 +87,10 @@ class SanteViewModel(
         }
     }
 
+    fun insertSanteFiche(santeFiche: SanteFiche) {
+        viewModelScope.launch {
+            santeRepository.insertSanteFiche(santeFiche)
+        }
+    }
+
 }

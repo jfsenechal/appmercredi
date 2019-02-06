@@ -41,4 +41,7 @@ interface SanteDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertReponse(reponse: SanteReponse)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertSanteFiche(santeFiche: SanteFiche)
 }

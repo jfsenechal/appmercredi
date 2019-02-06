@@ -17,8 +17,8 @@ data class SanteFiche(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val enfantId: Int,
-    val personneUrgence: String?,
-    val medecinNom: String?,
-    val medecinTelephone: String?,
+    var personneUrgence: String?,
+    var medecinNom: String?,
+    var medecinTelephone: String?,
     val remarques: String?
 )

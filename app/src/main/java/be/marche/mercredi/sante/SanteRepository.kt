@@ -44,7 +44,6 @@ class SanteRepository(
         }
     }
 
-
     suspend fun insertReponse(reponse: SanteReponse) {
         withContext(Dispatchers.IO) {
             santeDao.insertReponse(reponse)
@@ -59,6 +58,12 @@ class SanteRepository(
 
     fun getQuestionById(questionId: Int): LiveData<SanteQuestion> {
         return santeDao.getQuestionById(questionId)
+    }
+
+    suspend fun insertSanteFiche(santeFiche: SanteFiche) {
+        withContext(Dispatchers.IO) {
+            santeDao.insertSanteFiche(santeFiche)
+        }
     }
 
 }
