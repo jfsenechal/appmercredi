@@ -25,7 +25,6 @@ class SanteFragment : Fragment(), SantePagerAdapter.QuestionListener {
     lateinit var santePagerAdapter: SantePagerAdapter
     var previousView: View? = null
     lateinit var santeFiche: SanteFiche
-    var questionId: Int = 0
 
     override fun onQuestionChanged(position: Int) {
         questionPosition = position
@@ -53,37 +52,32 @@ class SanteFragment : Fragment(), SantePagerAdapter.QuestionListener {
             santePagerAdapter = SantePagerAdapter(this.fragmentManager!!, questions)
             santeViewPager.setCurrentItem(1)
             santeViewPager.adapter = santePagerAdapter
+        })
 
-            santeViewPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
+        santeViewPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
 
-                override fun onPageSelected(position: Int) {
+            override fun onPageSelected(position: Int) {
 
-                    var previousPosition = position
+                var previousPosition = position
 
-                    if (previousPosition > 0) {
-                        previousPosition = previousPosition - 1
-                    }
-
-                    val fragment = santePagerAdapter.getItem(previousPosition)
-
-                    previousView = santeViewPager.get(0)
-
-                    if (fragment is QuestionEditFragment) {
-                        questionId = previousPosition
-
-                        if (questionId < 0) {
-                            return
-                        }
-                        traitementQuestionEditFragment()
-                        return
-                    }
-
-                    if (fragment is SanteFicheEditFragment) {
-                        traitementFicheEditFragement()
-                        return
-                    }
+                if (previousPosition > 0) {
+                    previousPosition = previousPosition - 1
                 }
-            })
+
+                val fragment = santePagerAdapter.getItem(previousPosition)
+
+                previousView = santeViewPager.get(0)
+
+                if (fragment is QuestionEditFragment) {
+                    traitementQuestionEditFragment(previousPosition)
+                    return
+                }
+
+                if (fragment is SanteFicheEditFragment) {
+                    traitementFicheEditFragement()
+                    return
+                }
+            }
         })
 
         btnNextView.setOnClickListener {
@@ -112,7 +106,7 @@ class SanteFragment : Fragment(), SantePagerAdapter.QuestionListener {
         santeViewModel.insertSanteFiche(santeFiche)
     }
 
-    private fun traitementQuestionEditFragment() {
+    private fun traitementQuestionEditFragment(questionId: Int) {
 
         val complementTextView = previousView?.findViewById<EditText>(R.id.complementEditTextView)
         val switchView = previousView?.findViewById<Switch>(R.id.monSwitch)
