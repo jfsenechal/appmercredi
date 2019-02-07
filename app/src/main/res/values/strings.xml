@@ -89,4 +89,7 @@
     <string name="label_nom_medecin">Nom du médecin</string>
     <string name="label_telephone_medecin">Téléphone du médecin</string>
     <string name="label_personnes_urgence">Personnes en cas d\'urgence</string>
+    <string name="titre_telephone_medecin">Téléphone du médecin</string>
+    <string name="titre_nom_medecin">Nom du médecin</string>
+    <string name="titre_personnes_urgence">Personnes en cas d\'urgence</string>
 </resources>

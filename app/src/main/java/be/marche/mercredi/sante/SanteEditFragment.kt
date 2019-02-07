@@ -17,7 +17,7 @@ import be.marche.mercredi.entity.SanteFiche
 import kotlinx.android.synthetic.main.sante_edit_tabbed.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class SanteFragment : Fragment(), SantePagerAdapter.QuestionListener {
+class SanteEditFragment : Fragment(), SantePagerAdapter.QuestionListener {
 
     var questionPosition: Int = 0
     val santeViewModel: SanteViewModel by sharedViewModel()
@@ -115,7 +115,7 @@ class SanteFragment : Fragment(), SantePagerAdapter.QuestionListener {
         val newComplement: String = complementTextView?.text.toString()
 
         santeViewModel.getReponseBySanteFicheIdAndQuestionId(santeFiche.id, questionId)
-            .observe(this@SanteFragment, Observer { santeReponse ->
+            .observe(this@SanteEditFragment, Observer { santeReponse ->
                 if (santeReponse != null) {
                     var change = false
                     if (newReponse != santeReponse.reponse) {
