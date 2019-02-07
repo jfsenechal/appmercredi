@@ -15,6 +15,17 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/nomMedecinView"
+            app:layout_constraintStart_toEndOf="@+id/titreNomMedecinView"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Docteur Ledoux"/>
+
     <TextView
             android:text="@string/titre_telephone_medecin"
             android:layout_width="wrap_content"
@@ -25,6 +36,15 @@
             app:layout_constraintTop_toBottomOf="@+id/titreNomMedecinView"
             android:layout_marginTop="8dp"/>
     <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/telephoneMedecinView"
+            tools:text="084 32 70 20"
+            app:layout_constraintStart_toEndOf="@+id/titreTelephoneMedecinView"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/nomMedecinView"/>
+    <TextView
             android:text="@string/titre_personnes_urgence"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,5 +53,14 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/PersonnesUrgencesView"
+            tools:text="@tools:sample/lorem"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/titrePersonnesUrgencesView"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
