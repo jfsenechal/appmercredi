@@ -1,17 +1,14 @@
 package be.marche.mercredi.sync
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import be.marche.mercredi.enfant.EnfantRepository
 import be.marche.mercredi.presence.PresenceRepository
 import be.marche.mercredi.repository.MercrediRepository
 import be.marche.mercredi.repository.MercrediService
 import be.marche.mercredi.sante.SanteRepository
 import be.marche.mercredi.tuteur.TuteurRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class SyncViewModel(
     val mercrediService: MercrediService,
@@ -23,15 +20,7 @@ class SyncViewModel(
 ) :
     ViewModel() {
 
-    private val viewModelJob = Job()
-    private val viewModelScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-    var token: String? = null
-
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
-    }
-
+var token: String? = null
     fun refreshData() {
 
         viewModelScope.launch {

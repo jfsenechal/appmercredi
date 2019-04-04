@@ -5,20 +5,14 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import be.marche.mercredi.entity.SanteQuestion
 
-class SantePagerAdapter(fm: FragmentManager, val questions: List<SanteQuestion>) : FragmentStatePagerAdapter(fm) {
+class SantePagerAdapter(fm: FragmentManager, val questions: List<SanteQuestion>, val edit: Boolean) : FragmentStatePagerAdapter(fm) {
 
-    interface QuestionListener {
-        fun onQuestionChanged(position: Int)
-    }
-
-    var questionListener: QuestionListener? = null
     val titles: List<String> = listOf("Coordonnées", "Conjoint")
 
     override fun getItem(position: Int): Fragment {
-        questionListener?.onQuestionChanged(position)
         when (position) {
-            0 -> return SanteFicheEditFragment()
-            else -> return QuestionEditFragment.newInstance(position)
+            0 -> if(edit) return SanteFicheEditFragment() else return SanteFicheFragment()
+            else -> return if(edit) QuestionEditFragment.newInstance(position) else QuestionFragment.newInstance(position)
         }
     }
 
@@ -27,6 +21,4 @@ class SantePagerAdapter(fm: FragmentManager, val questions: List<SanteQuestion>)
     override fun getPageTitle(position: Int): CharSequence? {
         return titles[position]
     }
-
-
 }

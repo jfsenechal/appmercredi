@@ -75,7 +75,7 @@ class AddPresenceFragment : Fragment(), JourListAdapter.JourListAdapterListener 
 
         initTracker()
 
-        viewModelEnfant.enfant?.observe(this, Observer { enfant ->
+        viewModelEnfant.enfant.observe(this, Observer { enfant ->
             this.enfant = enfant
             Timber.i("zeze $enfant")
             viewModelPresence.getJoursByEnfantId(enfant.id)

@@ -3,6 +3,7 @@ package be.marche.mercredi.database
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import be.marche.mercredi.entity.Presence
+import java.util.*
 
 @Dao
 interface PresenceDao {
@@ -18,4 +19,7 @@ interface PresenceDao {
 
     @Update
     fun updatePresences(presences: List<Presence>): Int
+
+    @Query("SELECT * FROM presence WHERE date BETWEEN :from AND :to")
+    fun findUsersBornBetweenDates(from: Date, to: Date): List<Presence>
 }

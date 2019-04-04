@@ -3,20 +3,15 @@ package be.marche.mercredi.sante
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import be.marche.mercredi.entity.SanteFiche
 import be.marche.mercredi.entity.SanteQuestion
 import be.marche.mercredi.entity.SanteReponse
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class SanteViewModel(
     private val santeRepository: SanteRepository
 ) : ViewModel() {
-
-    private val viewModelJob = Job()
-    private val viewModelScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     var santeFiche: LiveData<SanteFiche>? = null
     var santeReponses: LiveData<List<SanteReponse>>? = null
@@ -27,11 +22,6 @@ class SanteViewModel(
 
     init {
         santeQuestions = getAllQuestions()
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
     }
 
     fun loadQuestion(questionId: Int) {

@@ -25,7 +25,7 @@ import timber.log.Timber
 class EnfantDetailFragment : Fragment() {
 
     private val PERMISSION_READ_EXTERNAL_STORAGE = 0
-    val viewModelEnfant: EnfantViewModel by sharedViewModel()
+    val enfantViewModel: EnfantViewModel by sharedViewModel()
     val mercrediViewModel: MercrediViewModel by inject()
     lateinit var enfant: Enfant
 
@@ -51,7 +51,7 @@ class EnfantDetailFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModelEnfant.enfant?.observe(this, Observer { enfant ->
+        enfantViewModel.enfant.observe(this, Observer { enfant ->
             this.enfant = enfant
             mercrediViewModel.getEcoleById(enfant.ecoleId).observe(this, Observer { ecole ->
                 enfantEcole.text = ecole.nom
@@ -100,7 +100,6 @@ class EnfantDetailFragment : Fragment() {
                         val fileHelper = FileHelper()
                         val realPath = fileHelper.getPathFromURI(this.context!!, selectedImage)
 
-                        Timber.i("zeze path %s", realPath)
                         if (realPath != null) {
 
                             val file = fileHelper.createFile(realPath)
@@ -170,7 +169,7 @@ class EnfantDetailFragment : Fragment() {
 
         enfantNom.text = enfant.nom
         enfantPrenom.text = enfant.prenom
-        enfantBirthday.text = enfant.birthday
+      //  enfantBirthday.text = enfant.birthday
         enfantNumeroNational.text = enfant.numeroNational
         enfantRemarques.text = enfant.remarques
     }

@@ -2,14 +2,11 @@ package be.marche.mercredi
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import be.marche.mercredi.entity.AnneeScolaire
 import be.marche.mercredi.entity.Ecole
-import be.marche.mercredi.entity.Enfant
 import be.marche.mercredi.repository.MercrediRepository
 import be.marche.mercredi.repository.MercrediService
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -24,14 +21,6 @@ class MercrediViewModel(
     val mercrediRepository: MercrediRepository
 ) :
     ViewModel() {
-
-    private val viewModelJob = Job()
-    private val viewModelScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
-    }
 
     var ecole: LiveData<Ecole>? = null
     val ecoles = mercrediRepository.getAllEcoles()

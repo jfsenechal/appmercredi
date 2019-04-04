@@ -8,8 +8,7 @@ import be.marche.mercredi.entity.SanteReponse
 import be.marche.mercredi.repository.MercrediService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.koin.standalone.KoinComponent
-import timber.log.Timber
+import org.koin.core.KoinComponent
 
 class SanteRepository(
     private val santeDao: SanteDao,

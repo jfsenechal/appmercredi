@@ -7,12 +7,11 @@ import be.marche.mercredi.database.EnfantDao
 import be.marche.mercredi.entity.Enfant
 import be.marche.mercredi.repository.MercrediService
 import kotlinx.coroutines.withContext
-import org.koin.standalone.KoinComponent
-import org.koin.standalone.inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import org.koin.core.KoinComponent
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -5,7 +5,7 @@ import be.marche.mercredi.database.UserDao
 import be.marche.mercredi.entity.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.koin.standalone.KoinComponent
+import org.koin.core.KoinComponent
 
 class UserRepository(val userDao: UserDao) : KoinComponent {
 

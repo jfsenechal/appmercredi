@@ -17,18 +17,13 @@ import be.marche.mercredi.entity.SanteFiche
 import kotlinx.android.synthetic.main.sante_edit_tabbed.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class SanteEditFragment : Fragment(), SantePagerAdapter.QuestionListener {
+class SanteEditFragment : Fragment() {
 
-    var questionPosition: Int = 0
     val santeViewModel: SanteViewModel by sharedViewModel()
     val viewModelEnfant: EnfantViewModel by sharedViewModel()
     lateinit var santePagerAdapter: SantePagerAdapter
     var previousView: View? = null
     lateinit var santeFiche: SanteFiche
-
-    override fun onQuestionChanged(position: Int) {
-        questionPosition = position
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true);
@@ -49,7 +44,7 @@ class SanteEditFragment : Fragment(), SantePagerAdapter.QuestionListener {
         })
 
         santeViewModel.santeQuestions?.observe(this, Observer { questions ->
-            santePagerAdapter = SantePagerAdapter(this.fragmentManager!!, questions)
+            santePagerAdapter = SantePagerAdapter(this.fragmentManager!!, questions, true)
             santeViewPager.setCurrentItem(1)
             santeViewPager.adapter = santePagerAdapter
         })

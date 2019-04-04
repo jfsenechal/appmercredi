@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 @Entity(
     foreignKeys = [
@@ -20,7 +21,7 @@ data class Enfant(
     val id: Int,
     var nom: String,
     var prenom: String,
-    var birthday: String,
+    var birthday: Date,
     @SerializedName("annee_scolaire")
     var anneeScolaire: String,
     @SerializedName("ecole_id")

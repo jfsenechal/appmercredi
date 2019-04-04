@@ -74,6 +74,8 @@
         <action android:id="@+id/action_enfantDetailFragment_to_presenceFragment"
                 app:destination="@id/presenceFragment"/>
         <action android:id="@+id/action_enfantDetailFragment_to_santeFragment" app:destination="@id/santeFragment"/>
+        <action android:id="@+id/action_enfantDetailFragment_to_santeEditFragment"
+                app:destination="@id/santeEditFragment"/>
     </fragment>
 
     <fragment android:id="@+id/enfantEditFragment"
@@ -100,5 +102,12 @@
         <action android:id="@+id/action_loginFragment_to_menuFragment" app:destination="@id/menuFragment"/>
     </fragment>
     <fragment android:id="@+id/santeFragment" android:name="be.marche.mercredi.sante.SanteFragment"
-              android:label="SanteFragment"/>
+              android:label="SanteFragment">
+        <action android:id="@+id/action_santeFragment_to_santeEditFragment" app:destination="@id/santeEditFragment"/>
+    </fragment>
+    <fragment android:id="@+id/santeEditFragment" android:name="be.marche.mercredi.sante.SanteEditFragment"
+              android:label="SanteEditFragment">
+        <action android:id="@+id/action_santeEditFragment_pop" app:popUpTo="@id/santeEditFragment"
+                app:popUpToInclusive="true"/>
+    </fragment>
 </navigation>

@@ -1,13 +1,13 @@
 package be.marche.mercredi.repository
 
 import androidx.lifecycle.LiveData
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import be.marche.mercredi.database.MercrediDao
 import be.marche.mercredi.entity.AnneeScolaire
 import be.marche.mercredi.entity.Ecole
 import be.marche.mercredi.entity.Jour
-import org.koin.standalone.KoinComponent
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import org.koin.core.KoinComponent
 
 class MercrediRepository(val mercrediDao: MercrediDao) : KoinComponent {
 

@@ -2,7 +2,14 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-            android:title="@string/btn_action_sante"
+            android:title="@string/btn_action_sante_view"
+            app:showAsAction="always"
+            android:id="@+id/btnSante"
+            android:icon="@drawable/ic_outline_healing_24px"/>
+
+
+    <item
+            android:title="@string/btn_action_sante_view"
             app:showAsAction="always"
             android:id="@+id/btnSante"
             android:icon="@drawable/ic_outline_healing_24px"/>
